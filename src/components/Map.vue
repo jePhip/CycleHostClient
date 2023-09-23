@@ -8,6 +8,7 @@
             name="OpenStreetMap"
           ></l-tile-layer>
           <l-marker :lat-lng="markerLatLng" ></l-marker>
+          <l-geo-json :geojson="route"></l-geo-json>
         </l-map>
       </div>
     </div>
@@ -16,18 +17,20 @@
   
   <script>
   import "leaflet/dist/leaflet.css";
+  import  DtoT from '@/data/DunneganparkToTaylor.json'
   import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
-  
   export default {
     components: {
       LMap,
       LTileLayer,
-      LMarker
+      LMarker,
+      LGeoJson
     },
     data() {
       return {
         zoom: 12,
-        markerLatLng: [37.5997592, -93.4091279]
+        markerLatLng: [37.5997592, -93.4091279],
+        route: DtoT
       };
     },
   };
