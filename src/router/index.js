@@ -16,6 +16,12 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     }
+  },
+  {
+    path: '/friscotest',
+    name: 'friscotest',
+    //this is a test for frisco
+    component: HomeView
   }
 ]
 

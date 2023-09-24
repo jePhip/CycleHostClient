@@ -30,9 +30,13 @@
   
   <script>
   import "leaflet/dist/leaflet.css";
+  //**********************
+  //will come from backend in future
   import DtoT from '@/data/DunneganparkToTaylor.json'
   import TtoF from '@/data/TaylorToFreddys.json'
   import CtoW from '@/data/CemetaryToWoods.json'
+  import Frisco from '@/data/Frisco.json' //Should add a way to dynamically change bikeRoute ###Change from DtoT -> bikeRoute
+  //**********************
   import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
   export default {
     components: {
@@ -54,6 +58,7 @@
           {data: DtoT, name: "Dunnegan to Taylor", active: false},
           {data: TtoF, name: "Taylor to Freddy's", active: false},
           {data: CtoW, name: "Cemetary to Woods", active: false},
+          {data: Frisco, name: "Frisco", active: false}
           
         ],
         jsoninput: null
