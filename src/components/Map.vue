@@ -45,9 +45,6 @@
       LMarker,
       LGeoJson
     },
-    onMounted(){
- 
-    },
     data() {
       return {
         active: null,
@@ -59,10 +56,8 @@
           {data: TtoF, name: "Taylor to Freddy's", active: false},
           {data: CtoW, name: "Cemetary to Woods", active: false},
           {data: Frisco, name: "Frisco", active: false}
-          
         ],
         jsoninput: null
-
       };
     },
     methods: {
@@ -71,13 +66,18 @@
         this.route = newRoute.data
       },
       loadjson(){
-        try{
-        this.route = JSON.parse(this.jsoninput)
-        this.active = {
-          name: "Custom Route"
-        }}
-        catch(e){
-          alert("invalid json!")
+        if(this.jsoninput == null){
+          alert("Enter JSON")
+        }
+        else{
+          try{
+          this.route = JSON.parse(this.jsoninput)
+          this.active = {
+            name: "Custom Route"
+          }}
+          catch(e){
+            alert("invalid json!")
+          }
         }
       }
     }
