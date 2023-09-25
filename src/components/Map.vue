@@ -52,10 +52,10 @@
         markerLatLng: [37.5997592, -93.4091279],
         route: null,
         routes: [
-          {data: DtoT, name: "Dunnegan to Taylor", active: false},
-          {data: TtoF, name: "Taylor to Freddy's", active: false},
-          {data: CtoW, name: "Cemetary to Woods", active: false},
-          {data: Frisco, name: "Frisco", active: false}
+          {data: DtoT, name: "Dunnegan to Taylor"},
+          {data: TtoF, name: "Taylor to Freddy's"},
+          {data: CtoW, name: "Cemetary to Woods"},
+          {data: Frisco, name: "Frisco"}
         ],
         jsoninput: null
       };

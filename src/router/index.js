@@ -17,12 +17,7 @@ const routes = [
       return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     }
   },
-  {
-    path: '/friscotest',
-    name: 'friscotest',
-    //this is a test for frisco
-    component: HomeView
-  }
+
 ]
 
 const router = createRouter({
