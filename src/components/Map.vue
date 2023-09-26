@@ -130,6 +130,7 @@
     .mapContainer {
       display: flex;
       justify-content: center;
+      font-weight: bold
     }
     .map {
       flex:2 1 auto;  
@@ -143,13 +144,8 @@
       flex-direction: column;
       flex: 1 1 auto;
     }
-    .gpxInput {
-      align-content: center;
-    }
-    .gpxInput p{
-      padding: 10px;
-      font-weight: bold
-    }
+
+
     .routeList button{
       width: 51%;
     }
