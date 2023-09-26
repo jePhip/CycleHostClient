@@ -57,7 +57,7 @@
     data() {
       return {
         fileInput: null,
-        
+        customRoute: null,
         active: null,
         zoom: 12,
         markerLatLng: [37.5997592, -93.4091279],
@@ -88,9 +88,9 @@
                             // Create a new Blob with the file content
                             const blob = new Blob([fileContent], { type: 'text/plain' })
                             let text = await blob.text()
-                            //console.log(text)
                             const newJSON = new DOMParser().parseFromString(text, "text/xml")
                             const converted = tj.gpx(newJSON);
+                            this.route = converted
                             console.log(converted)
                         };
                         
