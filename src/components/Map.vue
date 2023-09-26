@@ -77,31 +77,23 @@
       };
     },
     methods: {
-      readFile() {
-        this.fileInput = this.$refs.file.files[0];
-        console.log(this.fileInput)
-        console.log(this.fileInput.name)
-      },
       handleFileChange(event) {
-                    const selectedFile = this.$refs.file.files[0];;
-
-                    if (selectedFile) {
-                        const reader = new FileReader();
-                        const tj = require("@tmcw/togeojson");
-                        reader.onload = async (e) => {
-                            const fileContent = e.target.result;
-                            // Create a new Blob with the file content
-                            const blob = new Blob([fileContent], { type: 'text/plain' })
-                            let text = await blob.text()
-                            const newJSON = new DOMParser().parseFromString(text, "text/xml")
-                            const converted = tj.gpx(newJSON);
-                            this.customRoute.data = converted
-                            console.log(converted)
-                        };
-                        
-                        reader.readAsText(selectedFile);
-                        
-                    }
+        const selectedFile = this.$refs.file.files[0];
+        if (selectedFile) {
+          const reader = new FileReader();
+          const tj = require("@tmcw/togeojson");
+          reader.onload = async (e) => {
+            const fileContent = e.target.result;
+            // Create a new Blob with the file content
+            const blob = new Blob([fileContent], { type: 'text/plain' })
+            let text = await blob.text()
+            const newJSON = new DOMParser().parseFromString(text, "text/xml")
+            const converted = tj.gpx(newJSON);
+            this.customRoute.data = converted
+            console.log(converted)
+            };
+            reader.readAsText(selectedFile);
+            }
       },
       changeRoute(newRoute){
         this.active = newRoute
