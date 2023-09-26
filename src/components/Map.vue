@@ -7,9 +7,13 @@
       </div>
       <div class="jsonloader">
         <div>
-          <textarea v-model="jsoninput" id="" cols="30" rows="10"></textarea>
+          <textarea v-model="jsoninput" id="" cols="30" rows="10" placeholder="Input a Custom Route via JSON"></textarea>
         </div>
         <button @click="loadjson">Load</button>
+      </div>
+      <div class="gpxInput">
+        <input type="file" ref="file" @change="handleFileChange">
+        <pre>{{ jsonData }}</pre>
       </div>
     </div>
     <div class="map">
@@ -37,6 +41,10 @@
   import RCtoA from '@/data/RecCenterToAldi.json'
   import Frisco from '@/data/Frisco.json' //Should add a way to dynamically change bikeRoute ###Change from DtoT -> bikeRoute
   //**********************
+
+  //gpx temp
+  //import GtoBFgpx from '@/data/GazeboToBaseballFields.gpx'
+  //
   import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
   export default {
     components: {
@@ -45,8 +53,11 @@
       LMarker,
       LGeoJson
     },
+    
     data() {
       return {
+        fileInput: null,
+        
         active: null,
         zoom: 12,
         markerLatLng: [37.5997592, -93.4091279],
@@ -61,6 +72,32 @@
       };
     },
     methods: {
+      readFile() {
+        this.fileInput = this.$refs.file.files[0];
+        console.log(this.fileInput)
+        console.log(this.fileInput.name)
+      },
+      handleFileChange(event) {
+                    const selectedFile = this.$refs.file.files[0];;
+
+                    if (selectedFile) {
+                        const reader = new FileReader();
+                        const tj = require("@tmcw/togeojson");
+                        reader.onload = async (e) => {
+                            const fileContent = e.target.result;
+                            // Create a new Blob with the file content
+                            const blob = new Blob([fileContent], { type: 'text/plain' })
+                            let text = await blob.text()
+                            //console.log(text)
+                            const newJSON = new DOMParser().parseFromString(text, "text/xml")
+                            const converted = tj.gpx(newJSON);
+                            console.log(converted)
+                        };
+                        
+                        reader.readAsText(selectedFile);
+                        
+                    }
+      },
       changeRoute(newRoute){
         this.active = newRoute
         this.route = newRoute.data

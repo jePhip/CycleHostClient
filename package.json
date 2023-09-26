@@ -7,9 +7,12 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@tmcw/togeojson": "^5.8.1",
+    "fs": "^0.0.1-security",
     "geojson-parser-js": "^1.0.13",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.3",
+    "xmldom": "^0.6.0"
   },
   "devDependencies": {
     "@vue-leaflet/vue-leaflet": "^0.10.1",
