@@ -34,7 +34,7 @@
   //will come from backend in future
   import DtoT from '@/data/DunneganparkToTaylor.json'
   import TtoF from '@/data/TaylorToFreddys.json'
-  import CtoW from '@/data/CemetaryToWoods.json'
+  import RCtoA from '@/data/RecCenterToAldi.json'
   import Frisco from '@/data/Frisco.json' //Should add a way to dynamically change bikeRoute ###Change from DtoT -> bikeRoute
   //**********************
   import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
@@ -54,7 +54,7 @@
         routes: [
           {data: DtoT, name: "Dunnegan to Taylor"},
           {data: TtoF, name: "Taylor to Freddy's"},
-          {data: CtoW, name: "Cemetary to Woods"},
+          {data: RCtoA, name: "Recreation Center to Aldi"},
           {data: Frisco, name: "Frisco"}
         ],
         jsoninput: null
