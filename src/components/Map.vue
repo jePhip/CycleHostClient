@@ -13,8 +13,8 @@
         <button @click="loadjson">Load</button>
       </div>
       <div class="gpxInput">
+        <p>Input a gpx file</p>
         <input type="file" ref="file" @change="handleFileChange">
-        <pre>{{ jsonData }}</pre>
       </div>
     </div>
     <div class="map">
@@ -142,6 +142,9 @@
       color: blue;
       flex-direction: column;
       flex: 1 1 auto;
+    }
+    .gpxInput {
+      align-content: center;
     }
     .routeList button{
       width: 51%;
