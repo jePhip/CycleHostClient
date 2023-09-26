@@ -13,7 +13,7 @@
         <button @click="loadjson">Load</button>
       </div>
       <div class="gpxInput">
-        <p>Input a gpx file</p>
+        <p>Upload a gpx file to create a custom route</p>
         <input type="file" ref="file" @change="handleFileChange">
       </div>
     </div>
@@ -145,6 +145,10 @@
     }
     .gpxInput {
       align-content: center;
+    }
+    .gpxInput p{
+      padding: 10px;
+      font-weight: bold
     }
     .routeList button{
       width: 51%;
