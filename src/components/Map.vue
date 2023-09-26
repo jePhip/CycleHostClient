@@ -67,7 +67,7 @@
         markerLatLng: [37.5997592, -93.4091279],
         route: null,
         routes: [
-          {data: DtoT, name: "Dunnegan to Taylor"},
+          {data: DtoT, name: "Dunnegan Park to Taylor"},
           {data: TtoF, name: "Taylor to Freddy's"},
           {data: RCtoA, name: "Recreation Center to Aldi"},
           {data: Frisco, name: "Frisco"},
