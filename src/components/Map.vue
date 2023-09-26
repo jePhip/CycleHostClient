@@ -5,6 +5,7 @@
       <div :key="r.name" v-for="(r) in routes">
         <button @click="changeRoute(r)" :class="{active: r.active }">{{ r.name }}</button>
       </div>
+      <button v-if="customRoute.data !=null" @click="changeRoute(customRoute)">Custom Route</button>
       <div class="jsonloader">
         <div>
           <textarea v-model="jsoninput" id="" cols="30" rows="10" placeholder="Input a Custom Route via JSON"></textarea>
@@ -57,7 +58,10 @@
     data() {
       return {
         fileInput: null,
-        customRoute: null,
+        customRoute: {
+          data: null,
+          name: "Custom Route"
+        },
         active: null,
         zoom: 12,
         markerLatLng: [37.5997592, -93.4091279],
@@ -66,7 +70,8 @@
           {data: DtoT, name: "Dunnegan to Taylor"},
           {data: TtoF, name: "Taylor to Freddy's"},
           {data: RCtoA, name: "Recreation Center to Aldi"},
-          {data: Frisco, name: "Frisco"}
+          {data: Frisco, name: "Frisco"},
+          
         ],
         jsoninput: null
       };
@@ -90,7 +95,7 @@
                             let text = await blob.text()
                             const newJSON = new DOMParser().parseFromString(text, "text/xml")
                             const converted = tj.gpx(newJSON);
-                            this.route = converted
+                            this.customRoute.data = converted
                             console.log(converted)
                         };
                         
