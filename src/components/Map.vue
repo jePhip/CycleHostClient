@@ -10,7 +10,7 @@
         <div>
           <textarea v-model="jsoninput" id="" cols="30" rows="10" placeholder="Input a Custom Route via JSON"></textarea>
         </div>
-        <button @click="loadjson">Load</button>
+        <button @click="loadjson">Load custom JSON</button>
       </div>
       <div class="gpxInput">
         <p>Upload a gpx file to create a custom route</p>
