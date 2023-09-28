@@ -1,5 +1,5 @@
 <template>
-  <div class="mapContainer">
+  <div class="mapContainer"> 
     <div class="routeList">
       <h3>{{ active && active.name || "Select Route" }}</h3>
       <div :key="r.name" v-for="(r) in routes">
@@ -13,6 +13,7 @@
         <button @click="loadjson">Load custom JSON</button>
       </div>
       <div class="gpxInput">
+        <form action=""></form>
         <p>Upload a gpx file to create a custom route</p>
         <input type="file" ref="file" @change="handleFileChange">
       </div>
@@ -58,14 +59,14 @@
     data() {
       return {
         fileInput: null,
-        customRoute: {
+        customRoute: { //route used by gpx file loader, unused by loadjson
           data: null,
           name: "Custom Route"
         },
-        active: null,
-        zoom: 12,
-        markerLatLng: [37.5997592, -93.4091279],
-        route: null,
+        active: null, //route currently being displayed
+        zoom: 12, //map zoom
+        markerLatLng: [37.5997592, -93.4091279], //unused
+        route: null, //route being displayed by Lgeojson
         routes: [
           {data: DtoT, name: "Dunnegan Park to Taylor"},
           {data: TtoF, name: "Taylor to Freddy's"},
@@ -81,7 +82,7 @@
         const selectedFile = this.$refs.file.files[0];
         if (selectedFile) {
           const reader = new FileReader();
-          const tj = require("@tmcw/togeojson");
+          const tj = require("@tmcw/togeojson"); 
           reader.onload = async (e) => {
             const fileContent = e.target.result;
             // Create a new Blob with the file content
@@ -90,7 +91,7 @@
             const newJSON = new DOMParser().parseFromString(text, "text/xml")
             const converted = tj.gpx(newJSON);
             this.customRoute.data = converted
-            console.log(converted)
+            
             };
             reader.readAsText(selectedFile);
             }
