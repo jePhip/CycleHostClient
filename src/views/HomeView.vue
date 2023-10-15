@@ -1,16 +1,19 @@
 <template>
-  <div class="home">
-    <Map />
-  </div>
+  <Map />
 </template>
 
 <script>
-// @ is an alias to /src
+import { defineComponent } from 'vue';
+
+//Components
 import Map from '@/components/Map.vue'
-export default {
+import Footer from '@/components/Footer.vue'
+export default defineComponent({
   name: 'HomeView',
+
   components: {
-    Map
-  }
-}
+    Map,
+    //Footer
+  },
+});
 </script>

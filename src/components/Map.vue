@@ -3,9 +3,8 @@
     <div class="routeList">
       <h3>{{ active && active.name || "Select Route" }}</h3>
       <div :key="r.name" v-for="(r) in routes">
-        <button @click="changeRoute(r)" :class="{active: r.active }">{{ r.name }}</button>
+        <v-btn @click="changeRoute(r)" :class="{active: r.active }">{{ r.name }}</v-btn>
       </div>
-      <button v-if="customRoute.data !=null" @click="changeRoute(customRoute)">Custom Route</button>
     </div>
     <div class="map">
       <div style="height:600px; width:auto">
@@ -26,12 +25,11 @@
   <script>
   import "leaflet/dist/leaflet.css";
   import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
-  import Frisco from "@/data/Frisco.json"
   export default {
     async mounted(){
-      console.log("mounted")
+      //console.log("mounted")
       await this.fetchRoutes()
-      console.log(this.routes)
+      //console.log(this.routes)
     },
     components: {
       LMap,
@@ -41,17 +39,11 @@
     },
     data() {
       return {
-        fileInput: null,
-        customRoute: { //route used by gpx file loader, unused by loadjson
-          data: null,
-          name: "Custom Route"
-        },
         active: null, //route currently being displayed
         zoom: 12, //map zoom
         markerLatLng: [37.5997592, -93.4091279], //unused
         route: null, //route being displayed by Lgeojson
         routes: null,
-        jsoninput: null
       };
     },
     /* html form, click handler to submit
@@ -84,31 +76,27 @@
   </script>
   
 <style>
-    .mapContainer {
+      .mapContainer {
       display: flex;
       justify-content: center;
-      font-weight: bold
+      font-weight: bold;  
+      text-align: center
     }
     .map {
       flex:2 1 auto;  
-    }
-    .jsonloader {
-      flex-direction: column;
-      padding: 10px;
     }
     .routeList {
       color: blue;
       flex-direction: column;
       flex: 1 1 auto;
     }
-
-
     .routeList button{
-      width: 51%;
+      width: 75%;
     }
     .active {
       font-weight: bold;
       text-decoration: underline;
+      text-align: center;
     }
 </style>
   
