@@ -1,34 +1,43 @@
 <template>
-    <v-footer class="d-flex flex-column">
-      <div class="bg-teal d-flex w-100 align-center px-4">
-        <strong>Get connected with us on social networks!</strong>
-  
-        <v-spacer></v-spacer>
-  
-        <v-btn
-          v-for="icon in icons"
-          :key="icon"
-          class="mx-4"
-          :icon="icon"
-          variant="plain"
-          size="small"
-        ></v-btn>
-      </div>
-  
-      <div class="px-4 py-2 bg-black text-center w-100">
+  <v-footer class="footer">
+    <v-row justify="center" no-gutters>
+      <v-btn
+        v-for="link in links"
+        :key="link"
+        color="white"
+        variant="text"
+        class="mx-2"
+        rounded="xl"
+      >
+        {{ link }}
+      </v-btn>
+      <v-col class="cityText" cols="12">
         {{ new Date().getFullYear() }} — <strong>City of Bolivar</strong>
-      </div>
-    </v-footer>
-  </template>
-  <script>
-    export default {
-      data: () => ({
-        icons: [
-          'mdi-facebook',
-          'mdi-twitter',
-          'mdi-linkedin',
-          'mdi-instagram',
-        ],
-      }),
-    }
-  </script>
+      </v-col>
+    </v-row>
+  </v-footer>
+</template>
+<script>
+  export default {
+    data: () => ({
+      links: [
+        'Home',
+        'About Us',
+        'Team',
+        'Services',
+        'Blog',
+        'Contact Us',
+      ],
+    }),
+  }
+</script>
+
+<style>
+  .footer {
+    background-color: rgb(101, 101, 221);
+  }
+  .cityText {
+    text-align: center;
+    color: white;
+  }
+</style>
