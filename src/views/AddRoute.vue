@@ -2,22 +2,21 @@
   <div class="add-route-container"> 
       <form class="routeForm" @submit.prevent="handleSubmit">
         <div class="input">
-          <label>Route Name </label>
-          <input type="text" name="routeName" v-model="routeName" required>
+          <v-text-field label="Route Name" v-model="routeName" required></v-text-field>
         </div>
         <div class="input">
           <label>Upload File </label>
           <input type="file" ref="file" @change="gpxToJSON(file)" required>
         </div>
         <div class="input">        
-          <button class="button">Submit</button>
+          <v-btn class="button">Submit</v-btn>
         </div>
       </form>
       <div class="routeList">
         <h2>Routes: </h2>
         <div class="route" :key="r.name" v-for="(r) in routes">
           <p>{{ r.name }} ID: {{ r.id }}</p>
-          <button @click="deleteRoute(r.id)">DELETE</button>
+          <v-btn @click="deleteRoute(r.id)">DELETE</v-btn>
         </div>
       </div>
     </div>
