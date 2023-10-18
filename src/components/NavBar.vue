@@ -27,7 +27,7 @@ export default {
       links: [
         { text: "Home", route: "/" },
         { text: "About", route: "/about" },
-        { text: "Edit Routes", route: "/add" },
+        { text: "Edit Routes", route: "/edit" },
       ],
     };
   },

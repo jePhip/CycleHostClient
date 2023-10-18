@@ -7,6 +7,7 @@ const routes = [
     name: 'home',
     component: HomeView
   },
+
   {
     path: '/about',
     name: 'about',
@@ -18,10 +19,17 @@ const routes = [
     }
   },
   {
-    path: '/add',
-    name: 'Add Route',
+    path: '/edit',
+    name: 'Edit Routes',
     component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/AddRoute.vue')
+      return import(/* webpackChunkName: "edit" */ '../views/AddRoute.vue')
+    }
+  },
+  {
+    path: '/route',
+    name: 'Route',
+    component: function () {
+      return import(/* webpackChunkName: "route" */ '../views/RouteView.vue')
     }
   },
 
