@@ -20,11 +20,10 @@
 </template>
 
 <script>
-import Frisco from '@/data/Frisco.json'
 export default {
   data() {
     return {
-      routes: [
+      routes: [//TODO: find way to pass in route from RouteView
         {
           name: "Frisco",
           length: "35 miles",

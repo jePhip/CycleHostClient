@@ -35,7 +35,8 @@ import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import RouteTable from "@/components/RouteTable.vue";
 import Frisco from "@/data/Frisco.json";
 
-export default {
+export default {//TODO: get route from database and pass in route details to route table,
+                //pass in route data to geojson and desc
   name: "RouteView",
   data (){
     return {
