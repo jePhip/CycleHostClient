@@ -7,17 +7,17 @@
         </div>
         <div class="input">
           <label>Upload File </label>
-          <input type="file" ref="file" @change="gpxToJSON(file)" required>
+          <v-file-input type="file" ref="file" @change="gpxToJSON(file)" required></v-file-input>
         </div>
         <div class="input">        
-          <button class="button">Submit</button>
+          <v-btn class="button">Submit</v-btn>
         </div>
       </form>
       <div class="routeList">
         <h2>Routes: </h2>
         <div class="route" :key="r.name" v-for="(r) in routes">
           <p>{{ r.name }} ID: {{ r.id }}</p>
-          <button @click="deleteRoute(r.id)">DELETE</button>
+          <v-btn @click="deleteRoute(r.id)">DELETE</v-btn>
         </div>
       </div>
     </div>
@@ -124,7 +124,7 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  background: lavenderblush;
+  background: lightyellow;
   margin: 0 0 10px 0;
 }
 
