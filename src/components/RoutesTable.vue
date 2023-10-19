@@ -16,7 +16,7 @@
       :items="routes"
       :search="search"
     >
-    <template #item.name="{ item }">
+    <template #name="{ item }">
         <a target="" href="" @click="handleClick"><!-- eventually to route page -->
         {{ item.name }}
         </a>

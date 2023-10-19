@@ -1,7 +1,9 @@
 <template>
   <nav>
-    <div class="navbar">
-      <v-toolbar flat app>
+    <v-container justify-center class="navbar">
+      <v-toolbar  class="toolbar" flat app>
+        <v-img class="logo" src="@/assets/logo.jpg" />
+        <v-spacer>
         <v-list>
           <v-list-tile v-for="link in links" :key="link.text">
             <v-list-tile-content>
@@ -11,16 +13,16 @@
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
+        </v-spacer>
       </v-toolbar>
-    </div>
-    <v-img class="logo" height="50" src="@/assets/logo.jpg" />
+    </v-container>
+    
   </nav>
 
-  <br />
+ 
 </template>
 
 <script>
-import logo from "@/assets/logo.jpg";
 export default {
   data() {
     return {
@@ -35,5 +37,23 @@ export default {
 </script>
 
 <style>
+  .navbar
+  { 
+    margin: auto;
+    width: 100%;  
+    padding: 10px;
+    background-color: white;
+  }
 
+  .toolbar
+  { 
+    background-color: white; 
+    width: max;
+  }
+
+  .logo
+  { 
+    width: 400px;
+    height: auto; 
+  }
 </style>
