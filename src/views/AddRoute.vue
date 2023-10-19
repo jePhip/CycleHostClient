@@ -1,118 +1,128 @@
 <template>
-  <div class="add-route-container"> 
-      <form class="routeForm" @submit.prevent="handleSubmit">
-        <div class="input">
-          <v-text-field label="Route Name" v-model="routeName" required></v-text-field>
-        </div>
-        <div class="input">
-          <label>Upload File </label>
-          <input type="file" ref="file" @change="gpxToJSON(file)" required>
-        </div>
-        <div class="input">        
-          <v-btn class="button">Submit</v-btn>
-        </div>
-      </form>
-      <div class="routeList">
-        <h2>Routes: </h2>
-        <div class="route" :key="r.name" v-for="(r) in routes">
-          <p>{{ r.name }} ID: {{ r.id }}</p>
-          <v-btn @click="deleteRoute(r.id)">DELETE</v-btn>
-        </div>
+  <div class="add-route-container">
+    <form class="routeForm" @submit.prevent="handleSubmit">
+      <div class="input">
+        <v-text-field
+          label="Route Name"
+          v-model="routeName"
+          required
+        ></v-text-field>
+      </div>
+      <div class="input">
+        <label>Upload File </label>
+        <input type="file" ref="file" @change="handleFile(file)" required />
+      </div>
+      <div class="input">
+        <button class="button">Submit</button>
+      </div>
+    </form>
+    <div class="routeList">
+      <h2>Routes:</h2>
+      <div class="route" :key="r.name" v-for="r in routes">
+        <p>{{ r.name }} ID: {{ r.id }}</p>
+        <v-btn @click="deleteRoute(r.id)">DELETE</v-btn>
       </div>
     </div>
+  </div>
+</template>
 
-
-  </template>
-  
-  <script>
-  export default {
-    async mounted(){
-      await this.fetchRoutes()
+<script>
+export default {
+  async mounted() {
+    await this.fetchRoutes();
+  },
+  data() {
+    return {
+      newRoute: null,
+      routeName: "",
+      gpx: "", //TODO: add gpx to string parsing
+      routes: null,
+    };
+  },
+  methods: {
+    async deleteRoute(id) {
+      // DELETE request using fetch with async/await
+      let response = await fetch(`http://localhost:3000/v1/geo/${id}`, {
+        method: "DELETE",
+      });
+      response = await response.json();
+      this.routes = this.routes.filter((r) => {
+        //update route list
+        return r.id !== Number(response.id);
+      });
     },
-    data() {
-      return {
-          newRoute: null,
-          routeName: '',
-          gpx: '',//TODO: add gpx to string parsing
-          routes: null,
+    async fetchRoutes() {
+      //to display
+      try {
+        let response = await fetch("http://localhost:3000/v1/geo"); //eventually change to env variable
+        response = await response.json();
+        this.routes = response.routes.map((r) => {
+          return {
+            ...r,
+            data: JSON.parse(r.route),
+          };
+        });
+      } catch (error) {
+        console.error(error);
       }
     },
-    methods: {
-      async deleteRoute(id) {
-        // DELETE request using fetch with async/await
-        let response = await fetch(`http://localhost:3000/v1/geo/${id}`, { method: 'DELETE' });
-        response = await response.json();
-        this.routes = this.routes.filter(r => {//update route list
-          return r.id !==  Number(response.id)
-        })
-        
-      },
-        async fetchRoutes() {//to display
-        try {
-          let response = await fetch('http://localhost:3000/v1/geo');//eventually change to env variable
-          response = await response.json();
-          this.routes = response.routes.map(r => {
-            return {
-              ...r,
-              data: JSON.parse(r.route)
-            }
-          })
-        } catch (error) {
-          console.error(error);
+    handleFile(event) {
+      const selectedFile = this.$refs.file.files[0];
+      if (selectedFile) {
+        const reader = new FileReader();
+        const tj = require("@tmcw/togeojson");
+        reader.onload = async (e) => {
+          const fileContent = e.target.result;
+          // Create a new Blob with the file content
+          const blob = new Blob([fileContent], { type: "text/plain" });
+          let text = await blob.text();
+          this.gpx = btoa(text)
+          //this.gpx = blob //to be sent to db
+          const gpxFile = new DOMParser().parseFromString(text, "text/xml");
+          const converted = tj.gpx(gpxFile);
+          this.newRoute = converted; //<-- place converted json into data object
+          return converted;
+        };
+        reader.readAsText(selectedFile);
+      }
+    },
+    async handleSubmit() {
+      try {
+        console.log(this.routeName, this.newRoute, this.gpx);
+        const response = await this.postRoute(
+          this.newRoute,
+          this.routeName,
+          this.gpx
+        );
+        if (response && response.message === "success!") {
+          //have backend return response object with code?
+          await this.fetchRoutes();
         }
-      },
-        gpxToJSON(event) {
-            const selectedFile = this.$refs.file.files[0];
-            if (selectedFile) {
-            const reader = new FileReader();
-            const tj = require("@tmcw/togeojson"); 
-            reader.onload = async (e) => {
-                const fileContent = e.target.result;
-                // Create a new Blob with the file content
-                const blob = new Blob([fileContent], { type: 'text/plain' })
-                let text = await blob.text()
-                const newJSON = new DOMParser().parseFromString(text, "text/xml")
-                const converted = tj.gpx(newJSON);
-                this.newRoute = converted //<-- place converted json into data object
-                return converted
-                };
-                reader.readAsText(selectedFile);
-            }
+      } catch (error) {
+        console.log("error", error);
+      }
+    },
+    async postRoute() {
+      let response = await fetch(`http://localhost:3000/v1/geo/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      async handleSubmit() {
-        try {
-          console.log(this.routeName, this.newRoute)
-          const response = await this.postRoute(this.newRoute, this.routeName, this.gpx);
-          if(response && response.message === 'success!') {//have backend return response object with code?
-            await this.fetchRoutes();
-          }
-        } catch (error) {
-          console.log('error', error)
-        }
-      },
-      async postRoute( ){
-        let response = await fetch(`http://localhost:3000/v1/geo/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            // data you intend to send as JSON to the server
-            route: this.newRoute,
-            name: this.routeName,
-            gpx: this.gpx
-
-          })
-        })
-        response = await response.json();
-        return response;
-      },
-    }
-  }
-  </script>
+        body: JSON.stringify({
+          // data you intend to send as JSON to the server
+          route: this.newRoute,
+          name: this.routeName,
+          gpx: this.gpx,
+        }),
+      });
+      response = await response.json();
+      return response;
+    },
+  },
+};
+</script>
 
 <style>
-
 .add-route-container {
   display: flex;
   align-items: center;
@@ -148,7 +158,6 @@
   background: #eee;
   margin: 10px 0;
   padding: 10px;
-  
 }
 
 .input {
@@ -156,9 +165,7 @@
   padding: 20px;
 }
 
-
 button.button {
   width: 100px;
-  
 }
 </style>
