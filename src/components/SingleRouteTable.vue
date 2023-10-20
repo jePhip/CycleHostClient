@@ -6,7 +6,9 @@
         <th class="text-left">Length</th>
         <th class="text-left">Terrain</th>
         <th class="text-left">Difficulty</th>
-    </tr>
+        <th class="text-left">Safety Rating</th>
+        <th class="text-left">Try it out!</th>
+      </tr>
     </thead>
     <tbody>
       <tr v-for="item in routes" :key="item.name">
@@ -14,6 +16,8 @@
         <td>{{ item.length }}</td>
         <td>{{ item.terrain}}</td>
         <td>{{ item.diff}}</td>
+        <td>{{ item.safety}}</td>
+        <v-btn>Download</v-btn>
       </tr>
     </tbody>
   </v-table>
@@ -28,7 +32,8 @@ export default {
           name: "Frisco",
           length: "35 miles",
           terrain: "Gravel",
-          diff: "4"
+          diff: "4",
+          safety: "4"
         },
       ],
     };

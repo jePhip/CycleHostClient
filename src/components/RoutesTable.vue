@@ -23,7 +23,7 @@
     </template>
     <template  #item.gpx="{ item }">
         <div class="gpxBtn">
-            <v-btn @click="downloadGPX">
+            <v-btn @click="downloadGPX(item.gpx)">
             Download <!-- add download functionality -->
             </v-btn>
         </div>
@@ -69,8 +69,14 @@ export default {
   },
 
   methods: {
-    downloadGPX(){
-        console.log("clicked")
+    downloadGPX(file){
+        /*
+        console.log(file)
+        let text = atob(file)
+        const gpxFile = new DOMParser().parseFromString(text, "text/xml");
+        console.log(gpxFile)*/
+        window.location.href = 'data:application/octet-stream;base64,' + file;
+
     },
     async fetchRoutes() {
       try {
