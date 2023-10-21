@@ -1,31 +1,34 @@
 <template>
   <div class="add-route-container"> 
       <form class="routeForm" @submit.prevent="handleSubmit">
-        <div class="input">
-          <label>Route Name </label>
-          <input type="text" name="routeName" v-model="routeName" required>
-        </div>
-        <div class="input">
-          <label>Upload File </label>
-          <v-file-input type="file" ref="file" @change="gpxToJSON(file)" required></v-file-input>
-        </div>
-        <div class="input">        
+        <v-container class="input">
+          <label>Route Name</label>
+          <v-text-field prepend-icon="mdi-bike" class="routeName" type="text" variant="outlined" name="routeName" v-model="routeName" required ></v-text-field>
+        </v-container>
+        <v-container class="input">
+          <label>Upload File</label>
+          <v-file-input variant="outlined" type="file" ref="file" @change="gpxToJSON(file)" required></v-file-input>
+        </v-container>
+        <v-container class="input">        
           <v-btn class="button">Submit</v-btn>
-        </div>
+        </v-container>
       </form>
-      <div class="routeList">
+      <v-container class="routeList">
         <h2>Routes: </h2>
-        <div class="route" :key="r.name" v-for="(r) in routes">
+        <v-container class="route" :key="r.name" v-for="(r) in routes">          
           <p>{{ r.name }} ID: {{ r.id }}</p>
           <v-btn @click="deleteRoute(r.id)">DELETE</v-btn>
-        </div>
-      </div>
+        </v-container>
+      </v-container>     
+
     </div>
 
 
   </template>
   
   <script>
+  
+  
   export default {
     async mounted(){
       await this.fetchRoutes()
@@ -124,8 +127,12 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  background: lightyellow;
+  background: #eee;
   margin: 0 0 10px 0;
+  width: 50%; 
+  color: #083a8c;
+  
+  
 }
 
 .add-route-container .routeForm .input label {
@@ -135,9 +142,9 @@
 
 .add-route-container .routeList {
   text-align: center;
-  background: teal;
-  max-width: 500px;
-  padding: 10px;
+  background: white;
+  width: 50%;
+  
 }
 
 .routeList h2 {
@@ -145,16 +152,17 @@
 }
 
 .routeList .route {
-  border: 3px solid grey;
+  
   background: #eee;
-  margin: 10px 0;
-  padding: 10px;
+ 
   
 }
 
 .input {
   text-align: center;
   padding: 20px;
+  width: 50%;
+  
 }
 
 
@@ -162,4 +170,13 @@ button.button {
   width: 100px;
   
 }
+
+.routeList
+{ 
+  font-family: roboto;    
+}
+
+
+
+
 </style>
