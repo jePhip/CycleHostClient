@@ -1,21 +1,28 @@
 <template>
   <v-table>
-    <thead>
-      <tr>
-        <th class="text-left">Name</th>
-        <th class="text-left">Length</th>
-        <th class="text-left">Terrain</th>
-        <th class="text-left">Difficulty</th>
-    </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in routes" :key="item.name">
-        <td>{{ item.name }}</td>
-        <td>{{ item.length }}</td>
-        <td>{{ item.terrain}}</td>
-        <td>{{ item.diff}}</td>
+   
+    <tbody class="table">
+      <tr  v-for="item in routes" :key="item.name">
+        <th class="text-left">Name</th>   
+        <td>{{ item.name }}</td>    
       </tr>
+
+      <tr  v-for="item in routes" :key="item.name">
+        <th class="text-left">Length</th>
+        <td>{{ item.length }}</td>
+      </tr>
+
+      <tr  v-for="item in routes" :key="item.name">
+        <th class="text-left">Terrain</th>
+        <td>{{ item.terrain}}</td>
+      </tr>
+
+      <tr  v-for="item in routes" :key="item.name">
+        <th class="text-left">Difficulty</th>
+        <td>{{ item.diff}}</td>
+      </tr>   
     </tbody>
+    
   </v-table>
 </template>
 
@@ -35,3 +42,12 @@ export default {
   },
 };
 </script>
+
+<style> 
+.table
+{ 
+  width: 50%;
+  background: #eee;
+}
+
+</style> 
