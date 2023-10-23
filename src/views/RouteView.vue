@@ -1,29 +1,40 @@
 <template>
-  <div class="table">
-    <RouteTable />
-  </div>
+  <div class="single-route">   
 
-  <div class="mapContainer">
-    <div class="desc">
-      <strong class="text-decoration-underline">Description</strong>
-      <p>
-        The Frisco Highline Trail is the longest Rail-Trail in Missouri, at 36
-        miles, and connects Springfield to Bolivar, Missouri, with several
-        historic rural farm towns along the route. Bicyclists, runners, and
-        walkers enjoy the Ozarks' scenery there in all seasons.
-      </p>
-    </div>
-    <div class="map">
-      <div style="height: 400px; width: 500px">
-        <l-map ref="map" zoom="12" :center="[37.5997592, -93.4091279]">
-          <l-tile-layer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            layer-type="base"
-            name="OpenStreetMap"
-          ></l-tile-layer>
-          <l-geo-json :geojson="route"></l-geo-json>
-        </l-map>
+    <div class="mapContainer">
+
+      <div class="table"> 
+        <RouteTable />        
       </div>
+
+      <div class="desc">
+        <strong class="text-decoration-underline">Description</strong>
+        <p>
+          The Frisco Highline Trail is the longest Rail-Trail in Missouri, at 36
+          miles, and connects Springfield to Bolivar, Missouri, with several
+          historic rural farm towns along the route. Bicyclists, runners, and
+          walkers enjoy the Ozarks' scenery there in all seasons.
+        </p>
+      </div>
+      
+      
+
+      
+
+      <div class="map">
+        <div style="height: 400px; width: 500px">
+          <l-map ref="map" zoom="12" :center="[37.5997592, -93.4091279]">
+            <l-tile-layer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              layer-type="base"
+              name="OpenStreetMap"
+            ></l-tile-layer>
+            <l-geo-json :geojson="route"></l-geo-json>
+          </l-map>
+        </div>
+        
+      </div>
+
       
     </div>
   </div>
@@ -55,15 +66,24 @@ export default {//TODO: get route from database and pass in route details to rou
 </script>
 
 <style>
-.mapContainer {
-  justify-content: right;
-  flex: 2 1 auto;
+
+.desc
+ {
+
+    width: 50%;
+    font-weight: 400;    
+    background: #eee;
+   
 }
-.desc {
-    font-weight: 400;
-    align-content: left;
-}
-.table {
+.single-route {
   scale: 90%;
 }
+
+.table
+{ 
+ 
+  width: 50%;
+}
+
+
 </style>
