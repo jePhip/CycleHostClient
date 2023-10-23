@@ -1,6 +1,6 @@
 <template>
   <div class="add-route-container"> 
-      <form class="routeForm" @submit.prevent="handleSubmit">
+      <v-form class="routeForm" @submit.prevent="handleSubmit">
         <v-container class="input">
           <label>Route Name</label>
           <v-text-field prepend-icon="mdi-bike" class="routeName" type="text" variant="outlined" name="routeName" v-model="routeName" required ></v-text-field>
@@ -12,7 +12,7 @@
         <v-container class="input">        
           <button class="button">Submit</button>
         </v-container>
-      </form>
+      </v-form>
       <v-container class="routeList">
         <h2>Routes: </h2>
         <v-container class="route" :key="r.name" v-for="(r) in routes">          
@@ -33,7 +33,7 @@ export default {
     return {
       newRoute: null,
       routeName: "",
-      gpx: "", //TODO: add gpx to string parsing
+      gpx: "", 
       routes: null,
     };
   },

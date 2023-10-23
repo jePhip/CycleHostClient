@@ -74,11 +74,9 @@ export default {//TODO: get route from database and pass in route details to rou
 
 .desc
  {
-    display: block;
     width: 50%;
     font-weight: 400;    
     background: #eee;
-   
 }
 .desc.p {
   text-align: left;
