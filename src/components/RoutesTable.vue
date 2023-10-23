@@ -11,25 +11,22 @@
         hide-details
       ></v-text-field>
     </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="routes"
-      :search="search"
-    >
-    <template #item.name="{ item }">
-        <a target="" href="/route" @click="handleClick"><!-- eventually to route page -->
-        {{ item.name }}
+    <v-data-table :headers="headers" :items="routes" :search="search">
+      <template #item.name="{ item }">
+        <a target="" href="/route" @click="handleClick"
+          ><!-- eventually to route page -->
+          {{ item.name }}
         </a>
-    </template>
-    <template  #item.gpx="{ item }">
+      </template>
+      <template #item.gpx="{ item }">
         <div class="gpxBtn">
-            <v-btn icon="mdi-download" @click="downloadGPX(item.gpx, )" /><!-- add download functionality -->
+          <v-btn
+            icon="mdi-download"
+            @click="downloadGPX(item.gpx, item.name)"
+          /><!-- add download functionality -->
         </div>
-        
-    </template>
-
-</v-data-table>
-    
+      </template>
+    </v-data-table>
   </v-card>
 </template>
 <script>
@@ -67,24 +64,33 @@ export default {
   },
 
   methods: {
-    downloadGPX(file){
-        /*
-        console.log(file)
-        let text = atob(file)
-        const gpxFile = new DOMParser().parseFromString(text, "text/xml");
-        console.log(gpxFile)*/
-        file = atob(file)
-        const blob = new Blob([file], { type: "text/plain" }); //TODO: store gpx as blob in db instead of base64
-        const url = URL.createObjectURL(blob);
-        
+    async downloadGPX(file, routeName) {
 
+      file = atob(file);
+      const blob = new Blob([file], { type: "text/plain" }); //TODO: store gpx as blob in db instead of base64
+      var gpxtext = await blob.text()
+
+      var filename = routeName + ".gpx";
+      var pom = document.createElement("a");
+      var bb = new Blob([gpxtext], { type: "text/plain" });
+
+      pom.setAttribute("href", window.URL.createObjectURL(bb));
+      pom.setAttribute("download", filename);
+
+      pom.dataset.downloadurl = ["text/plain", pom.download, pom.href].join(
+        ":"
+      );
+      pom.draggable = true;
+      pom.classList.add("dragout");
+
+      pom.click();
     },
     async fetchRoutes() {
       try {
         let response = await fetch("http://localhost:3000/v1/geo"); //eventually change to env variable
         response = await response.json();
         this.routes = response.routes.map((r) => {
-          console.log({...r});
+          console.log({ ...r });
           return {
             ...r,
           };
@@ -98,8 +104,8 @@ export default {
 </script>
 
 <style>
-    .gpxBtn {
-        scale: 85%;
-        color: blue;
-    }
+.gpxBtn {
+  scale: 85%;
+  color: blue;
+}
 </style>
