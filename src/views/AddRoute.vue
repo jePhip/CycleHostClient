@@ -10,7 +10,7 @@
           <v-file-input variant="outlined" type="file" ref="file" @change="handleFile(file)" required></v-file-input>
         </v-container>
         <v-container class="input">        
-          <v-btn class="button">Submit</v-btn>
+          <button class="button">Submit</button>
         </v-container>
       </form>
       <v-container class="routeList">
