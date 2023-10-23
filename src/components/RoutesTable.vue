@@ -23,9 +23,7 @@
     </template>
     <template  #item.gpx="{ item }">
         <div class="gpxBtn">
-            <v-btn @click="downloadGPX(item.gpx)">
-            Download <!-- add download functionality -->
-            </v-btn>
+            <v-btn icon="mdi-download" @click="downloadGPX(item.gpx, )" /><!-- add download functionality -->
         </div>
         
     </template>
@@ -75,7 +73,10 @@ export default {
         let text = atob(file)
         const gpxFile = new DOMParser().parseFromString(text, "text/xml");
         console.log(gpxFile)*/
-        window.location.href = 'data:application/octet-stream;base64,' + file;
+        file = atob(file)
+        const blob = new Blob([file], { type: "text/plain" }); //TODO: store gpx as blob in db instead of base64
+        const url = URL.createObjectURL(blob);
+        
 
     },
     async fetchRoutes() {
