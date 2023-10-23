@@ -8,13 +8,16 @@
       </div>
 
       <div class="desc">
-        <strong class="text-decoration-underline">Description</strong>
+        <strong class="text-decoration-bold">Description</strong>
         <p>
           The Frisco Highline Trail is the longest Rail-Trail in Missouri, at 36
           miles, and connects Springfield to Bolivar, Missouri, with several
           historic rural farm towns along the route. Bicyclists, runners, and
           walkers enjoy the Ozarks' scenery there in all seasons.
         </p>
+        <br>
+        <strong>Points of Interest</strong>
+        <p>Best View - Little Sac River's stone railroad bridge, built circa 1884</p>
       </div>
       
       
@@ -29,7 +32,7 @@
               layer-type="base"
               name="OpenStreetMap"
             ></l-tile-layer>
-            <l-geo-json :geojson="route"></l-geo-json>
+            <l-geo-json :pane="markerPane" :geojson="route"></l-geo-json>
           </l-map>
         </div>
         
@@ -44,14 +47,16 @@
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import RouteTable from "@/components/SingleRouteTable.vue";
-import Frisco from "@/data/Frisco.json";
+import FriscoT from "@/data/FriscoT.json";
 
 export default {//TODO: get route from database and pass in route details to route table,
                 //pass in route data to geojson and desc
   name: "RouteView",
   data (){
     return {
-        route: Frisco
+        route: FriscoT
+        //markerLatLng: 
+        
     }
   },
 
@@ -69,11 +74,14 @@ export default {//TODO: get route from database and pass in route details to rou
 
 .desc
  {
-
+    display: block;
     width: 50%;
     font-weight: 400;    
     background: #eee;
    
+}
+.desc.p {
+  text-align: left;
 }
 .single-route {
   scale: 90%;

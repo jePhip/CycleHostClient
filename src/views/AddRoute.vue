@@ -167,5 +167,6 @@ export default {
 
 button.button {
   width: 100px;
+  background: lightgray;
 }
 </style>

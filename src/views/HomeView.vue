@@ -1,10 +1,5 @@
 <template>
   <Map />
-  <br>
-  <br>
-  <br>
-  <h1>WIP Routes Table</h1>
-  <br>
   <RoutesTable />
   <br>
 </template>
@@ -24,3 +19,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.RoutesTable {
+  scale: 80%
+}
+</style>
