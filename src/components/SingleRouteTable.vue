@@ -20,17 +20,9 @@
       <tr  v-for="item in routes" :key="item.name">
         <th class="text-left">Difficulty</th>
         <th class="text-left">Safety Rating</th>
-        <th class="text-left">Try it out!</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in routes" :key="item.name">
-        <td>{{ item.name }}</td>
-        <td>{{ item.length }}</td>
-        <td>{{ item.terrain}}</td>
-        <td>{{ item.diff}}</td>
       </tr>
     </tbody>
+
     
   </v-table>
 </template>
