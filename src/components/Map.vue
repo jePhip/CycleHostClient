@@ -1,10 +1,31 @@
 <template>
   <div class="mapContainer"> 
-    <div class="routeList">
+
+    <div class="routeList">   
+      
+  
+
+
+
       <h3>{{ active && active.name || "Select Route" }}</h3>
       <div :key="r.name" v-for="(r) in routes">
         <v-btn @click="changeRoute(r)" :class="{active: r.active }">{{ r.name }}</v-btn>
+      
       </div>
+
+      <v-container class="filter">
+        <v-select label="Select Type of Ride:" :items="['Paved', 'Gravel', 'Dirt','Any']">
+                 
+        </v-select>
+
+        <v-select label="Select Distance: " :items="['0-10 Miles', '10-20 Miles', '20-30 Miles','30-40 Miles', '40-50 Miles', '50+ Miles', 'Any Distance']"> 
+
+        </v-select>
+
+      </v-container>
+
+      
+     
     </div>
     <div class="map">
       <div style="height:600px; width:auto">
@@ -16,7 +37,7 @@
           ></l-tile-layer>
           <l-geo-json :geojson="route"></l-geo-json>
         </l-map>
-      </div>
+      </div>      
     </div>
   </div>
 </template>
@@ -72,7 +93,8 @@
         this.route = newRoute.data
       },
     }
-  };
+  };  
+
   </script>
   
 <style>
@@ -86,12 +108,19 @@
       flex:2 1 auto;  
     }
     .routeList {
-      color: blue;
+      color: #083a8c;
       flex-direction: column;
       flex: 1 1 auto;
     }
     .routeList button{
       width: 75%;
+    }
+
+    .filter
+    { 
+      color: #083a8c;
+      flex-direction: column;
+      flex: 1 1 auto;
     }
     .active {
       font-weight: bold;
