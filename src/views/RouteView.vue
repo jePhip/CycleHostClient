@@ -26,13 +26,13 @@
 
       <div class="map">
         <div style="height: 400px; width: 500px">
-          <l-map ref="map" zoom="12" :center="[37.5997592, -93.4091279]">
+          <l-map ref="map" zoom="9" :center="[37.5997592, -93.4091279]">
             <l-tile-layer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               layer-type="base"
               name="OpenStreetMap"
             ></l-tile-layer>
-            <l-geo-json :pane="markerPane" :geojson="route"></l-geo-json>
+            <l-geo-json :geojson="route"></l-geo-json>
           </l-map>
         </div>
         

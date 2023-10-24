@@ -30,7 +30,7 @@
           <v-btn
             class="downloadBtn"
             icon="mdi-download"
-            @click="downloadGPX(routes[0].gpx, item.name)"
+            @click="downloadGPX(routes[0].gpx, `Frisco Trail`)"
           />
         </td>
       </tr>
