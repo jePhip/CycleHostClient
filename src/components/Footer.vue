@@ -8,8 +8,9 @@
         variant="text"
         class="mx-2"
         rounded="xl"
+        @click="handleClick(link)"
       >
-        {{ link }}
+        {{ link.name }}
       </v-btn>
       <v-col class="cityText" cols="12">
         {{ new Date().getFullYear() }} — <strong>City of Bolivar</strong>
@@ -18,23 +19,40 @@
   </v-footer>
 </template>
 <script>
-  export default {
-    data: () => ({
-      links: [
-        'Home',
-        'About',
-        'Contact Us',
-      ],
-    }),
-  }
+export default {
+  data: () => ({
+    links: [
+      {
+        name: "Home",
+        to: "/",
+      },
+      {
+        name: "About",
+        to: "/about",
+      },
+      {
+        name: "Contact Us",
+        to: "https://bolivar.mo.us/contact-us/",
+      },
+    ],
+  }),
+  methods: {
+    handleClick(link) {
+      var a = document.createElement("a");
+      a.href = link.to;
+      a.click()
+
+    },
+  },
+};
 </script>
 
 <style>
-  .footer {
-    background-color: rgb(101, 101, 221);
-  }
-  .cityText {
-    text-align: center;
-    color: white;
-  }
+.footer {
+  background-color: rgb(101, 101, 221);
+}
+.cityText {
+  text-align: center;
+  color: white;
+}
 </style>
