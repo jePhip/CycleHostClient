@@ -21,10 +21,6 @@
         <td>{{ item.diff }}</td>
       </tr>
       <tr v-for="item in routesE" :key="item.name">
-        <th class="text-left">Safety Rating</th>
-        <td>{{ item.safety }}</td>
-      </tr>
-      <tr v-for="item in routesE" :key="item.name">
         <th class="text-left">Try it out!</th>
         <td>
           <v-btn
@@ -43,7 +39,6 @@ export default {
   async mounted() {
     //console.log("mounted")
     await this.fetchRoutes();
-    console.log(this.routes)
   },
   data() {
     return {
@@ -54,8 +49,7 @@ export default {
           name: "Frisco",
           length: "35 miles",
           terrain: "Gravel",
-          diff: "4",
-          safety: "4",
+          diff: "Intermediate",
         },
       ],
     };

@@ -1,27 +1,42 @@
 <template>
-  <div class="add-route-container"> 
-      <v-form class="routeForm" @submit.prevent="handleSubmit">
-        <v-container class="input">
-          <label>Route Name</label>
-          <v-text-field prepend-icon="mdi-bike" class="routeName" type="text" variant="outlined" name="routeName" v-model="routeName" required ></v-text-field>
-        </v-container>
-        <v-container class="input">
-          <label>Upload File</label>
-          <v-file-input variant="outlined" type="file" ref="file" @change="handleFile(file)" required></v-file-input>
-        </v-container>
-        <v-container class="input">        
-          <button class="button">Submit</button>
-        </v-container>
-      </v-form>
-      <v-container class="routeList">
-        <h2>Routes: </h2>
-        <v-container class="route" :key="r.name" v-for="(r) in routes">          
-          <p>{{ r.name }} ID: {{ r.id }}</p>
-          <v-btn @click="deleteRoute(r.id)">DELETE</v-btn>
-        </v-container>
-      </v-container>     
-
-    </div>
+  <div class="add-route-container">
+    <v-form class="routeForm" @submit.prevent="handleSubmit" ref="form">
+      <v-container class="input">
+        <label>Route Name</label>
+        <v-text-field
+          :rules="textInputRules"
+          prepend-icon="mdi-bike"
+          class="routeName"
+          type="text"
+          variant="outlined"
+          name="routeName"
+          v-model="routeName"
+          required
+        ></v-text-field>
+      </v-container>
+      <v-container class="input">
+        <label>Upload File</label>
+        <v-file-input
+          :rules="fileInputRules"
+          variant="outlined"
+          type="file"
+          ref="file"
+          @change="handleFile(file)"
+          required
+        ></v-file-input>
+      </v-container>
+      <v-container class="input">
+        <button class="button">Submit</button>
+      </v-container>
+    </v-form>
+    <v-container class="routeList">
+      <h2>Routes:</h2>
+      <v-container class="route" :key="r.name" v-for="r in routes">
+        <p>{{ r.name }} ID: {{ r.id }}</p>
+        <v-btn @click="deleteRoute(r.id)">DELETE</v-btn>
+      </v-container>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -33,8 +48,19 @@ export default {
     return {
       newRoute: null,
       routeName: "",
-      gpx: "", 
+      gpx: "",
       routes: null,
+      textInputRules: [(v) => v.length > 0 || "Please add a name"],
+      fileInputRules: [
+        (value) => {
+          return (
+            !value ||
+            !value.length ||
+            value[0].size < 2000000 ||
+            "Avatar size should be less than 2 MB!"
+          );
+        },
+      ],
     };
   },
   methods: {
@@ -74,7 +100,7 @@ export default {
           // Create a new Blob with the file content
           const blob = new Blob([fileContent], { type: "text/plain" });
           let text = await blob.text();
-          this.gpx = btoa(text)
+          this.gpx = btoa(text);
           //this.gpx = blob //to be sent to db
           const gpxFile = new DOMParser().parseFromString(text, "text/xml");
           const converted = tj.gpx(gpxFile);
@@ -85,19 +111,20 @@ export default {
       }
     },
     async handleSubmit() {
-      try {
-        console.log(this.routeName, this.newRoute, this.gpx);
-        const response = await this.postRoute(
-          this.newRoute,
-          this.routeName,
-          this.gpx
-        );
-        if (response && response.message === "success!") {
-          //have backend return response object with code?
-          await this.fetchRoutes();
+      if (this.$refs.form.validate()) {
+        try {
+          const response = await this.postRoute(
+            this.newRoute,
+            this.routeName,
+            this.gpx
+          );
+          if (response && response.message === "success!") {
+            //have backend return response object with code?
+            await this.fetchRoutes();
+          }
+        } catch (error) {
+          console.log("error", error);
         }
-      } catch (error) {
-        console.log("error", error);
       }
     },
     async postRoute() {
@@ -133,10 +160,8 @@ export default {
   text-align: left;
   background: #eee;
   margin: 0 0 10px 0;
-  width: 50%; 
+  width: 50%;
   color: #083a8c;
-  
-  
 }
 
 .add-route-container .routeForm .input label {
@@ -148,7 +173,6 @@ export default {
   text-align: center;
   background: white;
   width: 50%;
-  
 }
 
 .routeList h2 {
@@ -156,17 +180,13 @@ export default {
 }
 
 .routeList .route {
-  
   background: #eee;
- 
-  
 }
 
 .input {
   text-align: center;
   padding: 20px;
   width: 50%;
-  
 }
 
 button.button {
@@ -174,12 +194,7 @@ button.button {
   background: lightgray;
 }
 
-.routeList
-{ 
-  font-family: roboto;    
+.routeList {
+  font-family: roboto;
 }
-
-
-
-
 </style>
