@@ -15,7 +15,7 @@
         The Osage Plains, a region that spans western Missouri, southeastern Kansas, central Oklahoma, and
         north-central Texas, is named after the Osage Nation, a Midwestern Native American Tribe. 
         Although much of the area is now used for agriculture, it has historically been covered         
-        in various tall grasses. You can learn more about the osage planes <a href="https://en.wikipedia.org/wiki/Osage_Plains">here.</a>
+        in various tall grasses. You can learn more about the Osage Plains <a href="https://en.wikipedia.org/wiki/Osage_Plains">here.</a>
   
       </p>
 
