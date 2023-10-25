@@ -1,10 +1,8 @@
 <template>
-  <div class="single-route">   
-
+  <div class="single-route">
     <div class="mapContainer">
-
-      <div class="table"> 
-        <RouteTable />        
+      <div class="table">
+        <RouteTable />
       </div>
 
       <div class="desc">
@@ -15,14 +13,24 @@
           historic rural farm towns along the route. Bicyclists, runners, and
           walkers enjoy the Ozarks' scenery there in all seasons.
         </p>
-        <br>
         <strong>Points of Interest</strong>
-        <p>Best View - Little Sac River's stone railroad bridge, built circa 1884</p>
+        <p>
+          Best View - Little Sac River's stone railroad bridge, built circa 1884
+        </p>
+        <p>Camping - Willard Highline Soccer Park Next to the trail</p>
+        <strong>Food & Drink</strong>
+        <ul>
+          <ul>
+            <p>Naomi's Cafe Willard's local BBQ - Willard</p>
+          </ul>
+          <ul>
+            <p>Hog Time Bar-B-Que - Willard</p>
+          </ul>
+          <ul>
+            <p>Flat Creek - Bolivar</p>
+          </ul>
+        </ul>
       </div>
-      
-      
-
-      
 
       <div class="map">
         <div style="height: 400px; width: 500px">
@@ -35,10 +43,7 @@
             <l-geo-json :geojson="route"></l-geo-json>
           </l-map>
         </div>
-        
       </div>
-
-      
     </div>
   </div>
 </template>
@@ -49,15 +54,15 @@ import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import RouteTable from "@/components/SingleRouteTable.vue";
 import FriscoT from "@/data/Frisco.json";
 
-export default {//TODO: get route from database and pass in route details to route table,
-                //pass in route data to geojson and desc
+export default {
+  //TODO: get route from database and pass in route details to route table,
+  //pass in route data to geojson and desc
   name: "RouteView",
-  data (){
+  data() {
     return {
-        route: FriscoT
-        //markerLatLng: 
-        
-    }
+      route: FriscoT,
+      //markerLatLng:
+    };
   },
 
   components: {
@@ -71,12 +76,10 @@ export default {//TODO: get route from database and pass in route details to rou
 </script>
 
 <style>
-
-.desc
- {
-    width: 50%;
-    font-weight: 400;    
-    background: #eee;
+.desc {
+  width: 50%;
+  font-weight: 400;
+  background: #eee;
 }
 .desc.p {
   text-align: left;
@@ -85,11 +88,7 @@ export default {//TODO: get route from database and pass in route details to rou
   scale: 90%;
 }
 
-.table
-{ 
- 
+.table {
   width: 50%;
 }
-
-
 </style>

@@ -26,6 +26,21 @@
           /><!-- add download functionality -->
         </div>
       </template>
+      <template #item.length="{ item }">
+        <p>
+          {{ item.length }}
+      </p>
+      </template>
+      <template #item.difficulty="{ item }">
+        <p>
+          {{ item.difficulty }}
+      </p>
+      </template>
+      <template #item.terrain="{ item }">
+        <p>
+          {{ item.terrain }}
+      </p>
+      </template>
     </v-data-table>
   </v-card>
 </template>
@@ -58,6 +73,9 @@ export default {
           title: "Routes",
         },
         { key: "gpx", title: "" },
+        { key: "length", title: "Length (miles)" },
+        { key: "terrain", title: "Terrain" },
+        { key: "difficulty", title: "Difficulty" },
       ],
       routes: [],
     };
@@ -91,6 +109,7 @@ export default {
         response = await response.json();
         this.routes = response.routes.map((r) => {
           console.log({ ...r });
+          console.log("fetchroutes")
           return {
             ...r,
           };

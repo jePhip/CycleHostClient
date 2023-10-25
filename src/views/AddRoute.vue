@@ -2,9 +2,8 @@
   <div class="add-route-container">
     <v-form class="routeForm" @submit.prevent="handleSubmit" ref="form">
       <v-container class="input">
-        <label>Route Name</label>
         <v-text-field
-          :rules="textInputRules"
+          label="Route Name"
           prepend-icon="mdi-bike"
           class="routeName"
           type="text"
@@ -13,22 +12,46 @@
           v-model="routeName"
           required
         ></v-text-field>
-      </v-container>
-      <v-container class="input">
-        <label>Upload File</label>
+      <v-text-field
+          label="Route Length (miles)"
+          prepend-icon="mdi-road"
+          class="routeLength"
+          type="number"
+          variant="outlined"
+          name="routeLength"
+          v-model="routeLength"
+          required
+        ></v-text-field>
+        <v-container class="filter">
+        <v-select label="Select Terrain:" v-model="terrain" :items="['Paved', 'Gravel', 'Dirt']"> 
+        </v-select>
+        <v-select label="Select Difficulty: " v-model="difficulty" :items="['Beginner', 'Intermediate', 'Expert']"> 
+        </v-select>
+        </v-container>
+        <v-textarea
+          label="Route Description"
+          prepend-icon="mdi-pencil"
+          class="routeDesc"
+          type="text"
+          variant="outlined"
+          name="routeDesc"
+          v-model="routeDesc"
+          required
+        ></v-textarea>
         <v-file-input
-          :rules="fileInputRules"
+          label="Upload .gpx File"
           variant="outlined"
           type="file"
           ref="file"
           @change="handleFile(file)"
           required
         ></v-file-input>
-      </v-container>
-      <v-container class="input">
-        <button class="button">Submit</button>
+        <v-btn @click="submit">submit</v-btn>
       </v-container>
     </v-form>
+
+
+    
     <v-container class="routeList">
       <h2>Routes:</h2>
       <v-container class="route" :key="r.name" v-for="r in routes">
@@ -46,21 +69,16 @@ export default {
   },
   data() {
     return {
+      //
       newRoute: null,
+      routeLength: null,
       routeName: "",
       gpx: "",
+      difficulty: "",
+      terrain: "",
+      routeDesc: "",
+      //
       routes: null,
-      textInputRules: [(v) => v.length > 0 || "Please add a name"],
-      fileInputRules: [
-        (value) => {
-          return (
-            !value ||
-            !value.length ||
-            value[0].size < 2000000 ||
-            "Avatar size should be less than 2 MB!"
-          );
-        },
-      ],
     };
   },
   methods: {
@@ -80,6 +98,7 @@ export default {
       try {
         let response = await fetch("http://localhost:3000/v1/geo"); //eventually change to env variable
         response = await response.json();
+        console.log(response)
         this.routes = response.routes.map((r) => {
           return {
             ...r,
@@ -110,13 +129,17 @@ export default {
         reader.readAsText(selectedFile);
       }
     },
-    async handleSubmit() {
-      if (this.$refs.form.validate()) {
-        try {
+    async submit() {
+      try {
+          
           const response = await this.postRoute(
             this.newRoute,
             this.routeName,
-            this.gpx
+            this.gpx,
+            this.difficulty,
+            this.routeLength,
+            this.terrain,
+            this.routeDesc
           );
           if (response && response.message === "success!") {
             //have backend return response object with code?
@@ -125,7 +148,6 @@ export default {
         } catch (error) {
           console.log("error", error);
         }
-      }
     },
     async postRoute() {
       let response = await fetch(`http://localhost:3000/v1/geo/`, {
@@ -138,6 +160,11 @@ export default {
           route: this.newRoute,
           name: this.routeName,
           gpx: this.gpx,
+          length: this.routeLength,
+          terrain: this.terrain,
+          difficulty: this.difficulty,
+          desc: this.routeDesc
+
         }),
       });
       response = await response.json();
