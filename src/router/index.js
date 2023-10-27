@@ -1,7 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-
+import RouteView from '../views/RouteView.vue'
 const routes = [
+  {
+    path: '/route/:id',
+    name: 'Route',
+    component: RouteView
+  },
   {
     path: '/',
     name: 'home',
@@ -25,13 +30,7 @@ const routes = [
       return import(/* webpackChunkName: "edit" */ '../views/AddRoute.vue')
     }
   },
-  {
-    path: '/route',
-    name: 'Route',
-    component: function () {
-      return import(/* webpackChunkName: "route" */ '../views/RouteView.vue')
-    }
-  },
+  
   {
     path: '/test',
     name: 'Test',

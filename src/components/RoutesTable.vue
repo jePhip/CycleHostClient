@@ -13,7 +13,7 @@
     </v-card-title>
     <v-data-table :headers="headers" :items="routes" :search="search">
       <template #item.name="{ item }">
-        <a target="" href="/route" @click="handleClick"
+        <a target="" :href="'/route/'+ item.id" @click="handleClick"
           ><!-- eventually to route page -->
           {{ item.name }}
         </a>
@@ -83,7 +83,6 @@ export default {
 
   methods: {
     async downloadGPX(file, routeName) {
-
       file = atob(file);
       const blob = new Blob([file], { type: "text/plain" }); //TODO: store gpx as blob in db instead of base64
       var gpxtext = await blob.text()
@@ -108,8 +107,7 @@ export default {
         let response = await fetch("http://localhost:3000/v1/geo"); //eventually change to env variable
         response = await response.json();
         this.routes = response.routes.map((r) => {
-          console.log({ ...r });
-          console.log("fetchroutes")
+
           return {
             ...r,
           };

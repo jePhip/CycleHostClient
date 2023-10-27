@@ -2,37 +2,18 @@
   <div class="single-route">
     <div class="mapContainer">
       <div class="table">
-        <RouteTable />
+        <RouteTable :route="route"/>
       </div>
 
       <div class="desc">
-        <strong class="text-decoration-bold">Description</strong>
-        <p>
-          The Frisco Highline Trail is the longest Rail-Trail in Missouri, at 36
-          miles, and connects Springfield to Bolivar, Missouri, with several
-          historic rural farm towns along the route. Bicyclists, runners, and
-          walkers enjoy the Ozarks' scenery there in all seasons.
-        </p>
-        <strong>Points of Interest</strong>
-        <p>
-          Best View - Little Sac River's stone railroad bridge, built circa 1884
-        </p>
-        <p>Camping - Willard Highline Soccer Park Next to the trail</p>
-        <strong>Food & Drink</strong>
-        <ul>
-          <ul>
-            <p>Naomi's Cafe Willard's local BBQ - Willard</p>
-          </ul>
-          <ul>
-            <p>Hog Time Bar-B-Que - Willard</p>
-          </ul>
-          <ul>
-            <p>Flat Creek - Bolivar</p>
-          </ul>
-        </ul>
+        <RouteDetail :route="route"/>
       </div>
+      
+      
 
-      <div class="map">
+      
+
+      <div class="map" v-if="mapRoute">
         <div style="height: 400px; width: 500px">
           <l-map ref="map" zoom="9" :center="[37.5997592, -93.4091279]">
             <l-tile-layer
@@ -40,7 +21,7 @@
               layer-type="base"
               name="OpenStreetMap"
             ></l-tile-layer>
-            <l-geo-json :geojson="route"></l-geo-json>
+            <l-geo-json :geojson="mapRoute"></l-geo-json>
           </l-map>
         </div>
       </div>
@@ -51,27 +32,48 @@
 <script>
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
-import RouteTable from "@/components/SingleRouteTable.vue";
-import FriscoT from "@/data/Frisco.json";
+import RouteTable from "@/components/RouteViewTable.vue";
+import RouteDetail from '@/components/RouteDetail.vue'
 
 export default {
   //TODO: get route from database and pass in route details to route table,
   //pass in route data to geojson and desc
   name: "RouteView",
+  async mounted(){
+    //console.log("router id" + this.$router.params.id)
+     await this.fetchRoute(this.$route.params.id)
+    },
   data() {
     return {
-      route: FriscoT,
-      //markerLatLng:
-    };
-  },
+      active: null, //route currently being displayed
+        zoom: 12, //map zoom
+        mapRoute: null, //route being displayed by Lgeojson
+        route: null
+      }
+    },
 
   components: {
+    RouteDetail,
     RouteTable,
     LMap,
     LTileLayer,
     LMarker,
     LGeoJson,
   },
+  methods: {
+    async fetchRoute(id) {
+      console.log(id)
+      try {
+        let response = await fetch("http://localhost:3000/v1/geo/" + id); //eventually change to env variable
+        response = await response.json();
+        this.route = response.route
+        this.mapRoute = JSON.parse(this.route.route)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+      
+  }
 };
 </script>
 
