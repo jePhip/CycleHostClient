@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       active: null, //route currently being displayed
-      zoom: 12, //map zoom
+      zoom: 9, //map zoom
       markerLatLng: [37.5997592, -93.4091279], //unused
       routes: null,
     };
@@ -105,6 +105,7 @@ export default {
 }
 .map {
   flex: 2;
+  scale: 80%
 }
 .filter {
   color: #083a8c;
