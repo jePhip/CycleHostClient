@@ -13,7 +13,7 @@
     </v-card-title>
     <v-data-table :headers="headers" :items="routes" :search="search">
       <template #item.name="{ item }">
-        <a target="" href="/route" @click="handleClick"
+        <a target="" :href="'/route/'+ item.id" @click="handleClick"
           ><!-- eventually to route page -->
           {{ item.name }}
         </a>
@@ -25,6 +25,21 @@
             @click="downloadGPX(item.gpx, item.name)"
           /><!-- add download functionality -->
         </div>
+      </template>
+      <template #item.length="{ item }">
+        <p>
+          {{ item.length }}
+      </p>
+      </template>
+      <template #item.difficulty="{ item }">
+        <p>
+          {{ item.difficulty }}
+      </p>
+      </template>
+      <template #item.terrain="{ item }">
+        <p>
+          {{ item.terrain }}
+      </p>
       </template>
     </v-data-table>
   </v-card>
@@ -58,6 +73,9 @@ export default {
           title: "Routes",
         },
         { key: "gpx", title: "" },
+        { key: "length", title: "Length (miles)" },
+        { key: "terrain", title: "Terrain" },
+        { key: "difficulty", title: "Difficulty" },
       ],
       routes: [],
     };
@@ -89,12 +107,7 @@ export default {
         let response = await fetch("http://localhost:3000/v1/geo"); //eventually change to env variable
         response = await response.json();
         this.routes = response.routes.map((r) => {
-<<<<<<< Updated upstream
-          console.log({ ...r });
-=======
-         // console.log({ ...r });
-         // console.log("fetchroutes")
->>>>>>> Stashed changes
+
           return {
             ...r,
           };

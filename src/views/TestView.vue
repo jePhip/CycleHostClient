@@ -1,16 +1,13 @@
 <template>
-    <h1>Test Page</h1>
-    <RoutesTable />
+  <p>Empty</p>
 </template>
 
 <script>
-import RoutesTable from "@/components/RoutesTable.vue";
 export default {
-  name: "TestView",
-  components: {
-    RoutesTable,
-  },
-};
+
+}
 </script>
 
-<style></style>
+<style>
+
+</style>

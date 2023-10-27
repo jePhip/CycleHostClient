@@ -1252,7 +1252,7 @@
     {
       "type": "Feature",
       "properties": {
-        "Desc": "est View - Little Sac River's stone railroad bridge, built circa 1884"
+        "desc": "Best View - Little Sac River's stone railroad bridge, built circa 1884"
       },
       "geometry": {
         "coordinates": [-93.48559732297086, 37.49341442753],
