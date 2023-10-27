@@ -13,7 +13,7 @@
     </v-card-title>
     <v-data-table :headers="headers" :items="routes" :search="search">
       <template #item.name="{ item }">
-        <a target="" href="/route" @click="handleClick"
+        <a target="" :href="'/route/'+ item.id" @click="handleClick"
           ><!-- eventually to route page -->
           {{ item.name }}
         </a>
