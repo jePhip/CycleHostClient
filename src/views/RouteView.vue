@@ -1,17 +1,12 @@
 <template>
-  <div class="single-route">
+  <div class="single-route" v-if="route">
     <div class="mapContainer">
       <div class="table">
-        <RouteTable :route="route"/>
+        <RouteTable :route="route" />
       </div>
-
       <div class="desc">
-        <RouteDetail :route="route"/>
+        <RouteDetail :route="route" />
       </div>
-      
-      
-
-      
 
       <div class="map" v-if="mapRoute">
         <div style="height: 400px; width: 500px">
@@ -27,30 +22,34 @@
       </div>
     </div>
   </div>
+  <div class="noRoute" v-if="!route">
+    <h1>404: No route found!</h1>
+    <a class="noRoutea" href="/">Back to Home</a>
+  </div>
 </template>
 
 <script>
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import RouteTable from "@/components/RouteViewTable.vue";
-import RouteDetail from '@/components/RouteDetail.vue'
+import RouteDetail from "@/components/RouteDetail.vue";
 
 export default {
   //TODO: get route from database and pass in route details to route table,
   //pass in route data to geojson and desc
   name: "RouteView",
-  async mounted(){
+  async mounted() {
     //console.log("router id" + this.$router.params.id)
-     await this.fetchRoute(this.$route.params.id)
-    },
+    await this.fetchRoute(this.$route.params.id);
+  },
   data() {
     return {
       active: null, //route currently being displayed
-        zoom: 12, //map zoom
-        mapRoute: null, //route being displayed by Lgeojson
-        route: null
-      }
-    },
+      zoom: 12, //map zoom
+      mapRoute: null, //route being displayed by Lgeojson
+      route: null,
+    };
+  },
 
   components: {
     RouteDetail,
@@ -62,18 +61,17 @@ export default {
   },
   methods: {
     async fetchRoute(id) {
-      console.log(id)
+      console.log(id);
       try {
         let response = await fetch("http://localhost:3000/v1/geo/" + id); //eventually change to env variable
         response = await response.json();
-        this.route = response.route
-        this.mapRoute = JSON.parse(this.route.route)
+        this.route = response.route;
+        this.mapRoute = JSON.parse(this.route.route);
       } catch (error) {
         console.error(error);
       }
     },
-      
-  }
+  },
 };
 </script>
 
@@ -88,6 +86,12 @@ export default {
 }
 .single-route {
   scale: 90%;
+}
+.noRoute {
+  display: grid;
+  justify-content: center;
+  font-size: x-large;
+  padding-bottom: 200px;
 }
 
 .table {
