@@ -1,5 +1,5 @@
 <template>
-  <div class="mapContainer"> 
+  <v-container fluid class="mapContainer"> 
 
     <div class="routeList">   
       
@@ -39,7 +39,7 @@
         </l-map>
       </div>      
     </div>
-  </div>
+  </v-container>
 </template>
   
   

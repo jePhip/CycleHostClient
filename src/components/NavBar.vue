@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <v-app-bar :elevation="24">
     <v-container justify-center class="navbar">
       <v-toolbar  class="toolbar" flat app>
         <v-img class="logo" src="@/assets/logo.jpg" />
@@ -15,9 +15,8 @@
         </v-list>
         </v-spacer>
       </v-toolbar>
-    </v-container>
-    
-  </nav>
+    </v-container>    
+  </v-app-bar>
 
  
 </template>
@@ -54,7 +53,10 @@ export default {
 
   .logo
   { 
-    width: 400px;
-    height: auto; 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
   }
 </style>
