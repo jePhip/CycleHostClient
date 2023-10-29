@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar :elevation="24">
+  <nav :elevation="24">
     <v-container justify-center class="navbar">
       <v-toolbar  class="toolbar" flat app>
         <v-img class="logo" src="@/assets/logo.jpg" />
@@ -16,7 +16,7 @@
         </v-spacer>
       </v-toolbar>
     </v-container>    
-  </v-app-bar>
+  </nav>
 
  
 </template>
@@ -30,6 +30,7 @@ export default {
         { text: "Home", route: "/" },
         { text: "About", route: "/about" },
         { text: "Edit Routes", route: "/add" },
+        {text: "Admin Login", route: "/login"},
       ],
     };
   },
