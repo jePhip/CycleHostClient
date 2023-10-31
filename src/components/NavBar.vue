@@ -22,15 +22,18 @@
 </template>
 
 <script>
-import logo from "@/assets/logo.jpg";
 export default {
   data() {
     return {
       links: [
         { text: "Home", route: "/" },
         { text: "About", route: "/about" },
+<<<<<<< HEAD
         { text: "Edit Routes", route: "/add" },
         {text: "Admin Login", route: "/login"},
+=======
+        { text: "Edit Routes", route: "/edit" },
+>>>>>>> e46965e68b4cf3387684a6600e323661f240fd27
       ],
     };
   },
