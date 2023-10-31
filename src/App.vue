@@ -23,8 +23,8 @@ export default {
   },
   setup(){
     const routeStore = useRouteStore()
-    routeStore.getRoutes()//puts route list into store
-
+    routeStore.getRoutesInit()//puts route list into store
+    const {routes } = storeToRefs()
     return{routeStore}
   },
   data: () => ({

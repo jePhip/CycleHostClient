@@ -38,13 +38,14 @@ export default {
   //TODO: get route from database and pass in route details to route table,
   //pass in route data to geojson and desc
   name: "RouteView",
+  props: ['route'],
   async mounted() {
     //console.log("router id" + this.$router.params.id)
-    this.route = (this.routeStore.getRoutebyID(this.$route.params.id))
-    this.mapRoute = (this.routeStore.getRoutebyID(this.$route.params.id)).route
+
   },
   setup(){
     const routeStore = useRouteStore()
+    console.log(routeStore.getRoutebyID(29))
     return{routeStore}
   },
   data() {

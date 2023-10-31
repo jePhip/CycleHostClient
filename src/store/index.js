@@ -4,7 +4,9 @@ export const useRouteStore = defineStore("routeStore", {
   state: () => ({ routes: [] }),
 
   getters: {//pre computed values ex: all "dirt" routes
-
+    getRoutes(){
+      return this.routes
+    }
   },
 
   actions: {
@@ -51,7 +53,7 @@ export const useRouteStore = defineStore("routeStore", {
         return r.id !== Number(response.id);
       });
     },
-    async getRoutes() {
+    async getRoutesInit() {
       //tested
       try {
         let response = await fetch("http://localhost:3000/v1/geo"); //eventually change to env variable
