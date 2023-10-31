@@ -14,6 +14,7 @@
 import Footer from '@/components/Footer.vue'
 import NavBar from '@/components/NavBar.vue'
 import {useRouteStore} from '@/store/index.js'
+import { storeToRefs } from 'pinia'
 export default {
   name: 'App',
   components: {
@@ -23,6 +24,7 @@ export default {
   setup(){
     const routeStore = useRouteStore()
     routeStore.getRoutes()//puts route list into store
+
     return{routeStore}
   },
   data: () => ({

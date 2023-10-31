@@ -2,13 +2,16 @@ import { defineStore } from "pinia";
 
 export const useRouteStore = defineStore("routeStore", {
   state: () => ({ routes: [] }),
-  getters: {
-    getRoute(id) {
-      return this.routes.find((r) => r.id == id);
-    },
+
+  getters: {//pre computed values ex: all "dirt" routes
+
   },
+
   actions: {
     //methods to mutate data
+    getRoutebyID(id){
+      return this.routes.find(r => r.id == id)
+    },
     async updateRoute(updatedRoute) {
       //TODO: make this function work.. untested
       id = updatedRoute.id; //take in whatever attributes are being updated, leave rest unchanged, put back into state
@@ -23,8 +26,9 @@ export const useRouteStore = defineStore("routeStore", {
         }
       });
     },
-    async addRoute(routeToAdd) {//tested
-      this.routes.push(routeToAdd)
+    async addRoute(routeToAdd) {
+      //tested
+      this.routes.push(routeToAdd);
       let response = await fetch(`http://localhost:3000/v1/geo/`, {
         method: "POST",
         headers: {
@@ -35,7 +39,8 @@ export const useRouteStore = defineStore("routeStore", {
       response = await response.json();
       return response;
     },
-    async removeRoute(id) {//tested
+    async removeRoute(id) {
+      //tested
       //this.routes.remove((r) => r.id == id)//to update routes array in state
       let response = await fetch(`http://localhost:3000/v1/geo/${id}`, {
         method: "DELETE",
@@ -46,7 +51,8 @@ export const useRouteStore = defineStore("routeStore", {
         return r.id !== Number(response.id);
       });
     },
-    async getRoutes() {//tested
+    async getRoutes() {
+      //tested
       try {
         let response = await fetch("http://localhost:3000/v1/geo"); //eventually change to env variable
         response = await response.json();

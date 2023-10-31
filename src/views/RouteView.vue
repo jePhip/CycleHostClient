@@ -33,14 +33,19 @@ import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import RouteTable from "@/components/RouteViewTable.vue";
 import RouteDetail from "@/components/RouteDetail.vue";
-
+import {useRouteStore} from '@/store/index.js'
 export default {
   //TODO: get route from database and pass in route details to route table,
   //pass in route data to geojson and desc
   name: "RouteView",
   async mounted() {
     //console.log("router id" + this.$router.params.id)
-    await this.fetchRoute(this.$route.params.id);
+    this.route = (this.routeStore.getRoutebyID(this.$route.params.id))
+    this.mapRoute = (this.routeStore.getRoutebyID(this.$route.params.id)).route
+  },
+  setup(){
+    const routeStore = useRouteStore()
+    return{routeStore}
   },
   data() {
     return {
@@ -58,19 +63,6 @@ export default {
     LTileLayer,
     LMarker,
     LGeoJson,
-  },
-  methods: {
-    async fetchRoute(id) {
-      console.log(id);
-      try {
-        let response = await fetch("http://localhost:3000/v1/geo/" + id); //eventually change to env variable
-        response = await response.json();
-        this.route = response.route;
-        this.mapRoute = JSON.parse(this.route.route);
-      } catch (error) {
-        console.error(error);
-      }
-    },
   },
 };
 </script>
