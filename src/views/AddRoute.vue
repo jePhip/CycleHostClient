@@ -98,7 +98,6 @@ export default {
       try {
         let response = await fetch("http://localhost:3000/v1/geo"); //eventually change to env variable
         response = await response.json();
-        console.log(response)
         this.routes = response.routes.map((r) => {
           return {
             ...r,

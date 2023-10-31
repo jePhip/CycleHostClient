@@ -20,27 +20,13 @@ export default {
     Footer,
     NavBar
   },
-  mounted(){
-   
-  },
   setup(){
     const routeStore = useRouteStore()
-    routeStore.getRoutes()
+    routeStore.getRoutes()//puts route list into store
     return{routeStore}
   },
   data: () => ({
     //
-    routeToAddApp: 
-      {
-        route: ``,
-        terrain: `dirt`,
-        length: 12341234,
-        difficulty: `Beginner`,
-        desc: `this new route is cool`,
-        name: `new name`,
-        gpx: ``,
-      
-    }
   }),
 
 }
