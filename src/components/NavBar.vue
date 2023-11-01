@@ -22,6 +22,8 @@
 </template>
 
 <script>
+// stylesheet
+import '@/css/navbar.css'
 export default {
   data() {
     return {

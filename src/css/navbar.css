@@ -1,0 +1,22 @@
+.navbar
+  { 
+    margin: auto;
+    width: 100%;  
+    padding: 10px;
+    background-color: white;
+  }
+
+  .toolbar
+  { 
+    background-color: white; 
+    width: max;
+  }
+
+  .logo
+  { 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }

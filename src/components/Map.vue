@@ -44,6 +44,8 @@
   
   
   <script>
+  // css stylesheet
+  import '@/css/map.css';
   import "leaflet/dist/leaflet.css";
   import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
   export default {
@@ -97,35 +99,5 @@
 
   </script>
   
-<style>
-      .mapContainer {
-      display: flex;
-      justify-content: center;
-      font-weight: bold;  
-      text-align: center
-    }
-    .map {
-      flex:2 1 auto;  
-    }
-    .routeList {
-      color: #083a8c;
-      flex-direction: column;
-      flex: 1 1 auto;
-    }
-    .routeList button{
-      width: 75%;
-    }
 
-    .filter
-    { 
-      color: #083a8c;
-      flex-direction: column;
-      flex: 1 1 auto;
-    }
-    .active {
-      font-weight: bold;
-      text-decoration: underline;
-      text-align: center;
-    }
-</style>
   
