@@ -1,0 +1,52 @@
+
+
+  
+.add-route-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.add-route-container .route-form{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background: #eee;
+  margin: 0 0 10px 0;
+  width: 50%;
+  color: #083a8c;
+}
+
+.add-route-container .route-form .input label {
+  text-align: left;
+  margin-right: 10px;
+}
+
+.add-route-container .route-list {
+  text-align: center;
+  background: white;
+  width: 50%;
+}
+
+.route-list h2 {
+  color: white;
+}
+
+.route-list .route {
+  background: #eee;
+}
+
+.input {
+  text-align: center;
+  padding: 20px;
+  width: 50%;
+}
+
+button.button {
+  width: 100px;
+  background: lightgray;
+}
+
+.route-list {
+  font-family: roboto;
+}

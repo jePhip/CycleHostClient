@@ -1,32 +1,17 @@
 <template>
   <v-container fluid class="mapContainer"> 
-
-    <div class="routeList">   
-      
-  
-
-
-
+    <div class="routeList">
       <h3>{{ active && active.name || "Select Route" }}</h3>
       <div :key="r.name" v-for="(r) in routes">
-        <v-btn @click="changeRoute(r)" :class="{active: r.active }">{{ r.name }}</v-btn>
-      
+        <v-btn @click="changeRoute(r)" :class="{active: r.active }">{{ r.name }}</v-btn>      
       </div>
-
       <v-container class="filter">
-        <v-select label="Select Type of Ride:" :items="['Paved', 'Gravel', 'Dirt','Any']">
-                 
+        <v-select label="Select Type of Ride:" :items="['Paved', 'Gravel', 'Dirt','Any']">                 
         </v-select>
-
-        <v-select label="Select Distance: " :items="['0-10 Miles', '10-20 Miles', '20-30 Miles','30-40 Miles', '40-50 Miles', '50+ Miles', 'Any Distance']"> 
-
+        <v-select label="Select Distance: " :items="['0-10 Miles', '10-20 Miles', '20-30 Miles','30-40 Miles', '40-50 Miles', '50+ Miles', 'Any Distance']">
         </v-select>
-
       </v-container>
-
-      
-     
-    </div>
+     </div>
     <div class="map">
       <div style="height:600px; width:auto">
         <l-map ref="map" v-model:zoom="zoom" :center="[37.5997592, -93.4091279]">
@@ -44,16 +29,22 @@
   
   
   <script>
+  Map.scrollWheelZoom.disable();
   // css stylesheet
-  import '@/css/map.css';
+  import '@/css/map.css';   
+
   import "leaflet/dist/leaflet.css";
   import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
+
+
   export default {
     async mounted(){
       //console.log("mounted")
       await this.fetchRoutes()
-      //console.log(this.routes)
+      //console.log(this.routes)    
+
     },
+
     components: {
       LMap,
       LTileLayer,
@@ -67,6 +58,9 @@
         markerLatLng: [37.5997592, -93.4091279], //unused
         route: null, //route being displayed by Lgeojson
         routes: null,
+        scrollWheelZoom: false,     
+
+        
       };
     },
     /* html form, click handler to submit
@@ -94,8 +88,10 @@
         this.active = newRoute
         this.route = newRoute.data
       },
+      
     }
-  };  
+  };   
+
 
   </script>
   
