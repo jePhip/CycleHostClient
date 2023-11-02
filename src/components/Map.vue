@@ -29,7 +29,7 @@
   
   
   <script>
-  Map.scrollWheelZoom.disable();
+  
   // css stylesheet
   import '@/css/map.css';   
 
