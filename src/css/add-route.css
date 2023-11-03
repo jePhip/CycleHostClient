@@ -50,3 +50,9 @@ button.button {
 .route-list {
   font-family: roboto;
 }
+
+@media (max-width: 600px)
+{ 
+  
+
+}
