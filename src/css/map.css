@@ -19,14 +19,7 @@
   }
   .map {
     flex:2 1 auto;  
-  }
-  .routeList {
-    color: #083a8c;
-    flex-direction: column;
-    flex: 1 1 auto;
-  }
-  .routeList button{
-    width: 75%;
+    scale: 85%
   }
 
   .filter

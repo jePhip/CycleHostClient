@@ -1,17 +1,6 @@
 <template>
   <v-container fluid class="mapContainer"> 
-    <div class="routeList">
-      <h3>{{ active && active.name || "Select Route" }}</h3>
-      <div :key="r.name" v-for="(r) in routes">
-        <v-btn @click="changeRoute(r)" :class="{active: r.active }">{{ r.name }}</v-btn>      
-      </div>
-      <v-container class="filter">
-        <v-select label="Select Type of Ride:" :items="['Paved', 'Gravel', 'Dirt','Any']">                 
-        </v-select>
-        <v-select label="Select Distance: " :items="['0-10 Miles', '10-20 Miles', '20-30 Miles','30-40 Miles', '40-50 Miles', '50+ Miles', 'Any Distance']">
-        </v-select>
-      </v-container>
-     </div>
+    
     <div class="map">
       <div style="height:600px; width:auto">
         <l-map ref="map" v-model:zoom="zoom" :center="[37.5997592, -93.4091279]">
@@ -20,7 +9,11 @@
           layer-type="base"
           name="OpenStreetMap"
           ></l-tile-layer>
-          <l-geo-json :geojson="route"></l-geo-json>
+          <div v-if="routes">
+            <div :key="r.name" v-for="r in routes">
+              <l-geo-json :geojson="r.data"></l-geo-json>
+            </div>
+          </div>
         </l-map>
       </div>      
     </div>
@@ -53,10 +46,8 @@
     },
     data() {
       return {
-        active: null, //route currently being displayed
         zoom: 12, //map zoom
         markerLatLng: [37.5997592, -93.4091279], //unused
-        route: null, //route being displayed by Lgeojson
         routes: null,
         scrollWheelZoom: false,     
 
@@ -81,12 +72,6 @@
         } catch (error) {
           console.error(error);
         }
-      },
-      
-
-      changeRoute(newRoute){
-        this.active = newRoute
-        this.route = newRoute.data
       },
       
     }
