@@ -13,7 +13,7 @@
 <script>
 import Footer from '@/components/Footer.vue'
 import NavBar from '@/components/NavBar.vue'
-import {useRouteStore} from '@/store/index.js'
+import {useRouteStore} from '@/store/index.js'//
 import { storeToRefs } from 'pinia'
 export default {
   name: 'App',
