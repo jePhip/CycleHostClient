@@ -6,12 +6,20 @@ export const useRouteStore = defineStore("routeStore", {
   getters: {//pre computed values ex: all "dirt" routes
     getRoutes(){
       return this.routes
-    }
-  },
+    },
+    getRoutebyID: (state) => {
+      return (id) => {
+        console.log("before", id, state.routes)
+        const ret = state.routes.find((r=> r.id == id))
+        console.log("after", ret)
+        return ret
+      }
+      }
+    },
 
   actions: {
     //methods to mutate data
-    getRoutebyID(id){
+    g2etRoutebyID(id){
       return this.routes.find(r => r.id == id)
     },
     async updateRoute(updatedRoute) {
