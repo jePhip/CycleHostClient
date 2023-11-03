@@ -1,4 +1,9 @@
 
+  .hamburger
+  { 
+    display: block;
+  }
+
 .navbar
   { 
     margin: auto;
@@ -36,7 +41,7 @@
     .toolbar
     { 
       display: none;
-    }      
+    }         
 
     .hamburger
     { 
@@ -44,3 +49,5 @@
     }
 
   }
+
+  
