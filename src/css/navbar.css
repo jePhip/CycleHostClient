@@ -1,9 +1,12 @@
 
-  .hamburger
-  { 
-    display: block;
-  }
 
+.menu-list
+{ 
+  display: flex;
+  flex-direction: column;
+}
+
+  
 .navbar
   { 
     margin: auto;
@@ -27,6 +30,9 @@
     
   }
 
+  
+
+  
   @media (min-width: 600px)
   { 
     .hamburger
@@ -35,6 +41,7 @@
     }
 
   }
+
 
   @media (max-width: 600px)
   { 
@@ -46,8 +53,13 @@
     .hamburger
     { 
       display: flex;
+      flex-direction: column;
     }
-
   }
 
+  
+
+
+
+  
   
