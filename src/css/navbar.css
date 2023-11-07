@@ -40,20 +40,35 @@
       display: none;
     }
 
-  }
+    .hamburger-container
+    { 
+      display: none;
+    }
 
+    
+  }
 
   @media (max-width: 600px)
   { 
     .toolbar
     { 
       display: none;
-    }         
+    }     
+    
+    .hamburger-icon
+    { 
+      color: #083a8c;
+    }
 
     .hamburger
     { 
       display: flex;
       flex-direction: column;
+    }
+
+    .hamburger-container
+    { 
+      background-color: white;
     }
   }
 

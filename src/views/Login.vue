@@ -5,18 +5,19 @@
         <!-- login form for admin-->
         <div class="centered-container">
             <h2>Admin Login</h2>    
-            <v-sheet color="#083a8c" border>  
-                <v-card>   
+            <v-sheet class="login-sheet">  
+               
+                    <br>  
                     <v-form v-model="form" ref="form" class="login-form">             
                         <!-- text field to get username from admin -->
-                        <v-text-field label="Username" v-model="title"  :rules="inputRules" type="input"></v-text-field>
+                        <v-text-field class="user-input" label="Username" v-model="title"  :rules="inputRules" type="input"></v-text-field>
                         <!-- text field to get password from admin-->
-                        <v-text-field label="Password" type="input" v-model="content" hint="Enter your password to access routes"></v-text-field>
+                        <v-text-field class="user-input" label="Password" type="input" v-model="content" hint="Enter your password to access routes"></v-text-field>
                         <!-- button to submit the form and complete login-->
                         <br>
-                        <v-btn flat class="success mx-0 mt-3" @click="submit" type="submit">Sign In</v-btn>
+                        <v-btn flat color="#083a8c" class="submit-button" @click="submit" type="submit">Sign In</v-btn>
                     </v-form>
-                </v-card>   
+                  
             </v-sheet>           
         </div>    
     </div>   
@@ -51,7 +52,33 @@ methods: {
     width: 50%;
     text-align: center;
     height: 100vh; 
+    
 }
+
+.user-input
+{ 
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.login-form
+{ 
+    padding: 10px;
+    
+}
+
+@media (max-width: 600px)
+  { 
+    .user-input
+    { 
+        width: 100%;
+    } 
+  }
+
+
+
 
 
 

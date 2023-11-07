@@ -20,18 +20,21 @@
       </v-toolbar>        
     
 
-      <v-menu  class="hamburger">
-        <template  v-slot:activator="{ props }">
-          <v-btn class="hamburger" icon="mdi-menu" color="#083a8c" v-bind="props"></v-btn>
-        </template>
-        <v-list class="menu-list">        
-          <v-list-tile v-for="link in links" :key="link.text">            
-                <v-btn variant="plane" class="white--text" router :to="link.route">{{
-                  link.text
-                }}</v-btn>            
-          </v-list-tile>        
-        </v-list>
-      </v-menu>
+      <v-toolbar class="hamburger-container">
+        <v-img class="logo" src="@/assets/logo.jpg" />
+        <v-menu  class="hamburger">
+          <template  v-slot:activator="{ props }">          
+            <v-btn class="hamburger-icon" icon="mdi-menu" color="#083a8c" v-bind="props"></v-btn>
+          </template>
+          <v-list class="menu-list">        
+            <v-list-tile v-for="link in links" :key="link.text">            
+                  <v-btn variant="plane" class="white--text" router :to="link.route">{{
+                    link.text
+                  }}</v-btn>            
+            </v-list-tile>        
+          </v-list>
+        </v-menu>
+    </v-toolbar>
 
 
     </v-container>    
