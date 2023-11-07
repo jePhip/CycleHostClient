@@ -41,8 +41,6 @@ import { useRoute } from 'vue-router'
 const routeStore = useRouteStore()
 const routing = useRoute()
 const { getRoutebyID } = storeToRefs(routeStore)
-  //TODO: get route from database and pass in route details to route table,
-  //pass in route data to geojson and desc
 
    onMounted(() => {
     // route = routeStore.getRoutebyID.value(routing.params.id)
