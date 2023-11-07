@@ -1,0 +1,80 @@
+
+
+.menu-list
+{ 
+  display: flex;
+  flex-direction: column;
+}
+
+  
+.navbar
+  { 
+    margin: auto;
+    width: 100%;  
+    padding: 10px;
+    background-color: white;
+  }
+
+  .toolbar
+  { 
+    background-color: white; 
+    width: max;
+  }
+
+  .logo
+  { 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  
+
+  
+  @media (min-width: 600px)
+  { 
+    .hamburger
+    { 
+      display: none;
+    }
+
+    .hamburger-container
+    { 
+      display: none;
+    }
+
+    
+  }
+
+  @media (max-width: 600px)
+  { 
+    .toolbar
+    { 
+      display: none;
+    }     
+    
+    .hamburger-icon
+    { 
+      color: #083a8c;
+    }
+
+    .hamburger
+    { 
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hamburger-container
+    { 
+      background-color: white;
+    }
+  }
+
+  
+
+
+
+  
+  

@@ -1,0 +1,36 @@
+.mapContainer {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;  
+    text-align: center;
+    flex-direction: column;
+  }
+
+  @media (max-width: 600px)
+  { 
+    .mapContainer
+    { 
+      display: flex;
+      justify-content: center;
+      font-weight: bold;  
+      text-align: center;
+      flex-direction: column;
+    }
+
+  }
+  .map {
+    flex:2 1 auto;  
+    scale: 85%
+  }
+
+  .filter
+  { 
+    color: #083a8c;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+  .active {
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+  }

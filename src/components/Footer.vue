@@ -19,6 +19,8 @@
   </v-footer>
 </template>
 <script>
+// import css
+import '@/css/footer.css';
 export default {
   data: () => ({
     links: [
@@ -47,12 +49,3 @@ export default {
 };
 </script>
 
-<style>
-.footer {
-  background-color: rgb(101, 101, 221);
-}
-.cityText {
-  text-align: center;
-  color: white;
-}
-</style>
