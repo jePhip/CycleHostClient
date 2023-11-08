@@ -9,10 +9,7 @@ export const useRouteStore = defineStore("routeStore", {
     },
     getRoutebyID: (state) => {
       return (id) => {
-        console.log("before", id, state.routes)
-        const ret = state.routes.find((r=> r.id == id))
-        console.log("after", ret)
-        return ret
+        return state.routes.find((r=> r.id == id))
       }
       }
     },
@@ -47,9 +44,10 @@ export const useRouteStore = defineStore("routeStore", {
         body: JSON.stringify(routeToAdd),
       });
       response = await response.json();
+      console.log(this.routes)
       return response;
     },
-    async removeRoute(id) {
+    async deleteRoute(id) {
       //tested
       //this.routes.remove((r) => r.id == id)//to update routes array in state
       let response = await fetch(`http://localhost:3000/v1/geo/${id}`, {
@@ -58,6 +56,7 @@ export const useRouteStore = defineStore("routeStore", {
       response = await response.json();
       this.routes = this.routes.filter((r) => {
         //update route list
+        console.log(this.routes)
         return r.id !== Number(response.id);
       });
     },
