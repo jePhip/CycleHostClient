@@ -3,7 +3,7 @@
     
     <div class="map">
       <div style="height:600px; width:auto">
-        <l-map ref="map" v-model:zoom="zoom" :center="[37.5997592, -93.4091279]">
+        <l-map ref="map" v-model:zoom="zoom" :center="[37.5997592, -93.4091279]" :options="mapOptions">
           <l-tile-layer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           layer-type="base"
@@ -49,7 +49,10 @@
         zoom: 12, //map zoom
         markerLatLng: [37.5997592, -93.4091279], //unused
         routes: null,
-        scrollWheelZoom: false,     
+
+        mapOptions: {
+        scrollWheelZoom: false
+        }  
 
         
       };
