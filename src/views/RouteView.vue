@@ -10,7 +10,7 @@
 
       <div class="map" v-if="mapRoute">
         <div style="height: 400px; width: 500px">
-          <l-map ref="map" zoom="9" :center="[37.5997592, -93.4091279]">
+          <l-map ref="map" zoom="9" :center="[37.5997592, -93.4091279]" :options="mapOptions">
             <l-tile-layer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               layer-type="base"
@@ -48,6 +48,11 @@ export default {
       zoom: 12, //map zoom
       mapRoute: null, //route being displayed by Lgeojson
       route: null,
+
+      mapOptions: 
+      { 
+        scrollWheelZoom: false
+      }
     };
   },
 
