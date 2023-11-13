@@ -11,7 +11,7 @@
         hide-details
       ></v-text-field>
     </v-card-title>
-    <v-data-table :headers="headers" :items="routes" :search="search">
+    <v-data-table class="routes-table" :headers="headers" :items="routes" :search="search">
       <template #item.name="{ item }">
         <a target="" :href="'/route/'+ item.id" @click="handleClick"
           ><!-- eventually to route page -->
