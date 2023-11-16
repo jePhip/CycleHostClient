@@ -1,5 +1,7 @@
 <template>
+  
   <div class="add-route-container">
+    <button @click="buttonclick">button</button>
     <v-form class="routeForm" @submit.prevent="handleSubmit" ref="form">
       <v-container class="input">
         <v-text-field
@@ -63,9 +65,15 @@
 </template>
 
 <script>
+import { useRouteStore } from "@/store/index.js";
+import { storeToRefs } from "pinia";
+import { ref, onMounted, reactive, getCurrentInstance } from "vue";
 export default {
-  async mounted() {
-    await this.fetchRoutes();
+  setup(){
+    const routeStore = useRouteStore();
+    const { deleteRoute, addRoute, getRoutes } = storeToRefs(routeStore);
+    let routes = reactive(routeStore.getRoutes);
+    return {routes, deleteRoute, addRoute, getRoutes, routeStore}
   },
   data() {
     return {
@@ -78,10 +86,13 @@ export default {
       terrain: "",
       routeDesc: "",
       //
-      routes: null,
+      routes: routes
     };
   },
   methods: {
+    buttonclick(){
+      console.log(routes, `routes`)
+    },
     async deleteRoute(id) {
       // DELETE request using fetch with async/await
       let response = await fetch(`http://localhost:3000/v1/geo/${id}`, {

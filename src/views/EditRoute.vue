@@ -75,10 +75,8 @@
 <script setup>
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";
-import { ref, onMounted, reactive, getCurrentInstance } from "vue";
-const file = ref();
-onMounted(() => {});
-const instance = getCurrentInstance();
+import { ref, onMounted, reactive, } from "vue";
+const file = reactive(null);
 const routeStore = useRouteStore();
 const { deleteRoute, addRoute, getRoutes } = storeToRefs(routeStore);
 let routes = reactive(routeStore.getRoutes);
@@ -105,21 +103,23 @@ let submit = async (routeToAdd) => {
   }
 };
 let handleFile = (e) => {
-  if (selectedFile.value) {
-    const reader = new FileReader();
-    const gpx = ref();
-    const newRoute = ref();
+  console.log(file, 'file value')
+  if (file.value) {
+    // const reader = new FileReader();
+    // const gpx = reactive('');
+    // const newRoute = reactive('');
 
-    reader.onload = async (e) => {
-      const fileContent = e.target.result;
-      const blob = new Blob([fileContent], { type: "text/plain" });
-      const text = await blob.text();
-      gpx.value = btoa(text);
-      const gpxFile = new DOMParser().parseFromString(text, "text/xml");
-      const converted = tj.gpx(gpxFile);
-      newRoute.value = converted;
-    };
-    reader.readAsText(selectedFile.value);
+    // reader.onload = async (e) => {
+    //   const fileContent = file.value
+    //   console.log(file)
+    //   const blob = new Blob([fileContent], { type: "text/plain" });
+    //   const text = await blob.text();
+    //   gpx.value = btoa(text);
+    //   const gpxFile = new DOMParser().parseFromString(text, "text/xml");
+    //   const converted = tj.gpx(gpxFile);
+    //   newRoute.value = converted;
+    // };
+    // reader.readAsText(file.value);
   }
 };
 </script>
