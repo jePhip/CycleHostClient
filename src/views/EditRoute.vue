@@ -100,7 +100,7 @@ let submit = async (routeToAdd) => {
     routeStore.addRoute(routeToAdd);
   } catch (error) {
     console.log("error", error);
-  }
+  }//
 };
 let handleFile = (e) => {
   console.log(file, 'file value')
