@@ -1,7 +1,5 @@
 <template>
-  
   <div class="add-route-container">
-    <button @click="buttonclick">button</button>
     <v-form class="routeForm" @submit.prevent="handleSubmit" ref="form">
       <v-container class="input">
         <v-text-field
@@ -14,7 +12,7 @@
           v-model="routeName"
           required
         ></v-text-field>
-      <v-text-field
+        <v-text-field
           label="Route Length (miles)"
           prepend-icon="mdi-road"
           class="routeLength"
@@ -25,10 +23,18 @@
           required
         ></v-text-field>
         <v-container class="filter">
-        <v-select label="Select Terrain:" v-model="terrain" :items="['Paved', 'Gravel', 'Dirt']"> 
-        </v-select>
-        <v-select label="Select Difficulty: " v-model="difficulty" :items="['Beginner', 'Intermediate', 'Expert']"> 
-        </v-select>
+          <v-select
+            label="Select Terrain:"
+            v-model="terrain"
+            :items="['Paved', 'Gravel', 'Dirt']"
+          >
+          </v-select>
+          <v-select
+            label="Select Difficulty: "
+            v-model="difficulty"
+            :items="['Beginner', 'Intermediate', 'Expert']"
+          >
+          </v-select>
         </v-container>
         <v-textarea
           label="Route Description"
@@ -52,8 +58,8 @@
       </v-container>
     </v-form>
 
-
-    
+    <h1>{{routeStore}}</h1>
+    <button></button>
     <v-container class="routeList">
       <h2>Routes:</h2>
       <v-container class="route" :key="r.name" v-for="r in routes">
@@ -65,15 +71,19 @@
 </template>
 
 <script>
-import { useRouteStore } from "@/store/index.js";
+import { useRouteStore } from "@/store/index.js"; //
 import { storeToRefs } from "pinia";
-import { ref, onMounted, reactive, getCurrentInstance } from "vue";
+import { ref, onMounted } from "vue";
 export default {
-  setup(){
+  async setup() {
     const routeStore = useRouteStore();
-    const { deleteRoute, addRoute, getRoutes } = storeToRefs(routeStore);
-    let routes = reactive(routeStore.getRoutes);
-    return {routes, deleteRoute, addRoute, getRoutes, routeStore}
+    await routeStore.getRoutesInit(); //puts route list into store//
+    const { routes } = storeToRefs(routeStore);
+
+    return { routeStore };
+  },
+  async mounted() {
+    await this.fetchRoutes();
   },
   data() {
     return {
@@ -86,19 +96,17 @@ export default {
       terrain: "",
       routeDesc: "",
       //
-      routes: routes
+      routes: null,
     };
   },
   methods: {
-    buttonclick(){
-      console.log(routes, `routes`)
-    },
     async deleteRoute(id) {
       // DELETE request using fetch with async/await
       let response = await fetch(`http://localhost:3000/v1/geo/${id}`, {
         method: "DELETE",
       });
       response = await response.json();
+      //take deleted route out of route list
       this.routes = this.routes.filter((r) => {
         //update route list
         return r.id !== Number(response.id);
@@ -109,6 +117,7 @@ export default {
       try {
         let response = await fetch("http://localhost:3000/v1/geo"); //eventually change to env variable
         response = await response.json();
+        console.log(response);
         this.routes = response.routes.map((r) => {
           return {
             ...r,
@@ -141,23 +150,22 @@ export default {
     },
     async submit() {
       try {
-          
-          const response = await this.postRoute(
-            this.newRoute,
-            this.routeName,
-            this.gpx,
-            this.difficulty,
-            this.routeLength,
-            this.terrain,
-            this.routeDesc
-          );
-          if (response && response.message === "success!") {
-            //have backend return response object with code?
-            await this.fetchRoutes();
-          }
-        } catch (error) {
-          console.log("error", error);
+        const response = await this.postRoute(
+          this.newRoute,
+          this.routeName,
+          this.gpx,
+          this.difficulty,
+          this.routeLength,
+          this.terrain,
+          this.routeDesc
+        );
+        if (response && response.message === "success!") {
+          //have backend return response object with code?
+          await this.fetchRoutes();
         }
+      } catch (error) {
+        console.log("error", error);
+      }
     },
     async postRoute() {
       let response = await fetch(`http://localhost:3000/v1/geo/`, {
@@ -173,8 +181,7 @@ export default {
           length: this.routeLength,
           terrain: this.terrain,
           difficulty: this.difficulty,
-          desc: this.routeDesc
-
+          desc: this.routeDesc,
         }),
       });
       response = await response.json();
@@ -237,20 +244,16 @@ button.button {
   flex-direction: column;
 }
 
-@media (max-width: 600px)
-{ 
-  .input
-  { 
+@media (max-width: 600px) {
+  .input {
     width: 100%;
     padding: 0px;
     maring: 0 0 0 0;
   }
 
-  .routeForm
-  { 
+  .routeForm {
     width: 100%;
     margin: 0 0 0 0;
   }
-
 }
 </style>
