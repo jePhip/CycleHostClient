@@ -29,13 +29,14 @@
         </td>
       </tr>
     </tbody>
-    
 
     
   </v-table>
 </template>
 
 <script>
+// style sheet
+import '@/css/route-view-table.css';
 
 export default {
   props:{
@@ -70,13 +71,6 @@ export default {
     },
   },
 };
+
 </script>
 
-<style> 
-.table
-{ 
-  width: 50%;
-  background: #eee;
-}
-
-</style> 

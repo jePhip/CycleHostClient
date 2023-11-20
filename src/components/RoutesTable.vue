@@ -45,6 +45,9 @@
   </v-card>
 </template>
 <script>
+// stylesheet
+import '@/css/routes-table.css';
+
 import {
   VDataTable,
   VDataTableServer,
@@ -120,9 +123,3 @@ export default {
 };
 </script>
 
-<style>
-.gpxBtn {
-  scale: 85%;
-  color: blue;
-}
-</style>
