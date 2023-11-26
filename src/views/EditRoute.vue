@@ -1,10 +1,6 @@
 <template>
   <div class="add-route-container">
-    <v-form
-      class="routeForm"
-      @submit.prevent="handleSubmit()"
-      ref="form"
-    >
+    <v-form class="routeForm" @submit.prevent="handleSubmit()" ref="form">
       <v-container class="input">
         <v-text-field
           label="Route Name"
@@ -87,27 +83,18 @@ let difficulty = ref("");
 let routeLength = ref(0);
 let terrain = ref("");
 let routeDesc = ref("");
-let routeToAdd = reactive({
-  route: newRoute.value,
-  name: routeName.value,
-  gpx: gpx.value,
-  difficulty: gpx.value,
-  length: routeLength.value,
-  terrain: terrain.value,
-  desc: routeDesc.value,
-});
-let deleteBtn =  (id) => {
+let deleteBtn = (id) => {
   routes = routes.filter((r) => {
-        //update route list
-        return r.id !== +id;
-      });
-  console.log(routes)
-  routeStore.deleteRoute(id)
-}
+    //update route list
+    return r.id !== +id;
+  });
+  console.log(routes);
+  routeStore.deleteRoute(id);
+};
 let submit = async () => {
   try {
-    handleFile()
-    let routeToAdd2 = {
+    handleFile();
+    let routeToAdd = {
       route: newRoute.value,
       name: routeName.value,
       gpx: gpx.value,
@@ -116,7 +103,7 @@ let submit = async () => {
       terrain: terrain.value,
       desc: routeDesc.value,
     };
-    routeStore.addRoute(routeToAdd2);
+    routeStore.addRoute(routeToAdd);
   } catch (error) {
     console.log("error", error);
   } //
@@ -135,11 +122,60 @@ let handleFile = (e) => {
       const gpxFile = new DOMParser().parseFromString(text, "text/xml");
       const converted = tj.gpx(gpxFile);
       newRoute.value = converted;
-      console.log(routeToAdd, "route");
+      const startCoords = converted.features[0].geometry.coordinates[0];
+      const long = startCoords[0];
+      const lat = startCoords[1];
+      const coords = converted.features[0].geometry.coordinates;
+      let locations = [];
+      for (let i in coords) {
+        locations[i] = {
+          latitude: coords[i][1],
+          longitude: coords[i][0],
+        };
+      }
+      //max locations per request is 512
+      let countBy = Math.ceil(locations.length / 512);
+      let elevArr = {};
+      let count = 0;
+      //console.log(locations.length, countBy)
+      for (let i = 0; i < locations.length; i = i + countBy) {
+        elevArr[count] = {
+          latitude: coords[i][1],
+          longitude: coords[i][0],
+        };
+        count++;
+      }
+      count = 0
+      countBy = Math.ceil(locations.length / 25);
+      let disArr = {}
+      for (let i = 0; i < locations.length; i = i + countBy) {
+        disArr[count] = {
+          latitude: coords[i][1],
+          longitude: coords[i][0],
+        };
+        count++;
+      }
+      console.log(disArr, "dis   ")
+      let eresponse = await fetch(`http://localhost:3000/v1/geo/e`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(elevArr),
+      });
+      let dresponse = await fetch(`http://localhost:3000/v1/geo/d`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(disArr),
+      });
+      eresponse = await eresponse.json()
+      dresponse = await dresponse.json()
+      routeLength.value = (dresponse.response.rows[0].elements[dresponse.response.rows[0].elements.length-1].distance.value/1000)*0.621371;//meters to miles
+      console.log(routeLength.value)
     };
     reader.readAsText(file.value.files[0]);
   }
 };
 </script>
-
-<style></style>
