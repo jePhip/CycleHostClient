@@ -8,7 +8,7 @@
       </tr>
       <tr>
         <th class="text-left">Length</th>
-        <td>{{ route?.length }}</td>
+        <td>{{ route?.length }} miles</td>
       </tr>
       <tr>
         <th class="text-left">Terrain</th>

@@ -12,16 +12,6 @@
           v-model="routeName"
           required
         ></v-text-field>
-        <v-text-field
-          label="Route Length (miles)"
-          prepend-icon="mdi-road"
-          class="routeLength"
-          type="number"
-          variant="outlined"
-          name="routeLength"
-          v-model="routeLength"
-          required
-        ></v-text-field>
         <v-container class="filter">
           <v-select
             label="Select Terrain:"
@@ -145,9 +135,9 @@ let handleFile = (e) => {
         };
         count++;
       }
-      count = 0
+      count = 0;
       countBy = Math.ceil(locations.length / 25);
-      let disArr = {}
+      let disArr = {};
       for (let i = 0; i < locations.length; i = i + countBy) {
         disArr[count] = {
           latitude: coords[i][1],
@@ -155,7 +145,7 @@ let handleFile = (e) => {
         };
         count++;
       }
-      console.log(disArr, "dis   ")
+      console.log(disArr, "dis   ");
       let eresponse = await fetch(`http://localhost:3000/v1/geo/e`, {
         method: "POST",
         headers: {
@@ -170,10 +160,17 @@ let handleFile = (e) => {
         },
         body: JSON.stringify(disArr),
       });
-      eresponse = await eresponse.json()
-      dresponse = await dresponse.json()
-      routeLength.value = (dresponse.response.rows[0].elements[dresponse.response.rows[0].elements.length-1].distance.value/1000)*0.621371;//meters to miles
-      console.log(routeLength.value)
+      eresponse = await eresponse.json();
+      dresponse = await dresponse.json();
+      routeLength.value =
+        Math.round(
+          (dresponse.response.rows[0].elements[
+            dresponse.response.rows[0].elements.length - 1
+          ].distance.value /
+            1000) *
+            0.621371 *
+            10
+        ) / 10; //meters to miles
     };
     reader.readAsText(file.value.files[0]);
   }
