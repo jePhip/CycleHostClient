@@ -2,7 +2,7 @@
   <div class="add-route-container">
     <v-form
       class="routeForm"
-      @submit.prevent="handleSubmit(routeToAdd)"
+      @submit.prevent="handleSubmit()"
       ref="form"
     >
       <v-container class="input">
@@ -66,7 +66,7 @@
       <h2>Routes:</h2>
       <v-container class="route" :key="r.name" v-for="r in routes">
         <p>{{ r.name }} ID: {{ r.id }}</p>
-        <v-btn @click="deleteRoute(r.id), console.log(routes)">DELETE</v-btn>
+        <v-btn @click="deleteBtn(r.id)">DELETE</v-btn>
       </v-container>
     </v-container>
   </div>
@@ -75,12 +75,12 @@
 <script setup>
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";
-import { ref, onMounted, reactive, } from "vue";
-const file = reactive(null);
+import { ref, onMounted, reactive } from "vue";
+const file = ref(null);
 const routeStore = useRouteStore();
 const { deleteRoute, addRoute, getRoutes } = storeToRefs(routeStore);
 let routes = reactive(routeStore.getRoutes);
-let newRoute = reactive(null);
+let newRoute = ref();
 let routeName = ref("");
 let gpx = ref("");
 let difficulty = ref("");
@@ -88,38 +88,55 @@ let routeLength = ref(0);
 let terrain = ref("");
 let routeDesc = ref("");
 let routeToAdd = reactive({
-  routeName,
-  gpx,
-  difficulty,
-  routeLength,
-  terrain,
-  routeDesc,
+  route: newRoute.value,
+  name: routeName.value,
+  gpx: gpx.value,
+  difficulty: gpx.value,
+  length: routeLength.value,
+  terrain: terrain.value,
+  desc: routeDesc.value,
 });
-let submit = async (routeToAdd) => {
+let deleteBtn =  (id) => {
+  routes = routes.filter((r) => {
+        //update route list
+        return r.id !== +id;
+      });
+  console.log(routes)
+}
+let submit = async () => {
   try {
-    routeStore.addRoute(routeToAdd);
+    handleFile()
+    let routeToAdd2 = {
+      route: newRoute.value,
+      name: routeName.value,
+      gpx: gpx.value,
+      difficulty: difficulty.value,
+      length: routeLength.value,
+      terrain: terrain.value,
+      desc: routeDesc.value,
+    };
+    routeStore.addRoute(routeToAdd2);
   } catch (error) {
     console.log("error", error);
-  }//
+  } //
 };
 let handleFile = (e) => {
-  console.log(file, 'file value')
-  if (file.value) {
-    // const reader = new FileReader();
-    // const gpx = reactive('');
-    // const newRoute = reactive('');
+  console.log(file.value.files[0], "file value");
 
-    // reader.onload = async (e) => {
-    //   const fileContent = file.value
-    //   console.log(file)
-    //   const blob = new Blob([fileContent], { type: "text/plain" });
-    //   const text = await blob.text();
-    //   gpx.value = btoa(text);
-    //   const gpxFile = new DOMParser().parseFromString(text, "text/xml");
-    //   const converted = tj.gpx(gpxFile);
-    //   newRoute.value = converted;
-    // };
-    // reader.readAsText(file.value);
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const tj = require("@tmcw/togeojson");
+      const fileContent = file.value.files[0];
+      const blob = new Blob([fileContent], { type: "text/plain" });
+      const text = await blob.text();
+      gpx.value = btoa(text);
+      const gpxFile = new DOMParser().parseFromString(text, "text/xml");
+      const converted = tj.gpx(gpxFile);
+      newRoute.value = converted;
+      console.log(routeToAdd, "route");
+    };
+    reader.readAsText(file.value.files[0]);
   }
 };
 </script>
