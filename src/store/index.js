@@ -16,9 +16,6 @@ export const useRouteStore = defineStore("routeStore", {
 
   actions: {
     //methods to mutate data
-    g2etRoutebyID(id){
-      return this.routes.find(r => r.id == id)
-    },
     async updateRoute(updatedRoute) {
       //TODO: make this function work.. untested
       id = updatedRoute.id; //take in whatever attributes are being updated, leave rest unchanged, put back into state
@@ -56,9 +53,10 @@ export const useRouteStore = defineStore("routeStore", {
       response = await response.json();
       this.routes = this.routes.filter((r) => {
         //update route list
-        console.log(this.routes)
+        //console.log(this.routes)
         return r.id !== Number(response.id);
       });
+      console.log(this.routes, "del route", id)
     },
     async getRoutesInit() {
       //tested

@@ -36,7 +36,6 @@ import RouteDetail from "@/components/RouteDetail.vue";
 import {useRouteStore} from '@/store/index.js'
 import { storeToRefs } from 'pinia'
 import { ref, onMounted, reactive, computed } from 'vue'
-import { router } from "@/router/index.js"
 import { useRoute } from 'vue-router'
 const routeStore = useRouteStore()
 const routing = useRoute()

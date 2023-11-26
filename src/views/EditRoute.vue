@@ -102,6 +102,7 @@ let deleteBtn =  (id) => {
         return r.id !== +id;
       });
   console.log(routes)
+  routeStore.deleteRoute(id)
 }
 let submit = async () => {
   try {
