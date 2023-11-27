@@ -41,6 +41,11 @@
           {{ item.terrain }}
       </p>
       </template>
+      <template #item.elevation="{ item }">
+        <p>
+          {{ item.elevation }}
+      </p>
+      </template>
     </v-data-table>
   </v-card>
 </template>
@@ -79,6 +84,8 @@ export default {
         { key: "length", title: "Length (miles)" },
         { key: "terrain", title: "Terrain" },
         { key: "difficulty", title: "Difficulty" },
+        { key: "elevation", title: "Elevation Gain (feet)" },
+        
       ],
       routes: [],
     };

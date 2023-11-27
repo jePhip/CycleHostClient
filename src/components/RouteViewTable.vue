@@ -8,11 +8,15 @@
       </tr>
       <tr>
         <th class="text-left">Length</th>
-        <td>{{ route?.length }}</td>
+        <td>{{ route?.length }} miles</td>
       </tr>
       <tr>
         <th class="text-left">Terrain</th>
         <td>{{ route?.terrain }}</td>
+      </tr>
+      <tr>
+        <th class="text-left">Elevation</th>
+        <td>{{ route?.elevation }} feet</td>
       </tr>
       <tr>
         <th class="text-left">Difficulty</th>
