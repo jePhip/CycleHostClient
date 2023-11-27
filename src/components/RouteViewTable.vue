@@ -15,6 +15,10 @@
         <td>{{ route?.terrain }}</td>
       </tr>
       <tr>
+        <th class="text-left">Elevation</th>
+        <td>{{ route?.elevation }} feet</td>
+      </tr>
+      <tr>
         <th class="text-left">Difficulty</th>
         <td>{{ route?.difficulty }}</td>
       </tr>

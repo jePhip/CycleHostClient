@@ -73,12 +73,12 @@ let difficulty = ref("");
 let routeLength = ref(0);
 let terrain = ref("");
 let routeDesc = ref("");
+let elevation = ref(0)
 let deleteBtn = (id) => {
   routes = routes.filter((r) => {
     //update route list
     return r.id !== +id;
   });
-  console.log(routes);
   routeStore.deleteRoute(id);
 };
 let submit = async () => {
@@ -92,6 +92,7 @@ let submit = async () => {
       length: routeLength.value,
       terrain: terrain.value,
       desc: routeDesc.value,
+      elevation: elevation.value
     };
     routeStore.addRoute(routeToAdd);
   } catch (error) {
@@ -99,8 +100,6 @@ let submit = async () => {
   } //
 };
 let handleFile = (e) => {
-  console.log(file.value.files[0], "file value");
-
   if (file) {
     const reader = new FileReader();
     reader.onload = async (e) => {
@@ -112,23 +111,12 @@ let handleFile = (e) => {
       const gpxFile = new DOMParser().parseFromString(text, "text/xml");
       const converted = tj.gpx(gpxFile);
       newRoute.value = converted;
-      const startCoords = converted.features[0].geometry.coordinates[0];
-      const long = startCoords[0];
-      const lat = startCoords[1];
       const coords = converted.features[0].geometry.coordinates;
-      let locations = [];
-      for (let i in coords) {
-        locations[i] = {
-          latitude: coords[i][1],
-          longitude: coords[i][0],
-        };
-      }
       //max locations per request is 512
-      let countBy = Math.ceil(locations.length / 512);
+      let countBy = Math.ceil(coords.length / 512);
       let elevArr = {};
       let count = 0;
-      //console.log(locations.length, countBy)
-      for (let i = 0; i < locations.length; i = i + countBy) {
+      for (let i = 0; i < coords.length; i = i + countBy) {
         elevArr[count] = {
           latitude: coords[i][1],
           longitude: coords[i][0],
@@ -136,16 +124,8 @@ let handleFile = (e) => {
         count++;
       }
       count = 0;
-      countBy = Math.ceil(locations.length / 25);
-      let disArr = {};
-      for (let i = 0; i < locations.length; i = i + countBy) {
-        disArr[count] = {
-          latitude: coords[i][1],
-          longitude: coords[i][0],
-        };
-        count++;
-      }
-      console.log(disArr, "dis   ");
+      countBy = Math.ceil(coords.length / 10);
+      //get elevation at coord points from backend
       let eresponse = await fetch(`http://localhost:3000/v1/geo/e`, {
         method: "POST",
         headers: {
@@ -153,24 +133,47 @@ let handleFile = (e) => {
         },
         body: JSON.stringify(elevArr),
       });
-      let dresponse = await fetch(`http://localhost:3000/v1/geo/d`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(disArr),
-      });
       eresponse = await eresponse.json();
-      dresponse = await dresponse.json();
+      //elevation gain
+      elevArr = eresponse.response.results;
+      let egain = 0;
+      let diff = 0;
+      for (let i = 1; i < elevArr.length; i++) {
+        diff = elevArr[i].elevation - elevArr[i-1].elevation;
+        if (diff > 0) {
+          egain += diff;
+        }
+      }
+      egain = Math.round((egain) * 3.28084 * 10) / 10 //meters to feet, rounded to 1 decimal
+      console.log(egain, "egain");
+      elevation.value = egain
+      //route length/distance
+      let totalDistance = 0;
+      let lat1 = 0;
+      let long1 = 0;
+      let lat2 = 0;
+      let long2 = 0;
+      for (let i = 0; i < coords.length - 1; i++) {
+        const d2ra = (angle) => (angle * Math.PI) / 180;
+        lat1 = d2ra(coords[i][1]);
+        long1 = d2ra(coords[i][0]);
+        lat2 = d2ra(coords[i + 1][1]);
+        long2 = d2ra(coords[i + 1][0]);
+        //use haversine formula to calculate distance between the two points
+        const dLat = lat2 - lat1;
+        const dLong = long2 - long1;
+        const a =
+          Math.sin(dLat / 2) ** 2 +
+          Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLong / 2) ** 2;
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const radius = 6371000; //earths radius
+        const distance = radius * c;
+        totalDistance += distance;
+      }
+
       routeLength.value =
-        Math.round(
-          (dresponse.response.rows[0].elements[
-            dresponse.response.rows[0].elements.length - 1
-          ].distance.value /
-            1000) *
-            0.621371 *
-            10
-        ) / 10; //meters to miles
+        Math.round((totalDistance / 1000) * 0.621371 * 10) / 10; //meters to miles, rounded to 1 decimal
+        console.log(routeLength.value)
     };
     reader.readAsText(file.value.files[0]);
   }
@@ -229,20 +232,16 @@ button.button {
   flex-direction: column;
 }
 
-@media (max-width: 600px)
-{ 
-  .input
-  { 
+@media (max-width: 600px) {
+  .input {
     width: 100%;
     padding: 0px;
     maring: 0 0 0 0;
   }
 
-  .routeForm
-  { 
+  .routeForm {
     width: 100%;
     margin: 0 0 0 0;
   }
-
 }
 </style>
