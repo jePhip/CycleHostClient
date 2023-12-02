@@ -8,7 +8,7 @@
         <RouteDetail :route="route" />
       </div>
 
-      <div class="map" v-if="mapRoute">
+      <div class="map" v-if="route.route">
         <div style="height: 400px; width: 500px">
           <l-map ref="map" zoom="9" :center="[37.5997592, -93.4091279]" :options="mapOptions">
             <l-tile-layer
@@ -16,7 +16,7 @@
               layer-type="base"
               name="OpenStreetMap"
             ></l-tile-layer>
-            <l-geo-json :geojson="mapRoute"></l-geo-json>
+            <l-geo-json :geojson="route.route"></l-geo-json>
           </l-map>
         </div>
       </div>
@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import RouteTable from "@/components/RouteViewTable.vue";
@@ -48,11 +48,6 @@ export default {
       zoom: 12, //map zoom
       mapRoute: null, //route being displayed by Lgeojson
       route: null,
-
-      mapOptions: 
-      { 
-        scrollWheelZoom: false
-      }
     };
   },
 

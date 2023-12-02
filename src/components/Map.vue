@@ -5,9 +5,9 @@
       <div style="height:600px; width:auto">
         <l-map ref="map" v-model:zoom="zoom" :center="[37.5997592, -93.4091279]" :options="mapOptions">
           <l-tile-layer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          layer-type="base"
-          name="OpenStreetMap"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            layer-type="base"
+            name="OpenStreetMap"
           ></l-tile-layer>
           <div v-if="routes">
             <div :key="r.name" v-for="r in routes">
@@ -15,7 +15,7 @@
             </div>
           </div>
         </l-map>
-      </div>      
+      </div>
     </div>
   </v-container>
 </template>
