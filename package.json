@@ -11,10 +11,10 @@
     "@tmcw/togeojson": "^5.8.1",
     "fs": "^0.0.1-security",
     "geojson-parser-js": "^1.0.13",
-    "pinia": "^2.1.4",
-    "leaflet-gesture-handling": "^1.2.2",
     "is-mergeable-object": "^1.1.1",
+    "leaflet-gesture-handling": "^1.2.2",
     "merge": "^2.1.1",
+    "pinia": "^2.1.4",
     "roboto-fontface": "*",
     "vue": "^3.3.8",
     "vue-router": "^4.0.3",
@@ -23,6 +23,7 @@
     "xmldom": "^0.6.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.23.3",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "~5.0.0",

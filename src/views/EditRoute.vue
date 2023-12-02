@@ -61,11 +61,13 @@
 <script setup>
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";
-import { ref, onMounted, reactive } from "vue";
-const file = ref(null);
+import { ref, onMounted, reactive, computed} from "vue";
+const file = ref(null); //gpx file
 const routeStore = useRouteStore();
 const { deleteRoute, addRoute, getRoutes } = storeToRefs(routeStore);
-let routes = reactive(routeStore.getRoutes);
+//route list
+let routes = computed(()=>routeStore.getRoutes);
+//data to be sent to backend to create new route
 let newRoute = ref();
 let routeName = ref("");
 let gpx = ref("");
@@ -74,16 +76,14 @@ let routeLength = ref(0);
 let terrain = ref("");
 let routeDesc = ref("");
 let elevation = ref(0)
+
 let deleteBtn = (id) => {
-  routes = routes.filter((r) => {
-    //update route list
-    return r.id !== +id;
-  });
   routeStore.deleteRoute(id);
 };
 let submit = async () => {
   try {
     handleFile();
+    //create route and send it to the backend
     let routeToAdd = {
       route: newRoute.value,
       name: routeName.value,
@@ -103,14 +103,18 @@ let handleFile = (e) => {
   if (file) {
     const reader = new FileReader();
     reader.onload = async (e) => {
-      const tj = require("@tmcw/togeojson");
+      const tj = require("@tmcw/togeojson"); //gpx to json converter
       const fileContent = file.value.files[0];
+      //gpx text -> base64 to be stored in db
       const blob = new Blob([fileContent], { type: "text/plain" });
       const text = await blob.text();
       gpx.value = btoa(text);
+      //make the text into a gpx file and parse it into a json object
       const gpxFile = new DOMParser().parseFromString(text, "text/xml");
       const converted = tj.gpx(gpxFile);
-      newRoute.value = converted;
+      newRoute.value = converted; 
+
+
       const coords = converted.features[0].geometry.coordinates;
       //max locations per request is 512
       let countBy = Math.ceil(coords.length / 512);
@@ -123,8 +127,6 @@ let handleFile = (e) => {
         };
         count++;
       }
-      count = 0;
-      countBy = Math.ceil(coords.length / 10);
       //get elevation at coord points from backend
       let eresponse = await fetch(`http://localhost:3000/v1/geo/e`, {
         method: "POST",
@@ -154,17 +156,18 @@ let handleFile = (e) => {
       let lat2 = 0;
       let long2 = 0;
       for (let i = 0; i < coords.length - 1; i++) {
-        const d2ra = (angle) => (angle * Math.PI) / 180;
+        
+        const d2ra = (angle) => (angle * Math.PI) / 180; //degrees to radians
         lat1 = d2ra(coords[i][1]);
         long1 = d2ra(coords[i][0]);
         lat2 = d2ra(coords[i + 1][1]);
         long2 = d2ra(coords[i + 1][0]);
         //use haversine formula to calculate distance between the two points
-        const dLat = lat2 - lat1;
-        const dLong = long2 - long1;
+        const diffLat = lat2 - lat1;//distance between each point
+        const diffLong = long2 - long1;
         const a =
-          Math.sin(dLat / 2) ** 2 +
-          Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLong / 2) ** 2;
+          Math.sin(diffLat / 2) ** 2 +
+          Math.cos(lat1) * Math.cos(lat2) * Math.sin(diffLong / 2) ** 2;
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         const radius = 6371000; //earths radius
         const distance = radius * c;
@@ -173,7 +176,7 @@ let handleFile = (e) => {
 
       routeLength.value =
         Math.round((totalDistance / 1000) * 0.621371 * 10) / 10; //meters to miles, rounded to 1 decimal
-        console.log(routeLength.value)
+      console.log(routeLength.value)
     };
     reader.readAsText(file.value.files[0]);
   }
