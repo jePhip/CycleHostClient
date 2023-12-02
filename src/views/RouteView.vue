@@ -21,6 +21,8 @@
       </div>
     </div>
 
+    <br>  
+
     <div class="desc">
         <RouteDetail :route="route" />
     </div>
@@ -56,7 +58,6 @@ const { getRoutebyID } = storeToRefs(routeStore)
     let route = computed(()=>routeStore.getRoutebyID(routing.params.id));
 
 
-
 </script>
 
 <style>
@@ -87,5 +88,33 @@ const { getRoutebyID } = storeToRefs(routeStore)
 { 
   display: flex;
   flex-direction: row;
+}
+
+.desc
+{ 
+  width: 100%;
+  padding: 10px;
+}
+
+@media (max-width: 1000px)
+{ 
+  .mapContainer
+  { 
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .table
+  { 
+    width: 100%;
+    margin: auto;
+  }
+
+  .map
+  { 
+    width: 100%;
+    margin: auto;
+  }
+
 }
 </style>
