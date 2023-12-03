@@ -5,7 +5,7 @@
     <v-container class="general-info"> 
       <h1>Welcome to the Bolivar Cycling Site!</h1>
       <p>
-        This page was created in an effort to give citizens of Bolivar and surrounding areas information about cycling routes. Did you know that Bolivar falls in the Osage Plains region? This is a great region for experienced cyclists and beginners alike to find cycling routes and explore the surrounding areas. 
+        This page was created in an effort to give citizens of Bolivar and surrounding areas information about cycling routes. Although Bolivar is not inside of the Osage Plains, it is very close by! This is a great region for experienced cyclists and beginners alike to find cycling routes and explore the surrounding areas. 
       </p>
     </v-container>
 

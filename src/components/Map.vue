@@ -50,9 +50,9 @@
         markerLatLng: [37.5997592, -93.4091279], //unused
         routes: null,
 
-        mapOptions: {
-        scrollWheelZoom: false
-        }  
+          mapOptions: {
+          scrollWheelZoom: false
+          }  
 
         
       };
