@@ -193,6 +193,7 @@ let handleFile = (e) => {
   display: flex;
   align-items: center;
   flex-direction: column;
+  
 }
 
 .add-route-container .routeForm, .routeList{
@@ -256,7 +257,7 @@ button.button {
   { 
     width: 100%;
     margin: 0 0 0 0;
-    padding: 0px;
+    padding-bottom: 20px;
   }
 
   
