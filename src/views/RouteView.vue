@@ -39,6 +39,7 @@
 import "leaflet/dist/leaflet.css";
 import RouteTable from "@/components/RouteViewTable.vue";
 import RouteDetail from "@/components/RouteDetail.vue";
+import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";
 import { ref, onMounted, reactive, computed } from "vue";
