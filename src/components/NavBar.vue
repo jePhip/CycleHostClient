@@ -51,7 +51,6 @@ export default {
         { text: "Home", route: "/" },
         { text: "About", route: "/about" },
         {text: "Admin Login", route: "/login"},
-        { text: "Edit Routes", route: "/edit" },
       ],
     };
   },
