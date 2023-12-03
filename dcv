@@ -1,0 +1,328 @@
+[1mdiff --git a/src/views/AddRoute.vue b/src/views/AddRoute.vue[m
+[1mdeleted file mode 100644[m
+[1mindex a74979c..0000000[m
+[1m--- a/src/views/AddRoute.vue[m
+[1m+++ /dev/null[m
+[36m@@ -1,259 +0,0 @@[m
+[31m-<template>[m
+[31m-  <div class="add-route-container">[m
+[31m-    <v-form class="routeForm" @submit.prevent="handleSubmit" ref="form">[m
+[31m-      <v-container class="input">[m
+[31m-        <v-text-field[m
+[31m-          label="Route Name"[m
+[31m-          prepend-icon="mdi-bike"[m
+[31m-          class="routeName"[m
+[31m-          type="text"[m
+[31m-          variant="outlined"[m
+[31m-          name="routeName"[m
+[31m-          v-model="routeName"[m
+[31m-          required[m
+[31m-        ></v-text-field>[m
+[31m-        <v-text-field[m
+[31m-          label="Route Length (miles)"[m
+[31m-          prepend-icon="mdi-road"[m
+[31m-          class="routeLength"[m
+[31m-          type="number"[m
+[31m-          variant="outlined"[m
+[31m-          name="routeLength"[m
+[31m-          v-model="routeLength"[m
+[31m-          required[m
+[31m-        ></v-text-field>[m
+[31m-        <v-container class="filter">[m
+[31m-          <v-select[m
+[31m-            label="Select Terrain:"[m
+[31m-            v-model="terrain"[m
+[31m-            :items="['Paved', 'Gravel', 'Dirt']"[m
+[31m-          >[m
+[31m-          </v-select>[m
+[31m-          <v-select[m
+[31m-            label="Select Difficulty: "[m
+[31m-            v-model="difficulty"[m
+[31m-            :items="['Beginner', 'Intermediate', 'Expert']"[m
+[31m-          >[m
+[31m-          </v-select>[m
+[31m-        </v-container>[m
+[31m-        <v-textarea[m
+[31m-          label="Route Description"[m
+[31m-          prepend-icon="mdi-pencil"[m
+[31m-          class="routeDesc"[m
+[31m-          type="text"[m
+[31m-          variant="outlined"[m
+[31m-          name="routeDesc"[m
+[31m-          v-model="routeDesc"[m
+[31m-          required[m
+[31m-        ></v-textarea>[m
+[31m-        <v-file-input[m
+[31m-          label="Upload .gpx File"[m
+[31m-          variant="outlined"[m
+[31m-          type="file"[m
+[31m-          ref="file"[m
+[31m-          @change="handleFile(file)"[m
+[31m-          required[m
+[31m-        ></v-file-input>[m
+[31m-        <v-btn @click="submit">submit</v-btn>[m
+[31m-      </v-container>[m
+[31m-    </v-form>[m
+[31m-[m
+[31m-    <h1>{{routeStore}}</h1>[m
+[31m-    <button></button>[m
+[31m-    <v-container class="routeList">[m
+[31m-      <h2>Routes:</h2>[m
+[31m-      <v-container class="route" :key="r.name" v-for="r in routes">[m
+[31m-        <p>{{ r.name }} ID: {{ r.id }}</p>[m
+[31m-        <v-btn @click="deleteRoute(r.id)">DELETE</v-btn>[m
+[31m-      </v-container>[m
+[31m-    </v-container>[m
+[31m-  </div>[m
+[31m-</template>[m
+[31m-[m
+[31m-<script>[m
+[31m-import { useRouteStore } from "@/store/index.js"; //[m
+[31m-import { storeToRefs } from "pinia";[m
+[31m-import { ref, onMounted } from "vue";[m
+[31m-export default {[m
+[31m-  async setup() {[m
+[31m-    const routeStore = useRouteStore();[m
+[31m-    await routeStore.getRoutesInit(); //puts route list into store//[m
+[31m-    const { routes } = storeToRefs(routeStore);[m
+[31m-[m
+[31m-    return { routeStore };[m
+[31m-  },[m
+[31m-  async mounted() {[m
+[31m-    await this.fetchRoutes();[m
+[31m-  },[m
+[31m-  data() {[m
+[31m-    return {[m
+[31m-      //[m
+[31m-      newRoute: null,[m
+[31m-      routeLength: null,[m
+[31m-      routeName: "",[m
+[31m-      gpx: "",[m
+[31m-      difficulty: "",[m
+[31m-      terrain: "",[m
+[31m-      routeDesc: "",[m
+[31m-      //[m
+[31m-      routes: null,[m
+[31m-    };[m
+[31m-  },[m
+[31m-  methods: {[m
+[31m-    async deleteRoute(id) {[m
+[31m-      // DELETE request using fetch with async/await[m
+[31m-      let response = await fetch(`http://localhost:3000/v1/geo/${id}`, {[m
+[31m-        method: "DELETE",[m
+[31m-      });[m
+[31m-      response = await response.json();[m
+[31m-      //take deleted route out of route list[m
+[31m-      this.routes = this.routes.filter((r) => {[m
+[31m-        //update route list[m
+[31m-        return r.id !== Number(response.id);[m
+[31m-      });[m
+[31m-    },[m
+[31m-    async fetchRoutes() {[m
+[31m-      //to display[m
+[31m-      try {[m
+[31m-        let response = await fetch("http://localhost:3000/v1/geo"); //eventually change to env variable[m
+[31m-        response = await response.json();[m
+[31m-        console.log(response);[m
+[31m-        this.routes = response.routes.map((r) => {[m
+[31m-          return {[m
+[31m-            ...r,[m
+[31m-            data: JSON.parse(r.route),[m
+[31m-          };[m
+[31m-        });[m
+[31m-      } catch (error) {[m
+[31m-        console.error(error);[m
+[31m-      }[m
+[31m-    },[m
+[31m-    handleFile(event) {[m
+[31m-      const selectedFile = this.$refs.file.files[0];[m
+[31m-      if (selectedFile) {[m
+[31m-        const reader = new FileReader();[m
+[31m-        const tj = require("@tmcw/togeojson");[m
+[31m-        reader.onload = async (e) => {[m
+[31m-          const fileContent = e.target.result;[m
+[31m-          // Create a new Blob with the file content[m
+[31m-          const blob = new Blob([fileContent], { type: "text/plain" });[m
+[31m-          let text = await blob.text();[m
+[31m-          this.gpx = btoa(text);[m
+[31m-          //this.gpx = blob //to be sent to db[m
+[31m-          const gpxFile = new DOMParser().parseFromString(text, "text/xml");[m
+[31m-          const converted = tj.gpx(gpxFile);[m
+[31m-          this.newRoute = converted; //<-- place converted json into data object[m
+[31m-          return converted;[m
+[31m-        };[m
+[31m-        reader.readAsText(selectedFile);[m
+[31m-      }[m
+[31m-    },[m
+[31m-    async submit() {[m
+[31m-      try {[m
+[31m-        const response = await this.postRoute([m
+[31m-          this.newRoute,[m
+[31m-          this.routeName,[m
+[31m-          this.gpx,[m
+[31m-          this.difficulty,[m
+[31m-          this.routeLength,[m
+[31m-          this.terrain,[m
+[31m-          this.routeDesc[m
+[31m-        );[m
+[31m-        if (response && response.message === "success!") {[m
+[31m-          //have backend return response object with code?[m
+[31m-          await this.fetchRoutes();[m
+[31m-        }[m
+[31m-      } catch (error) {[m
+[31m-        console.log("error", error);[m
+[31m-      }[m
+[31m-    },[m
+[31m-    async postRoute() {[m
+[31m-      let response = await fetch(`http://localhost:3000/v1/geo/`, {[m
+[31m-        method: "POST",[m
+[31m-        headers: {[m
+[31m-          "Content-Type": "application/json",[m
+[31m-        },[m
+[31m-        body: JSON.stringify({[m
+[31m-          // data you intend to send as JSON to the server[m
+[31m-          route: this.newRoute,[m
+[31m-          name: this.routeName,[m
+[31m-          gpx: this.gpx,[m
+[31m-          length: this.routeLength,[m
+[31m-          terrain: this.terrain,[m
+[31m-          difficulty: this.difficulty,[m
+[31m-          desc: this.routeDesc,[m
+[31m-        }),[m
+[31m-      });[m
+[31m-      response = await response.json();[m
+[31m-      return response;[m
+[31m-    },[m
+[31m-  },[m
+[31m-};[m
+[31m-</script>[m
+[31m-[m
+[31m-<style>[m
+[31m-.add-route-container {[m
+[31m-  display: flex;[m
+[31m-  align-items: center;[m
+[31m-  flex-direction: column;[m
+[31m-}[m
+[31m-[m
+[31m-.add-route-container .routeForm {[m
+[31m-  display: flex;[m
+[31m-  flex-direction: column;[m
+[31m-  text-align: left;[m
+[31m-  background: #eee;[m
+[31m-  margin: 0 0 10px 0;[m
+[31m-  width: 50%;[m
+[31m-  color: #083a8c;[m
+[31m-}[m
+[31m-[m
+[31m-.add-route-container .routeForm .input label {[m
+[31m-  text-align: left;[m
+[31m-  margin-right: 10px;[m
+[31m-}[m
+[31m-[m
+[31m-.add-route-container .routeList {[m
+[31m-  text-align: center;[m
+[31m-  background: white;[m
+[31m-  width: 50%;[m
+[31m-}[m
+[31m-[m
+[31m-.routeList h2 {[m
+[31m-  color: white;[m
+[31m-}[m
+[31m-[m
+[31m-.routeList .route {[m
+[31m-  background: #eee;[m
+[31m-}[m
+[31m-[m
+[31m-.input {[m
+[31m-  text-align: center;[m
+[31m-  padding: 20px;[m
+[31m-  width: 50%;[m
+[31m-}[m
+[31m-[m
+[31m-button.button {[m
+[31m-  width: 100px;[m
+[31m-  background: lightgray;[m
+[31m-}[m
+[31m-[m
+[31m-.routeList {[m
+[31m-  font-family: roboto;[m
+[31m-  display: flex;[m
+[31m-  flex-direction: column;[m
+[31m-}[m
+[31m-[m
+[31m-@media (max-width: 600px) {[m
+[31m-  .input {[m
+[31m-    width: 100%;[m
+[31m-    padding: 0px;[m
+[31m-    maring: 0 0 0 0;[m
+[31m-  }[m
+[31m-[m
+[31m-  .routeForm {[m
+[31m-    width: 100%;[m
+[31m-    margin: 0 0 0 0;[m
+[31m-  }[m
+[31m-}[m
+[31m-</style>[m
+[1mdiff --git a/src/views/EditRoute.vue b/src/views/EditRoute.vue[m
+[1mindex 2e1299d..5fca4d9 100644[m
+[1m--- a/src/views/EditRoute.vue[m
+[1m+++ b/src/views/EditRoute.vue[m
+[36m@@ -73,7 +73,7 @@[m
+ </template>[m
+ [m
+ <script setup>[m
+[31m-import { useRouteStore } from "@/store/index.js";[m
+[32m+[m[32mimport { useRouteStore, } from "@/store/index.js";[m[41m[m
+ import { storeToRefs } from "pinia";[m
+ import { ref, onMounted, reactive, } from "vue";[m
+ const file = reactive(null);[m
+[36m@@ -104,22 +104,22 @@[m [mlet submit = async (routeToAdd) => {[m
+ };[m
+ let handleFile = (e) => {[m
+   console.log(file, 'file value')[m
+[31m-  if (file.value) {[m
+[31m-    // const reader = new FileReader();[m
+[31m-    // const gpx = reactive('');[m
+[31m-    // const newRoute = reactive('');[m
+[32m+[m[32m  if (file) {[m[41m[m
+[32m+[m[32m     const reader = new FileReader();[m[41m[m
+[32m+[m[32m     const gpx = reactive('');[m[41m[m
+[32m+[m[32m     const newRoute = reactive('');[m[41m[m
+ [m
+[31m-    // reader.onload = async (e) => {[m
+[31m-    //   const fileContent = file.value[m
+[31m-    //   console.log(file)[m
+[31m-    //   const blob = new Blob([fileContent], { type: "text/plain" });[m
+[31m-    //   const text = await blob.text();[m
+[31m-    //   gpx.value = btoa(text);[m
+[31m-    //   const gpxFile = new DOMParser().parseFromString(text, "text/xml");[m
+[31m-    //   const converted = tj.gpx(gpxFile);[m
+[31m-    //   newRoute.value = converted;[m
+[31m-    // };[m
+[31m-    // reader.readAsText(file.value);[m
+[32m+[m[32m     reader.onload = async (e) => {[m[41m[m
+[32m+[m[32m      const fileContent = file.value[m[41m[m
+[32m+[m[32m       console.log(file)[m[41m[m
+[32m+[m[32m      const blob = new Blob([fileContent], { type: "text/plain" });[m[41m[m
+[32m+[m[32m      const text = await blob.text();[m[41m[m
+[32m+[m[32m       gpx.value = btoa(text);[m[41m[m
+[32m+[m[32m       const gpxFile = new DOMParser().parseFromString(text, "text/xml");[m[41m[m
+[32m+[m[32m       const converted = tj.gpx(gpxFile);[m[41m[m
+[32m+[m[32m       newRoute.value = converted;[m[41m[m
+[32m+[m[32m     };[m[41m[m
+[32m+[m[32m     reader.readAsText(file.value);[m[41m[m
+   }[m
+ };[m
+ </script>[m
+[1mdiff --git a/src/views/RouteView.vue b/src/views/RouteView.vue[m
+[1mindex d020a73..e37a74e 100644[m
+[1m--- a/src/views/RouteView.vue[m
+[1m+++ b/src/views/RouteView.vue[m
+[36m@@ -36,7 +36,6 @@[m [mimport RouteDetail from "@/components/RouteDetail.vue";[m
+ import {useRouteStore} from '@/store/index.js'[m
+ import { storeToRefs } from 'pinia'[m
+ import { ref, onMounted, reactive, computed } from 'vue'[m
+[31m-import { router } from "@/router/index.js"[m
+ import { useRoute } from 'vue-router'[m
+ const routeStore = useRouteStore()[m
+ const routing = useRoute()[m

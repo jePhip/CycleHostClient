@@ -32,21 +32,17 @@
 import "leaflet/dist/leaflet.css";
 import RouteTable from "@/components/RouteViewTable.vue";
 import RouteDetail from "@/components/RouteDetail.vue";
-import {useRouteStore} from '@/store/index.js'
-import { storeToRefs } from 'pinia'
-import { ref, onMounted, reactive, computed } from 'vue'
-import { useRoute } from 'vue-router'
-const routeStore = useRouteStore()
-const routing = useRoute()
-const { getRoutebyID } = storeToRefs(routeStore)
+import { useRouteStore } from "@/store/index.js";
+import { storeToRefs } from "pinia";
+import { ref, onMounted, reactive, computed } from "vue";
+import { useRoute } from "vue-router";
+const routeStore = useRouteStore();
+const routing = useRoute();
+const { getRoutebyID } = storeToRefs(routeStore);
 
-    const active = reactive(null)
-    const zoom = ref(12)
-    
-    let route = computed(()=>routeStore.getRoutebyID(routing.params.id));
-
-
-
+const active = reactive(null);
+const zoom = ref(12);
+let route = computed(() => routeStore.getRoutebyID(routing.params.id));
 </script>
 
 <style>
