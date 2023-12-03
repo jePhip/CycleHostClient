@@ -1,85 +1,74 @@
 
-<template> 
-   <div>   
-             
-        <!-- login form for admin-->
-        <div class="centered-container">
-            <h2>Admin Login</h2>    
-            <v-sheet class="login-sheet">  
-               
-                    <br>  
-                    <v-form v-model="form" ref="form" class="login-form">             
-                        <!-- text field to get username from admin -->
-                        <v-text-field class="user-input" label="Username" v-model="title"  :rules="inputRules" type="input"></v-text-field>
-                        <!-- text field to get password from admin-->
-                        <v-text-field class="user-input" label="Password" type="input" v-model="content" hint="Enter your password to access routes"></v-text-field>
-                        <!-- button to submit the form and complete login-->
-                        <br>
-                        <v-btn flat color="#083a8c" class="submit-button" @click="submit" type="submit">Sign In</v-btn>
-                    </v-form>
-                  
-            </v-sheet>           
-        </div>    
-    </div>   
-</template>
+<template>
+    <div id="Login">
+      <h1>Login Form</h1>
+      <form @submit.prevent="login">
+        <label for="username">Username:</label>
+        <input v-model="preusername" type="text" id="username" required>
+  
+        <label for="password">Password:</label>
+        <input v-model="prepassword" type="password" id="password" required>
+  
+        <button type="submit">Login</button>
+      </form>
+      <p v-if="error" style="color: red;">{{ error }}</p>
+      <p v-if="message" style="color: green;">{{ message }}</p>
+    </div>
+  </template>
 
 <script> 
 export default{
-data() {
-    return{
-        title: '',
-        content: '',
-        inputRules: [
-            v => v.length >= 3 || ''
-        ]
-    }
-},
-methods: {
-    submit() {
-        if (this.$refs.form.validate()){
-        console.log(this.title, this.content)
+    data(){
+        return{
+            validate: false,
+            error: '',
+            message: '',
+            username: '',
+            password: '',
+            preusername: 'bob', 
+            prepassword: 'dylan',
+        };
+    },
+
+    methods: {
+        async login(){
+            this.error = '';
+            this.message = '';
+
+            await fetch('http://localhost:3000/v1/user/'+this.preusername,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: JSON.stringify({
+                    username: this.preusername,
+                    password: this.prepassword,
+                }),
+            })
+            
+            .then(response=>response.json())
+            .then(data =>{
+                this.message=data.message;
+            })
+            .catch(error=> {
+                this.error = 'Invalid username or password';
+                console.error('Login failed', error);
+            });
+        
+        },
+        validation(){
+        if(this.preusername == this.username && this.prepassword == this.password){
+            validate = true;
+            
         }
     }
-},
+    
+    },
 }
 </script>
 
 <style> 
-
-.centered-container
-{ 
-    margin: auto;
-    width: 50%;
-    text-align: center;
-    height: 100vh; 
-    
-}
-
-.user-input
-{ 
-    width: 50%;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-}
-
-.login-form
-{ 
-    padding: 10px;
-    
-}
-
-@media (max-width: 600px)
-  { 
-    .user-input
-    { 
-        width: 100%;
-    } 
-  }
-
-
-
-
 
 
 

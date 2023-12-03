@@ -183,36 +183,40 @@ let handleFile = (e) => {
 };
 </script>
 <style>
+
+
+.routeForm .routeList
+{ 
+  width: 50%;
+}
 .add-route-container {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-.add-route-container .routeForm {
+.add-route-container .routeForm, .routeList{
   display: flex;
   flex-direction: column;
-  text-align: left;
+  text-align: center;
   background: #eee;
-  margin: 0 0 10px 0;
-  width: 50%;
+  margin: 0 0 10px 0; 
+  width: 50%; 
   color: #083a8c;
 }
 
-.add-route-container .routeForm .input label {
-  text-align: left;
+.add-route-container .routeList .routeForm .input label {
+  text-align: left;  
   margin-right: 10px;
 }
 
-.add-route-container .routeList {
+.add-route-container .routeList .routeForm  {
   text-align: center;
   background: white;
   width: 50%;
 }
 
-.routeList h2 {
-  color: white;
-}
+
 
 .routeList .route {
   background: #eee;
@@ -236,15 +240,25 @@ button.button {
 }
 
 @media (max-width: 600px) {
-  .input {
+  .input  {
     width: 100%;
     padding: 0px;
-    maring: 0 0 0 0;
+    margin: 0 0 0 0;
   }
 
   .routeForm {
     width: 100%;
     margin: 0 0 0 0;
+    padding: 0px;
   }
+
+  .add-route-container
+  { 
+    width: 100%;
+    margin: 0 0 0 0;
+    padding: 0px;
+  }
+
+  
 }
 </style>

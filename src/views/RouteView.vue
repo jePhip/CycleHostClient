@@ -1,12 +1,11 @@
 <template>
+  <div>
   <div class="single-route" v-if="route">
     <div class="mapContainer">
       <div class="table">
         <RouteTable :route="route" />
       </div>
-      <div class="desc">
-        <RouteDetail :route="route" />
-      </div>
+      
 
       <div class="map" v-if="route.route">
         <div style="height: 400px; width: 500px">
@@ -21,11 +20,19 @@
         </div>
       </div>
     </div>
+
+    <br>  
+
+    <div class="desc">
+        <RouteDetail :route="route" />
+    </div>
+
   </div>
   <div class="noRoute" v-if="!route">
     <h1>404: No route found!</h1>
     <a class="noRoutea" href="/">Back to Home</a>
   </div>
+</div>
 </template>
 
 <script setup>
@@ -66,5 +73,40 @@ let route = computed(() => routeStore.getRoutebyID(routing.params.id));
 
 .table {
   width: 50%;
+  
+}
+
+.mapContainer
+{ 
+  display: flex;
+  flex-direction: row;
+}
+
+.desc
+{ 
+  width: 100%;
+  padding: 10px;
+}
+
+@media (max-width: 1000px)
+{ 
+  .mapContainer
+  { 
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .table
+  { 
+    width: 100%;
+    margin: auto;
+  }
+
+  .map
+  { 
+    width: 100%;
+    margin: auto;
+  }
+
 }
 </style>
