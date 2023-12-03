@@ -47,8 +47,6 @@ import { useRoute } from "vue-router";
 const routeStore = useRouteStore();
 const routing = useRoute();
 const { getRoutebyID } = storeToRefs(routeStore);
-
-const active = reactive(null);
 const zoom = ref(12);
 let route = computed(() => routeStore.getRoutebyID(routing.params.id));
 </script>
