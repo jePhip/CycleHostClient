@@ -102,9 +102,7 @@ let submit = async (event) => {
   const check = (await event).valid;
   if (check) {
     try {
-      console.log(file.value.files[0], "in try");
-      let f = await handleFile();
-      console.log(f);
+      await handleFile();
       //create route and send it to the backend
       let routeToAdd = {
         route: newRoute.value,
@@ -173,7 +171,6 @@ let handleFile = () => {
             }
           }
           egain = Math.round(egain * 3.28084 * 10) / 10; //meters to feet, rounded to 1 decimal
-          console.log(egain, "egain");
           elevation.value = egain;
           //route length/distance
           let totalDistance = 0;
@@ -201,10 +198,8 @@ let handleFile = () => {
 
           routeLength.value =
             Math.round((totalDistance / 1000) * 0.621371 * 10) / 10; //meters to miles, rounded to 1 decimal
-          console.log(routeLength.value);
           let f = (response) => {
             // request succeeded
-            console.log("resolving");
             resolve(response);
           };
           f();
