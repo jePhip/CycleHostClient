@@ -103,7 +103,8 @@ let submit = async (event) => {
   if (check) {
     try {
       console.log(file.value.files[0], "in try");
-      await handleFile();
+      let f = await handleFile();
+      console.log(f);
       //create route and send it to the backend
       let routeToAdd = {
         route: newRoute.value,
@@ -115,6 +116,7 @@ let submit = async (event) => {
         desc: routeDesc.value,
         elevation: elevation.value,
       };
+      
       routeStore.addRoute(routeToAdd);
     } catch (error) {
       console.log("error", error);
@@ -122,8 +124,8 @@ let submit = async (event) => {
   }
 };
 let handleFile = () => {
-  return new Promise(
-    (resolve, reject) => {
+  return new Promise((resolve, reject) => {
+    try {
       if (file) {
         const reader = new FileReader();
         reader.onload = async () => {
@@ -200,15 +202,19 @@ let handleFile = () => {
           routeLength.value =
             Math.round((totalDistance / 1000) * 0.621371 * 10) / 10; //meters to miles, rounded to 1 decimal
           console.log(routeLength.value);
+          let f = (response) => {
+            // request succeeded
+            console.log("resolving");
+            resolve(response);
+          };
+          f();
         };
         reader.readAsText(file.value.files[0]);
-        resolve(response);
       }
-    },
-    (error) => {
-      reject(error);
+    } catch (e) {
+      reject(e);
     }
-  );
+  });
 };
 </script>
 <style>

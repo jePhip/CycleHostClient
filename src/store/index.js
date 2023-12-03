@@ -33,6 +33,7 @@ export const useRouteStore = defineStore("routeStore", {
     async addRoute(routeToAdd) {
       //tested
       this.routes.push(routeToAdd);
+      
       let response = await fetch(`http://localhost:3000/v1/geo/`, {
         method: "POST",
         headers: {
@@ -41,7 +42,7 @@ export const useRouteStore = defineStore("routeStore", {
         body: JSON.stringify(routeToAdd),
       });
       response = await response.json();
-      console.log(this.routes)
+      this.getRoutesInit()
       return response;
     },
     async deleteRoute(id) {
