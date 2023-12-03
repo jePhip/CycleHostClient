@@ -15,13 +15,18 @@ import Footer from "@/components/Footer.vue";
 import NavBar from "@/components/NavBar.vue";
 import { useRouteStore } from "@/store/index.js"; //
 import { storeToRefs } from "pinia";
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 const routeStore = useRouteStore();
 onMounted(async () => {
-
   await routeStore.getRoutesInit(); //puts route list into store//
   const { routes } = storeToRefs(routeStore);
- 
-  return {routeStore}
+
+  return { routeStore };
 });
 </script>
+
+<style>
+.v-main {
+  padding-bottom: 70px;
+}
+</style>
