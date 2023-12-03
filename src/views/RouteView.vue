@@ -37,7 +37,6 @@
 
 <script setup>
 import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import RouteTable from "@/components/RouteViewTable.vue";
 import RouteDetail from "@/components/RouteDetail.vue";
 import {useRouteStore} from '@/store/index.js'
@@ -48,10 +47,6 @@ const routeStore = useRouteStore()
 const routing = useRoute()
 const { getRoutebyID } = storeToRefs(routeStore)
 
-   onMounted(() => {
-    // route = routeStore.getRoutebyID.value(routing.params.id)
-    // console.log(routeStore.getRoutebyID.value(routing.params.id))
-   })
     const active = reactive(null)
     const zoom = ref(12)
     
