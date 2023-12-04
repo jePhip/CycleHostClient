@@ -170,7 +170,7 @@ let handleFile = () => {
               egain += diff;
             }
           }
-          egain -= elevArr[0]
+          egain -= elevArr[0]//to ensure startng elevation is not logged as gain
           egain = Math.round(egain * 3.28084 * 10) / 10; //meters to feet, rounded to 1 decimal
           elevation.value = egain;
           //route length/distance
