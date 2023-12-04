@@ -29,7 +29,7 @@
 
   </div>
   <div class="noRoute" v-if="!route">
-    <h1>404: No route found!</h1>
+    <h1>Loading...</h1>
     <a class="noRoutea" href="/">Back to Home</a>
   </div>
 </div>

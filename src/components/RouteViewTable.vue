@@ -1,6 +1,5 @@
 <template>
   <v-table>
-   
     <tbody class="table">
       <tr>
         <th class="text-left">Name</th>
@@ -26,31 +25,23 @@
         <th class="text-left">Try it out!</th>
         <td>
           <v-btn
-            class="downloadBtn"
+            class="gpxBtn"
             icon="mdi-download"
             @click="downloadGPX(route.gpx, route.name)"
           />
         </td>
       </tr>
     </tbody>
-
-    
   </v-table>
 </template>
 
 <script>
 // style sheet
-import '@/css/route-view-table.css';
+import "@/css/route-view-table.css";
 
 export default {
-  props:{
-        route: null
-    },
-  data() {
-    return {
-      
-      routes: null,
-    };
+  props: {
+    route: null, //route inputed by parent component
   },
   methods: {
     async downloadGPX(file, routeName) {
@@ -75,6 +66,4 @@ export default {
     },
   },
 };
-
 </script>
-
