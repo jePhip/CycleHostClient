@@ -94,7 +94,7 @@ let downloadGPX = async (file, routeName) => {
 
   let filename = routeName + ".gpx";
 
-  //download to users machine
+  //download to users machine by creating html anchor element and clicking it
   let pom = document.createElement("a");
   let bb = new Blob([gpxtext], { type: "text/plain" });
 
