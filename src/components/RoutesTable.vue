@@ -101,7 +101,7 @@ let downloadGPX = async (file, routeName) => {
   pom.setAttribute("href", window.URL.createObjectURL(bb));
   pom.setAttribute("download", filename);
 
-  pom.dataset.downloadurl = ["text/plain", pom.download, pom.href].join(":");
+  pom.dataset.downloadurl = ["application/gpx+xml", pom.download, pom.href].join(":");
   pom.draggable = true;
   pom.classList.add("dragout");
 
