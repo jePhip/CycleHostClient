@@ -86,6 +86,7 @@ const { getRoutes } = storeToRefs(routeStore);
 let routes = computed(() => routeStore.getRoutes);
 
 
+
 let downloadGPX = async (file, routeName) => {
   //convert from base64 to plain text
   file = atob(file);
@@ -94,9 +95,9 @@ let downloadGPX = async (file, routeName) => {
 
   let filename = routeName + ".gpx";
 
-  //download to users machine by creating html anchor element and clicking it
+  //download to users machine
   let pom = document.createElement("a");
-  let bb = new Blob([gpxtext], { type: "text/plain" });
+  let bb = new Blob([gpxtext], { type: "application/gpx+xml" });
 
   pom.setAttribute("href", window.URL.createObjectURL(bb));
   pom.setAttribute("download", filename);

@@ -39,7 +39,7 @@
 // style sheet
 import "@/css/route-view-table.css";
 
-export default {
+export default {//
   props: {
     route: null, //route inputed by parent component
   },
