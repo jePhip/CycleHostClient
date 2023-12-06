@@ -14,7 +14,7 @@
         <td>{{ route?.terrain }}</td>
       </tr>
       <tr>
-        <th class="text-left">Elevation</th>
+        <th class="text-left">Elevation Gain</th>
         <td>{{ route?.elevation }} feet</td>
       </tr>
       <tr>
