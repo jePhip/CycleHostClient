@@ -28,13 +28,6 @@
     props: {
       route: null, //route inputed by parent component
     },
-    async mounted() {
-      //console.log("mounted")
-      console.log(this.$refs.map, "map ref")
-      console.log(this.route)
-      //this.$refs.map.fitBounds(route.route.getBounds)
-      //console.log(this.routes)
-    },
   
     components: {
       LMap,
@@ -44,7 +37,7 @@
     },
     data() {
       return {
-        zoom: 12, //map zoom
+        zoom: 11, //map zoom
         markerLatLng: [37.5997592, -93.4091279], //unused
         routes: null,
   
@@ -60,7 +53,6 @@
     methods: {
       red(){
         this.geo = this.$refs.geo.leafletObject;
-        console.log("Bounds:", this.geo.getBounds());
         this.$refs.map.leafletObject.fitBounds(this.geo.getBounds())
       }
     },
