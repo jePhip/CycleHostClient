@@ -5,7 +5,6 @@
         <l-map
           ref="map"
           v-model:zoom="zoom"
-          :center="[37.5997592, -93.4091279]"
           :options="mapOptions"
         >
           <l-tile-layer
@@ -14,7 +13,7 @@
             name="OpenStreetMap"
           ></l-tile-layer>
           <div v-if="route">
-            <l-geo-json :geojson="route.route"></l-geo-json>
+            <l-geo-json ref="geo" @ready="red" :geojson="route.route"></l-geo-json>
           </div>
         </l-map>
       </div>
@@ -27,7 +26,7 @@
 import "@/css/map.css";
 
 import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
+import { LMap, LTileLayer, LMarker, LGeoJson, } from "@vue-leaflet/vue-leaflet";
 
 export default {
   props: {
@@ -35,7 +34,9 @@ export default {
   },
   async mounted() {
     //console.log("mounted")
-    console.log(this.$refs.map)
+    console.log(this.$refs.map, "map ref")
+    console.log(this.route)
+    //this.$refs.map.fitBounds(route.route.getBounds)
     //console.log(this.routes)
   },
 
@@ -61,20 +62,11 @@ export default {
         method named createRoute called by btn*/
 
   methods: {
-    async fetchRoutes() {
-      try {
-        let response = await fetch("http://localhost:3000/v1/geo"); //eventually change to env variable
-        response = await response.json();
-        this.routes = response.routes.map((r) => {
-          return {
-            ...r,
-            data: JSON.parse(r.route),
-          };
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    red(){
+      this.geo = this.$refs.geo.leafletObject;
+      console.log("Bounds:", this.geo.getBounds());
+      this.$refs.map.leafletObject.fitBounds(this.geo.getBounds())
+    }
   },
 };
 </script>

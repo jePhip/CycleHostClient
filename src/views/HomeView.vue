@@ -1,4 +1,5 @@
 <template>
+  <CardMap />
   <Map />
   <RoutesTable />
   <br>
@@ -15,7 +16,8 @@ export default defineComponent({
 
   components: {
     Map,
-    RoutesTable
+    RoutesTable,
+    
   },
 });
 </script>
