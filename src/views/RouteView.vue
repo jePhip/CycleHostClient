@@ -7,17 +7,8 @@
       </div>
       
 
-      <div class="map" v-if="route.route">
-        <div style="height: 400px; width: 500px">
-          <l-map ref="map" zoom="9" :center="[37.5997592, -93.4091279]">
-            <l-tile-layer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              layer-type="base"
-              name="OpenStreetMap"
-            ></l-tile-layer>
-            <l-geo-json :geojson="route.route"></l-geo-json>
-          </l-map>
-        </div>
+      <div>
+        <RouteViewMap :route="route" />
       </div>
     </div>
 
@@ -39,6 +30,7 @@
 import "leaflet/dist/leaflet.css";
 import RouteTable from "@/components/RouteViewTable.vue";
 import RouteDetail from "@/components/RouteDetail.vue";
+import RouteViewMap from "@/components/RouteViewMap.vue"
 import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";

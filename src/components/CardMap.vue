@@ -32,14 +32,6 @@ export default {
   props: {
     route: null, //route inputed by parent component
   },
-  async mounted() {
-    //console.log("mounted")
-    console.log(this.$refs.map, "map ref")
-    console.log(this.route)
-    //this.$refs.map.fitBounds(route.route.getBounds)
-    //console.log(this.routes)
-  },
-
   components: {
     LMap,
     LTileLayer,
