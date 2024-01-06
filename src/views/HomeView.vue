@@ -1,5 +1,4 @@
 <template>
-  <RouteCard  :route="Frisco" />
   <Map />
   <RoutesTable />
   <br>

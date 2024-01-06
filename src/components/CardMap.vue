@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="route" fluid class="mapContainer">
+  <v-container fluid class="mapContainer">
     <div class="map">
       <div style="height: 600px; width: auto">
         <l-map
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      zoom: 11, //map zoom
+      zoom: 12, //map zoom
       markerLatLng: [37.5997592, -93.4091279], //unused
       routes: null,
 
@@ -56,6 +56,7 @@ export default {
   methods: {
     red(){
       this.geo = this.$refs.geo.leafletObject;
+      console.log("Bounds:", this.geo.getBounds());
       this.$refs.map.leafletObject.fitBounds(this.geo.getBounds())
     }
   },

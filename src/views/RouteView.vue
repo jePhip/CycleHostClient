@@ -1,6 +1,9 @@
 <template>
   <div>
   <div class="single-route" v-if="route">
+    <div>
+      <RouteCard  :route="route" />
+    </div>
     <div class="mapContainer">
       <div class="table">
         <RouteTable :route="route" />
@@ -28,6 +31,7 @@
 
 <script setup>
 import "leaflet/dist/leaflet.css";
+import RouteCard from '@/components/RouteCard.vue'
 import RouteTable from "@/components/RouteViewTable.vue";
 import RouteDetail from "@/components/RouteDetail.vue";
 import RouteViewMap from "@/components/RouteViewMap.vue"
