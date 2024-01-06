@@ -1,33 +1,33 @@
 <template>
   <Map />
+  <h1>start cards</h1>
+    <v-flex v-for="r in routes" :key="r" class="width-10px">
+      <RouteCard :route="r" />
+    </v-flex>
+  <h1>end cards</h1>
   <RoutesTable />
-  <br>
+  <br />
 </template>
 
-<script>
-import { defineComponent } from 'vue';
-
+<script setup>
+import { defineComponent } from "vue";
+import { useRouteStore } from "@/store/index.js";
+import { storeToRefs } from "pinia";
+import { ref, reactive, computed } from "vue";
 //Components
-import Map from '@/components/Map.vue'
-import RoutesTable from '@/components/RoutesTable.vue'
-import RouteCard from '@/components/RouteCard.vue'
-import Frisco from '@/data/Frisco.json'
-export default defineComponent({
-  mounted(){
-    console.log("routes", Frisco)
-  },
-  name: 'HomeView',
+import Map from "@/components/Map.vue";
+import RoutesTable from "@/components/RoutesTable.vue";
+import RouteCard from "@/components/RouteCard.vue";
+import Frisco from "@/data/Frisco.json";
 
-  components: {
-    Map,
-    RoutesTable,
-    RouteCard,
-  },
-});
+const routeStore = useRouteStore();
+const { getRoutes } = storeToRefs(routeStore);
+let routes = computed(() => routeStore.getRoutes);
 </script>
 
 <style>
 .RoutesTable {
-  scale: 80%
+  scale: 80%;
 }
+
 </style>

@@ -1,40 +1,38 @@
 <template>
   <div>
-  <div class="single-route" v-if="route">
-    <div>
-      <RouteCard  :route="route" />
-    </div>
-    <div class="mapContainer">
-      <div class="table">
-        <RouteTable :route="route" />
-      </div>
-      
-
+    <div class="single-route" v-if="route">
       <div>
-        <RouteViewMap :route="route" />
+        <RouteCard :route="route" />
+      </div>
+      <div class="mapContainer">
+        <div class="table">
+          <RouteTable :route="route" />
+        </div>
+
+        <div>
+          <RouteViewMap :route="route" />
+        </div>
+      </div>
+
+      <br />
+
+      <div class="desc">
+        <RouteDetail :route="route" />
       </div>
     </div>
-
-    <br>  
-
-    <div class="desc">
-        <RouteDetail :route="route" />
+    <div class="noRoute" v-if="!route">
+      <h1>Loading...</h1>
+      <a class="noRoutea" href="/">Back to Home</a>
     </div>
-
   </div>
-  <div class="noRoute" v-if="!route">
-    <h1>Loading...</h1>
-    <a class="noRoutea" href="/">Back to Home</a>
-  </div>
-</div>
 </template>
 
 <script setup>
 import "leaflet/dist/leaflet.css";
-import RouteCard from '@/components/RouteCard.vue'
+import RouteCard from "@/components/RouteCard.vue";
 import RouteTable from "@/components/RouteViewTable.vue";
 import RouteDetail from "@/components/RouteDetail.vue";
-import RouteViewMap from "@/components/RouteViewMap.vue"
+import RouteViewMap from "@/components/RouteViewMap.vue";
 import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";
@@ -68,40 +66,32 @@ let route = computed(() => routeStore.getRoutebyID(routing.params.id));
 
 .table {
   width: 50%;
-  
 }
 
-.mapContainer
-{ 
+.mapContainer {
   display: flex;
   flex-direction: row;
 }
 
-.desc
-{ 
+.desc {
   width: 100%;
   padding: 10px;
 }
 
-@media (max-width: 1000px)
-{ 
-  .mapContainer
-  { 
+@media (max-width: 1000px) {
+  .mapContainer {
     flex-direction: column;
     width: 100%;
   }
 
-  .table
-  { 
+  .table {
     width: 100%;
     margin: auto;
   }
 
-  .map
-  { 
+  .map {
     width: 100%;
     margin: auto;
   }
-
 }
 </style>

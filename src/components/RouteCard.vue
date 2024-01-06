@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto">
+  <v-card flat class="text-xs-center ma-3">
     <v-container>
       <v-card-title>{{ route.name }}</v-card-title>
       <CardMap :route="route" />
@@ -16,7 +16,6 @@
 <script>
 import CardMap from "@/components/CardMap.vue";
 export default {
-
   props: {
     route: null, //route inputed by parent component
     link: null,
