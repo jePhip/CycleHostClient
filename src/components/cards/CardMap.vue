@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="mapContainer">
     <div class="map">
-      <div style="height: 200px ; width: auto">
+      <div style="height: 200px ; width: 600px">
         <l-map
           ref="map"
           v-model:zoom="zoom"

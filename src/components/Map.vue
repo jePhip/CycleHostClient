@@ -15,7 +15,9 @@
           ></l-tile-layer>
           <div v-if="routes">
             <div :key="r.name" v-for="r in routes">
-              <l-geo-json :geojson="r.route"></l-geo-json>
+              <LPolyline
+                :lat-lngs="poly(r.route.features[0].geometry.coordinates)"
+              ></LPolyline>
             </div>
           </div>
         </l-map>
@@ -28,7 +30,13 @@
 // css stylesheet
 import "@/css/map.css";
 import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
+import {
+  LMap,
+  LTileLayer,
+  LMarker,
+  LGeoJson,
+  LPolyline,
+} from "@vue-leaflet/vue-leaflet";
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";
 import { ref, reactive, computed } from "vue";
@@ -38,13 +46,28 @@ const getRoutebyID = storeToRefs(routeStore);
 let map = reactive();
 let routes = computed(() => routeStore.getRoutes);
 let zoom = ref(12);
-let markerLatLng = [37.5997592, -93.4091279];
+let markerLatLng = [
+  [37.5997592, -93.4],
+  [37.5997592, -93.4091279],
+];
+let poly = (arr) => {
+  let count = 0;
+  let countBy = Math.ceil(arr.length / 50); //excessive points causes polyline to lag the site
+  let returnArr = []
+  for (let i = 0; i < arr.length; i = i+countBy) {
+    returnArr[count] = [arr[i][1], arr[i][0]
+    ];
+    count++
+  }
+  console.log(returnArr.length)
+  return returnArr
+};
 let mapOptions = reactive({
   scrollWheelZoom: false,
 });
 </script>
 <style>
-.CardMap{
+.CardMap {
   scale: 30%;
 }
 </style>
