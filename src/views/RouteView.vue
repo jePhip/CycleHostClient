@@ -26,9 +26,9 @@
 
 <script setup>
 import "leaflet/dist/leaflet.css";
-import RouteTable from "@/components/RouteViewTable.vue";
-import RouteDetail from "@/components/RouteDetail.vue";
-import RouteViewMap from "@/components/RouteViewMap.vue";
+import RouteTable from "@/components/routeview/RouteViewTable.vue";
+import RouteDetail from "@/components/routeview/RouteDetail.vue";
+import RouteViewMap from "@/components/routeview/RouteViewMap.vue";
 import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";

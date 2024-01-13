@@ -19,8 +19,7 @@ import { ref, reactive, computed } from "vue";
 //Components
 import Map from "@/components/Map.vue";
 import RoutesTable from "@/components/RoutesTable.vue";
-import RouteCard from "@/components/RouteCard.vue";
-import Frisco from "@/data/Frisco.json";
+import RouteCard from "@/components/cards/RouteCard.vue";
 
 const routeStore = useRouteStore();
 const { getRoutes } = storeToRefs(routeStore);

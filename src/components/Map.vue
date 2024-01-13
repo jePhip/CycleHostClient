@@ -27,8 +27,6 @@
 <script setup>
 // css stylesheet
 import "@/css/map.css";
-import CardMap from '@/components/CardMap.vue'
-
 import "leaflet/dist/leaflet.css";
 import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import { useRouteStore } from "@/store/index.js";
