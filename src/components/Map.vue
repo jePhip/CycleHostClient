@@ -52,7 +52,7 @@ let markerLatLng = [
 ];
 let poly = (arr) => {
   let count = 0;
-  let countBy = Math.ceil(arr.length / 50); //excessive points causes polyline to lag the site
+  let countBy = Math.ceil(arr.length / 500); //excessive points causes polyline to lag the site
   let returnArr = []
   for (let i = 0; i < arr.length; i = i+countBy) {
     returnArr[count] = [arr[i][1], arr[i][0]
