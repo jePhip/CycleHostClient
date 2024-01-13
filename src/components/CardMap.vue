@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="mapContainer">
     <div class="map">
-      <div style="height: 600px; width: auto">
+      <div style="height: 200px ; width: auto">
         <l-map
           ref="map"
           v-model:zoom="zoom"
@@ -46,6 +46,8 @@ export default {
 
       mapOptions: {
         scrollWheelZoom: false,
+        interactive: false,
+        clickable: false,
       },
     };
   },

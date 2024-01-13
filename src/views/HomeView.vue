@@ -1,9 +1,11 @@
 <template>
   <Map />
   <h1>start cards</h1>
-    <v-flex v-for="r in routes" :key="r" class="width-10px">
-      <RouteCard :route="r" />
-    </v-flex>
+  <v-container fluid>
+      <v-col v-for="r in routes" :key="r" cols="4">
+        <RouteCard :route="r" />
+      </v-col>
+  </v-container>
   <h1>end cards</h1>
   <RoutesTable />
   <br />
@@ -29,5 +31,4 @@ let routes = computed(() => routeStore.getRoutes);
 .RoutesTable {
   scale: 80%;
 }
-
 </style>

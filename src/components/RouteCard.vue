@@ -1,8 +1,8 @@
 <template>
   <v-card flat class="text-xs-center ma-3">
     <v-container>
-      <v-card-title>{{ route.name }}</v-card-title>
       <CardMap :route="route" />
+      <v-card-title>{{ route.name }}</v-card-title>
       <v-card-text>{{ route.length }} miles</v-card-text>
       <v-card-text>{{ route.elevation }} elevation</v-card-text>
 
