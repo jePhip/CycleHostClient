@@ -16,7 +16,7 @@
           <div v-if="routes">
             <div :key="r.name" v-for="r in routes">
               <LPolyline
-                :lat-lngs="poly(r.route.features[0].geometry.coordinates)"
+                :lat-lngs="poly(r.route.features[0].geometry.coordinates)" :color="randColor()"
               ></LPolyline>
             </div>
           </div>
@@ -62,6 +62,15 @@ let poly = (arr) => {
   console.log(returnArr.length)
   return returnArr
 };
+let randColor = (() => {
+  const rand = Math.floor(Math.random() * 256);
+  const red = Math.floor(Math.random() * 256);
+  const green = Math.floor(Math.random() * 256);
+  const blue = Math.floor(Math.random() * 256);
+  const color = `rgb(${red}, ${green}, ${blue})`;
+
+  return color;
+})
 let mapOptions = reactive({
   scrollWheelZoom: false,
 });

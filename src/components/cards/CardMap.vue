@@ -1,19 +1,20 @@
 <template>
   <v-container fluid class="mapContainer">
     <div class="map">
-      <div style="height: 200px ; width: 600px">
-        <l-map
-          ref="map"
-          v-model:zoom="zoom"
-          :options="mapOptions"
-        >
+      <div style="height: 200px; width: 600px">
+        <l-map ref="map" v-model:zoom="zoom" :options="mapOptions">
           <l-tile-layer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             layer-type="base"
             name="OpenStreetMap"
           ></l-tile-layer>
           <div v-if="route">
-            <l-geo-json ref="geo" @ready="red" :geojson="route.route"></l-geo-json>
+            <LPolyline
+              @ready="red"
+              ref="geo"
+              :lat-lngs="poly(route.route.features[0].geometry.coordinates)"
+              :color="blue"
+            ></LPolyline>
           </div>
         </l-map>
       </div>
@@ -26,7 +27,13 @@
 import "@/css/map.css";
 
 import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer, LMarker, LGeoJson, } from "@vue-leaflet/vue-leaflet";
+import {
+  LMap,
+  LTileLayer,
+  LMarker,
+  LGeoJson,
+  LPolyline,
+} from "@vue-leaflet/vue-leaflet";
 
 export default {
   props: {
@@ -37,6 +44,7 @@ export default {
     LTileLayer,
     LMarker,
     LGeoJson,
+    LPolyline
   },
   data() {
     return {
@@ -56,11 +64,22 @@ export default {
         method named createRoute called by btn*/
 
   methods: {
-    red(){
+    poly(arr) {
+      let count = 0;
+      let countBy = Math.ceil(arr.length / 50); //excessive points causes polyline to lag the site
+      let returnArr = [];
+      for (let i = 0; i < arr.length; i = i + countBy) {
+        returnArr[count] = [arr[i][1], arr[i][0]];
+        count++;
+      }
+      console.log(returnArr.length);
+      return returnArr;
+    },
+    red() {
       this.geo = this.$refs.geo.leafletObject;
       console.log("Bounds:", this.geo.getBounds());
-      this.$refs.map.leafletObject.fitBounds(this.geo.getBounds())
-    }
+      this.$refs.map.leafletObject.fitBounds(this.geo.getBounds());
+    },
   },
 };
 </script>
