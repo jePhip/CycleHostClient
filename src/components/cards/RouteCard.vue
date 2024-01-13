@@ -1,5 +1,6 @@
 <template>
-  <v-card flat class="text-xs-center ma-3">
+  <v-card class="mx-auto"
+  max-width="375">
     <v-container>
       <CardMap :route="route" />
       <v-card-title>{{ route.name }}</v-card-title>
