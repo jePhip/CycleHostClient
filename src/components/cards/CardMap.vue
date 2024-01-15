@@ -1,7 +1,5 @@
 <template>
-  <v-container fluid class="mapContainer">
-    <div class="map">
-      <div style="height: 200px; width: 600px">
+      <div style="height: 200px; width: auto">
         <l-map ref="map" v-model:zoom="zoom" :options="mapOptions">
           <l-tile-layer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -18,8 +16,7 @@
           </div>
         </l-map>
       </div>
-    </div>
-  </v-container>
+
 </template>
 
 <script>
@@ -56,6 +53,9 @@ export default {
         scrollWheelZoom: false,
         interactive: false,
         clickable: false,
+        zoomControl: false,
+        dragging: false,
+        
       },
     };
   },
