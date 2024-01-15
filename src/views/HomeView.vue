@@ -3,7 +3,7 @@
   <h1>start cards</h1>
   <v-container fluid>
     <v-row>
-      <v-col v-for="r in routes" :key="r" cols="3">
+      <v-col v-for="r in routes" :key="r" sm="12" md="6" lg="3">
         <RouteCard :route="r" />
       </v-col>
     </v-row>
