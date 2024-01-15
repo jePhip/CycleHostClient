@@ -1,44 +1,34 @@
 <template>
   <div>
-  <div class="single-route" v-if="route">
-    <div class="mapContainer">
-      <div class="table">
-        <RouteTable :route="route" />
-      </div>
-      
+    <div class="single-route" v-if="route">
+      <div class="mapContainer">
+        <div class="table">
+          <RouteTable :route="route" />
+        </div>
 
-      <div class="map" v-if="route.route">
-        <div style="height: 400px; width: 500px">
-          <l-map ref="map" zoom="9" :center="[37.5997592, -93.4091279]">
-            <l-tile-layer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              layer-type="base"
-              name="OpenStreetMap"
-            ></l-tile-layer>
-            <l-geo-json :geojson="route.route"></l-geo-json>
-          </l-map>
+        <div>
+          <RouteViewMap :route="route" />
         </div>
       </div>
-    </div>
 
-    <br>  
+      <br />
 
-    <div class="desc">
+      <div class="desc">
         <RouteDetail :route="route" />
+      </div>
     </div>
-
+    <div class="noRoute" v-if="!route">
+      <h1>Loading...</h1>
+      <a class="noRoutea" href="/">Back to Home</a>
+    </div>
   </div>
-  <div class="noRoute" v-if="!route">
-    <h1>Loading...</h1>
-    <a class="noRoutea" href="/">Back to Home</a>
-  </div>
-</div>
 </template>
 
 <script setup>
 import "leaflet/dist/leaflet.css";
-import RouteTable from "@/components/RouteViewTable.vue";
-import RouteDetail from "@/components/RouteDetail.vue";
+import RouteTable from "@/components/routeview/RouteViewTable.vue";
+import RouteDetail from "@/components/routeview/RouteDetail.vue";
+import RouteViewMap from "@/components/routeview/RouteViewMap.vue";
 import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";
@@ -72,40 +62,32 @@ let route = computed(() => routeStore.getRoutebyID(routing.params.id));
 
 .table {
   width: 50%;
-  
 }
 
-.mapContainer
-{ 
+.mapContainer {
   display: flex;
   flex-direction: row;
 }
 
-.desc
-{ 
+.desc {
   width: 100%;
   padding: 10px;
 }
 
-@media (max-width: 1000px)
-{ 
-  .mapContainer
-  { 
+@media (max-width: 1000px) {
+  .mapContainer {
     flex-direction: column;
     width: 100%;
   }
 
-  .table
-  { 
+  .table {
     width: 100%;
     margin: auto;
   }
 
-  .map
-  { 
+  .map {
     width: 100%;
     margin: auto;
   }
-
 }
 </style>

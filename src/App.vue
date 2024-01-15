@@ -11,9 +11,10 @@
 </template>
 
 <script setup>
-import Footer from "@/components/Footer.vue";
-import NavBar from "@/components/NavBar.vue";
-import { useRouteStore } from "@/store/index.js"; //
+
+import Footer from "@/components/nav/Footer.vue";
+import NavBar from "@/components/nav/NavBar.vue";
+import { useRouteStore } from "@/store/index.js"; 
 import { storeToRefs } from "pinia";
 import { ref, onMounted } from "vue";
 const routeStore = useRouteStore();
@@ -29,4 +30,5 @@ onMounted(async () => {
 .v-main {
   padding-bottom: 70px;
 }
+
 </style>
