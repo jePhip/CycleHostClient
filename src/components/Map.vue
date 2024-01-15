@@ -16,7 +16,7 @@
           <div v-if="routes">
             <div :key="r.name" v-for="r in routes">
               <LPolyline
-                :lat-lngs="poly(r.route.features[0].geometry.coordinates)" :color="randColor()"
+                :lat-lngs="poly(r.route.features[0].geometry.coordinates)" :color="r.color"
               ></LPolyline>
             </div>
           </div>
@@ -44,7 +44,10 @@ const routeStore = useRouteStore();
 const getRoutes = storeToRefs(routeStore);
 const getRoutebyID = storeToRefs(routeStore);
 let map = reactive();
-let routes = computed(() => routeStore.getRoutes);
+let routes = computed(() => routeStore.getRoutes.map(r => ({
+  ...r, 
+  color: randColor()
+})));
 let zoom = ref(12);
 let markerLatLng = [
   [37.5997592, -93.4],
