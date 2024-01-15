@@ -53,6 +53,9 @@ export default {
         scrollWheelZoom: false,
         interactive: false,
         clickable: false,
+        zoomControl: false,
+        dragging: false,
+        
       },
     };
   },
