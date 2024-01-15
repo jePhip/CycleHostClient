@@ -76,7 +76,4 @@ let mapOptions = reactive({
 });
 </script>
 <style>
-.CardMap {
-  scale: 30%;
-}
 </style>

@@ -1,17 +1,14 @@
 <template>
-  <v-card class="mx-auto"
-  max-width="375" max-height="500">
-      <v-container cover>
-        <CardMap :route="route" />
-      </v-container>
-      
-      <v-card-title>{{ route.name }}</v-card-title>
-      <v-card-text>{{ route.length }} miles</v-card-text>
-      <v-card-text>{{ route.difficulty }}</v-card-text>
+  <v-card class="mx-auto" max-width="375" max-height="500">
+    <CardMap :route="route" cover />
 
-      <v-card-actions>
-        <v-btn router :to="link"> View Route </v-btn>
-      </v-card-actions>
+    <v-card-title>{{ route.name }}</v-card-title>
+    <v-card-text>{{ route.length }} miles</v-card-text>
+    <v-card-text>{{ route.difficulty }}</v-card-text>
+
+    <v-card-actions>
+      <v-btn router :to="link"> View Route </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
