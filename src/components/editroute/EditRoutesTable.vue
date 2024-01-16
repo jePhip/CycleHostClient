@@ -208,11 +208,10 @@ let headers = reactive([
   {
     align: "start",
     key: "name",
-    sortable: true,
     title: "Routes",
   },
-  { key: "edit", title: "Edit" },
-  { key: "del", title: "Delete" },
+  { key: "edit", title: "Edit", sortable: false },
+  { key: "del", title: "Delete", sortable: false},
 ]);
 
 const routeStore = useRouteStore();
