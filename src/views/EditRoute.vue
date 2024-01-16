@@ -68,10 +68,13 @@
         <v-btn @click="deleteBtn(r.id)">DELETE</v-btn>
       </v-container>
     </v-container>
+
+    <EditRoutesTable />
   </div>
 </template>
 
 <script setup>
+import EditRoutesTable from "@/components/editroute/EditRoutesTable.vue";
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";
 import { ref, reactive, computed } from "vue";
@@ -114,7 +117,7 @@ let submit = async (event) => {
         desc: routeDesc.value,
         elevation: elevation.value,
       };
-      
+
       routeStore.addRoute(routeToAdd);
     } catch (error) {
       console.log("error", error);

@@ -23,9 +23,10 @@
                   <a class="popup" :href="'/route/' + r.id">
                     <v-container>
                       <h3 class="nameh3">{{ r.name }}</h3>
-                      <v-sheet :height="10" :width="0"></v-sheet>
+                      <v-sheet :height="5" :width="0"></v-sheet>
                       <h4>Length: {{ r.length }} miles</h4>
                       <h4>Difficulty: {{ r.difficulty }}</h4>
+                      <h4>Terrain: {{ r.terrain }}</h4>
                       <v-row>
                         <v-col cols="10"></v-col>
                         <v-col cols="2">
