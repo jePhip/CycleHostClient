@@ -2,15 +2,12 @@
   <v-footer class="footer">
     <v-container>
       <v-row>
-        <v-col cols="1">
+        <v-col cols="3">
           <v-container>
             <a href="https://forecast.weather.gov/MapClick.php?textField1=37.61&textField2=-93.41" target="_blank">
               <v-img src="@/assets/jpglogowhite.png" height="50px" ></v-img>  
             </a>
           </v-container>
-        </v-col>
-        <v-col cols="2">
-  
         </v-col>
         <v-col cols="6">
           <v-container>
