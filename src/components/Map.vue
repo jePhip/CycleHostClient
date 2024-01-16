@@ -16,8 +16,20 @@
           <div v-if="routes">
             <div :key="r.name" v-for="r in routes">
               <LPolyline
-                :lat-lngs="poly(r.route.features[0].geometry.coordinates)" :color="r.color"
-              ></LPolyline>
+                :lat-lngs="poly(r.route.features[0].geometry.coordinates)"
+                :color="r.color"
+                weight="5"
+                ><l-popup>
+                  <a class="popup" :href="'/route/' + r.id">
+                    <v-container>
+                      <h3>{{ r.name }}</h3>
+                      <v-sheet :height="10" :width="0"></v-sheet>
+                      <h4>Length: {{ r.length }} miles</h4>
+                      <h4>Difficulty: {{ r.difficulty }}</h4>
+                    </v-container>
+                  </a>
+                </l-popup></LPolyline
+              >
             </div>
           </div>
         </l-map>
@@ -36,6 +48,7 @@ import {
   LMarker,
   LGeoJson,
   LPolyline,
+  LPopup,
 } from "@vue-leaflet/vue-leaflet";
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";
@@ -44,10 +57,12 @@ const routeStore = useRouteStore();
 const getRoutes = storeToRefs(routeStore);
 const getRoutebyID = storeToRefs(routeStore);
 let map = reactive();
-let routes = computed(() => routeStore.getRoutes.map(r => ({
-  ...r, 
-  color: randColor()
-})));
+let routes = computed(() =>
+  routeStore.getRoutes.map((r) => ({
+    ...r,
+    color: randColor(),
+  }))
+);
 let zoom = ref(12);
 let markerLatLng = [
   [37.5997592, -93.4],
@@ -56,16 +71,15 @@ let markerLatLng = [
 let poly = (arr) => {
   let count = 0;
   let countBy = Math.ceil(arr.length / 500); //excessive points causes polyline to lag the site
-  let returnArr = []
-  for (let i = 0; i < arr.length; i = i+countBy) {
-    returnArr[count] = [arr[i][1], arr[i][0]
-    ];
-    count++
+  let returnArr = [];
+  for (let i = 0; i < arr.length; i = i + countBy) {
+    returnArr[count] = [arr[i][1], arr[i][0]];
+    count++;
   }
-  console.log(returnArr.length)
-  return returnArr
+  console.log(returnArr.length);
+  return returnArr;
 };
-let randColor = (() => {
+let randColor = () => {
   const rand = Math.floor(Math.random() * 256);
   const red = Math.floor(Math.random() * 256);
   const green = Math.floor(Math.random() * 256);
@@ -73,10 +87,14 @@ let randColor = (() => {
   const color = `rgb(${red}, ${green}, ${blue})`;
 
   return color;
-})
+};
 let mapOptions = reactive({
-  scrollWheelZoom: false,
+  //scrollWheelZoom: false,
 });
 </script>
 <style>
+.popup {
+  text-decoration: none;
+  color: inherit;
+}
 </style>
