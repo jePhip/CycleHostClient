@@ -1,7 +1,9 @@
 <template>
-  <Map />
+  <v-container >
+    <Map />
+  </v-container>
   <v-container>
-    <v-row dense>
+    <v-row>
       <v-col v-for="r in routes" :key="r" sm="12" md="6" lg="3" xl="2">
         <RouteCard :route="r" />
       </v-col>

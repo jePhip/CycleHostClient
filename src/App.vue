@@ -28,7 +28,7 @@ onMounted(async () => {
 
 <style>
 .v-main {
-  padding-bottom: 70px;
+  padding-bottom: 120px;
 }
 
 </style>
