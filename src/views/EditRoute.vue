@@ -1,4 +1,13 @@
 <template>
+  <v-row>
+    <v-col cols="3"></v-col>
+    <v-col cols="6">
+      <EditRoutesTable />
+    </v-col>
+    <v-col cols="3">
+
+    </v-col>
+  </v-row>
   <div class="add-route-container">
     <v-form
       class="routeForm"
@@ -69,7 +78,6 @@
       </v-container>
     </v-container>
 
-    <EditRoutesTable />
   </div>
 </template>
 
