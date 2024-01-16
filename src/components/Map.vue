@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="mapContainer">
     <div class="map">
-      <div style="height: 600px; width: auto">
+      <div style="height: 500px; width: auto">
         <l-map
           ref="map"
           v-model:zoom="zoom"
@@ -18,7 +18,7 @@
               <LPolyline
                 :lat-lngs="poly(r.route.features[0].geometry.coordinates)"
                 :color="r.color"
-                weight="5"
+                weight="4"
                 ><l-popup>
                   <a class="popup" :href="'/route/' + r.id">
                     <v-container>
