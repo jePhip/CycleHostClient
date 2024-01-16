@@ -1,8 +1,10 @@
 <template>
-  <Map />
-  <v-container fluid>
+  <v-container >
+    <Map />
+  </v-container>
+  <v-container>
     <v-row>
-      <v-col v-for="r in routes" :key="r" sm="12" md="6" lg="3">
+      <v-col v-for="r in routes" :key="r" sm="12" md="6" lg="3" xl="2">
         <RouteCard :route="r" />
       </v-col>
     </v-row>
