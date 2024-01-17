@@ -32,12 +32,10 @@
                         <v-col cols="2">
                           <v-icon icon="mdi-launch"></v-icon>
                         </v-col>
-
                       </v-row>
                     </v-container>
-                  </a>
-                </l-popup></LPolyline
-              >
+                  </a> </l-popup
+              ></LPolyline>
             </div>
           </div>
         </l-map>
@@ -87,13 +85,16 @@ let poly = (arr) => {
   console.log(returnArr.length);
   return returnArr;
 };
+let count = 0;
 let randColor = () => {
-  const rand = Math.floor(Math.random() * 256);
-  const red = Math.floor(Math.random() * 256);
-  const green = Math.floor(Math.random() * 256);
-  const blue = Math.floor(Math.random() * 256);
-  const color = `rgb(${red}, ${green}, ${blue})`;
-
+  const rand = Math.floor(Math.random() * 6);
+  const colors = ["rgb(60, 140, 255)", "rgb(255, 0, 255)", "rgb(255, 215, 0)", "rgb(100, 100 ,200 )", "rgb(100, 0 ,200 )", "rgb(255, 100 ,0)", "rgb(200, 0,0)"];
+  const color = `${colors[count]}`;
+  if(count<6){
+    count++;
+  }else{
+    count = 0;
+  }
   return color;
 };
 let mapOptions = reactive({
@@ -101,7 +102,7 @@ let mapOptions = reactive({
 });
 </script>
 <style>
-.nameh3{
+.nameh3 {
   text-decoration: underline;
 }
 .popup {
