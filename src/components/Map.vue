@@ -88,7 +88,7 @@ let poly = (arr) => {
 let count = 0;
 let randColor = () => {
   const rand = Math.floor(Math.random() * 6);
-  const colors = ["rgb(60, 140, 255)", "rgb(255, 0, 255)", "rgb(255, 215, 0)", "rgb(100, 100 ,200 )", "rgb(100, 0 ,200 )", "rgb(255, 100 ,0)", "rgb(200, 0,0)"];
+  const colors = ["rgb(60, 140, 255)", "rgb(255, 0, 255)", "rgb(255, 215, 0)", "rgb(100, 100 ,200 )", "rgb(200, 255 ,200 )", "rgb(255, 100 ,0)", "rgb(200, 0,0)"];
   const color = `${colors[count]}`;
   if(count<6){
     count++;
