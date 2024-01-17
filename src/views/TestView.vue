@@ -1,13 +1,10 @@
 <template>
-  <EditRoutesTable />
+  <p>Empty</p>
 </template>
 
 <script>
-import EditRoutesTable from '@/components/editroute/EditRoutesTable.vue'
 export default {
-  components: {
-    EditRoutesTable
-  }
+
 }
 </script>
 

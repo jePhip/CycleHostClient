@@ -13,7 +13,7 @@
     </v-card-title>
     <br />
     <v-row justify="center">
-      <v-dialog fullscreen>
+      <v-dialog>
         <template v-slot:activator="{ props }">
           <v-btn flat v-bind="props"
             ><v-icon icon="mdi-plus" />Add a new route</v-btn
@@ -21,7 +21,7 @@
         </template>
 
         <template v-slot:default="{ isActive }">
-          <v-card title="Add Route">
+          <v-card style="color: blue" title="Add Route">
             <br />
             <v-form
               class="routeForm"
@@ -98,7 +98,7 @@
                 </v-col>
               </v-row>
               <v-row justify="center">
-                <v-col >
+                <v-col>
                   <v-btn type="submit" flat>submit</v-btn>
                 </v-col>
               </v-row>
@@ -174,7 +174,8 @@
                   icon="mdi-pencil"
                   @click="edit(item.id)"
                 />
-                Description: <br />{{ item.desc }}
+                Description: <br />
+                <p class="background-grey">{{ item.desc }}</p>
               </v-card-text>
             </v-card>
           </template>
@@ -211,7 +212,7 @@ let headers = reactive([
     title: "Routes",
   },
   { key: "edit", title: "Edit", sortable: false },
-  { key: "del", title: "Delete", sortable: false},
+  { key: "del", title: "Delete", sortable: false },
 ]);
 
 const routeStore = useRouteStore();
