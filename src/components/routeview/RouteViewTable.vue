@@ -15,7 +15,7 @@
         <td>{{ route?.terrain }}</td>
         <td>{{ route?.difficulty }}</td>
         <td>{{ route?.elevation }} feet</td>
-        <td><v-btn icon="mdi-download" style="scale: 85%; color: blue"></v-btn></td>
+        <td><v-btn  @click="downloadGPX(route.gpx, route.name)" icon="mdi-download" style="scale: 85%; color: blue"></v-btn></td>
       </tr>
     </tbody>
   </v-table>
