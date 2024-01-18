@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="single-route" v-if="route">
+    <div class="" v-if="route">
       <v-row justify="center">
         <v-col cols="9">
-          <h1>{{ route.name }}</h1>
+          <div class="text-h4" style="text-align: center">{{ route.name }}</div>
         </v-col>
       </v-row>
       <v-row justify="center">
@@ -49,5 +49,9 @@ let route = computed(() => routeStore.getRoutebyID(routing.params.id));
 </script>
 
 <style>
-
+.noRoute{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>

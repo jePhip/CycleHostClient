@@ -1,5 +1,5 @@
 <template>
-  <v-table>
+  <v-table class="d-none d-lg-block">
     <thead>
       <tr>
         <th class="text-left">Length</th>
@@ -16,6 +16,36 @@
         <td>{{ route?.difficulty }}</td>
         <td>{{ route?.elevation }} feet</td>
         <td><v-btn  @click="downloadGPX(route.gpx, route.name)" icon="mdi-download" style="scale: 85%; color: blue"></v-btn></td>
+      </tr>
+    </tbody>
+  </v-table>
+  <v-table class="d-lg-none">
+    <tbody class="table">
+      <tr>
+        <th class="text-left">Length</th>
+        <td>{{ route?.length }} miles</td>
+      </tr>
+      <tr>
+        <th class="text-left">Terrain</th>
+        <td>{{ route?.terrain }}</td>
+      </tr>
+      <tr>
+        <th class="text-left">Elevation Gain</th>
+        <td>{{ route?.elevation }} feet</td>
+      </tr>
+      <tr>
+        <th class="text-left">Difficulty</th>
+        <td>{{ route?.difficulty }}</td>
+      </tr>
+      <tr>
+        <th class="text-left">Try it out!</th>
+        <td>
+          <v-btn
+            class="gpxBtn"
+            icon="mdi-download"
+            @click="downloadGPX(route.gpx, route.name)"
+          />
+        </td>
       </tr>
     </tbody>
   </v-table>
