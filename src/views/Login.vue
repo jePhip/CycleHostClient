@@ -4,10 +4,10 @@
       <h1>Login Form</h1>
       <form @submit.prevent="login">
         <label for="username">Username:</label>
-        <input v-model="preusername" type="text" id="username" required>
+        <input v-model="username" type="text" id="username" required>
   
         <label for="password">Password:</label>
-        <input v-model="prepassword" type="password" id="password" required>
+        <input v-model="password" type="password" id="password" required>
   
         <button type="submit">Login</button>
       </form>
@@ -25,8 +25,6 @@ export default{
             message: '',
             username: '',
             password: '',
-            preusername: 'bob', 
-            prepassword: 'dylan',
         };
     },
 
@@ -35,16 +33,13 @@ export default{
             this.error = '';
             this.message = '';
 
-            await fetch('http://localhost:3000/v1/user/'+this.preusername,
+            await fetch('http://localhost:3000/v1/user/'+username,
             {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'text/plain'
                 },
-                body: JSON.stringify({
-                    username: this.preusername,
-                    password: this.prepassword,
-                }),
+
             })
             
             .then(response=>response.json())
@@ -57,12 +52,7 @@ export default{
             });
         
         },
-        validation(){
-        if(this.preusername == this.username && this.prepassword == this.password){
-            validate = true;
-            
-        }
-    }
+        
     
     },
 }
