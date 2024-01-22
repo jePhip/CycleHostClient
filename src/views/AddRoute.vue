@@ -225,22 +225,36 @@ button.button {
   font-family: roboto;
   display: flex;
   flex-direction: column;
+  margin: 0 0 10px 0;
 }
 
-@media (max-width: 600px)
+@media (max-width: 1000px)
 { 
   .input
   { 
-    width: 100%;
-    padding: 0px;
-    maring: 0 0 0 0;
+    width: 100% !important;
+    padding: 5px;
+    margin: 0 0 0 0;
   }
 
   .routeForm
   { 
-    width: 100%;
+    width: 100% !important;
     margin: 0 0 0 0;
   }
+
+  .add-route-container
+  { 
+    padding: 5px;
+    width: 100% !important;
+  }
+
+  .routeList
+  { 
+    width: 100% !important;
+    padding: 5px !important;
+  }
+
 
 }
 </style>

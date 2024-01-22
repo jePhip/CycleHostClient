@@ -2,3 +2,13 @@
     scale: 85%;
     color: blue;
   }
+
+  @media (max-width: 600px)
+  { 
+    .routes-table
+    { 
+      padding: 0px;
+      display: block;
+    }    
+
+  }

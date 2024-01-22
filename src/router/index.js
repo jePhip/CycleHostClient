@@ -27,7 +27,7 @@ const routes = [
     path: '/edit',
     name: 'Edit Routes',
     component: function () {
-      return import(/* webpackChunkName: "edit" */ '../views/AddRoute.vue')
+      return import(/* webpackChunkName: "edit" */ '../views/EditRoute.vue')
     }
   },
   
@@ -44,16 +44,7 @@ const routes = [
     name: 'Login', 
     component: function(){ 
       return import(/* webpackChunkName: "login" */ '../views/Login.vue')
-    },
-    children:[
-      {
-        path: '/edit',
-        name: 'Edit Routes',
-        component: function () {
-        return import(/* webpackChunkName: "edit" */ '../views/AddRoute.vue')
-        }
-      }
-    ]
+    }
   }
 
 ]

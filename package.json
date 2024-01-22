@@ -11,19 +11,25 @@
     "@tmcw/togeojson": "^5.8.1",
     "fs": "^0.0.1-security",
     "geojson-parser-js": "^1.0.13",
+    "is-mergeable-object": "^1.1.1",
     "leaflet-gesture-handling": "^1.2.2",
+    "merge": "^2.1.1",
+    "pinia": "^2.1.4",
     "roboto-fontface": "*",
-    "vue": "^3.2.13",
+    "vue": "^3.3.8",
     "vue-router": "^4.0.3",
     "vuetify": "^3.3.21",
     "webfontloader": "^1.0.0",
     "xmldom": "^0.6.0"
   },
   "devDependencies": {
+    "@babel/parser": "^7.23.5",
+    "@babel/preset-env": "^7.23.3",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "leaflet": "^1.9.4",
+    "vue-cli-plugin-pinia": "~0.2.4",
     "vue-cli-plugin-vuetify": "~2.5.8",
     "webpack-plugin-vuetify": "^2.0.0-alpha.0"
   }

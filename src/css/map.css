@@ -1,26 +1,10 @@
 .mapContainer {
     display: flex;
-    justify-content: center;
-    font-weight: bold;  
-    text-align: center;
-    flex-direction: column;
   }
 
-  @media (max-width: 600px)
-  { 
-    .mapContainer
-    { 
-      display: flex;
-      justify-content: center;
-      font-weight: bold;  
-      text-align: center;
-      flex-direction: column;
-    }
-
-  }
+  
   .map {
     flex:2 1 auto;  
-    scale: 85%
   }
 
   .filter
