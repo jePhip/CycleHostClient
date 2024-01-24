@@ -22,7 +22,6 @@
 
         <template v-slot:default="{ isActive }">
           <v-card style="color: blue" title="Add Route">
-            <br />
             <v-form
               class="routeForm"
               validate-on="submit lazy"
@@ -224,7 +223,15 @@ let del = async (id) => {
 };
 let add = async () => {};
 let edit = async (id) => {};
-
+let routeName = ref('');
+let routeLength = ref();
+let terrain = ref('');
+let difficulty = ref('');
+let routeDesc = ref('');
+let file = ref();
+let gpx = ref();
+let newRoute = ref();
+let elevation = ref();
 //add route methods
 let submit = async (event) => {
   const check = (await event).valid;
