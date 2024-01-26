@@ -97,7 +97,7 @@
                 </v-col>
               </v-row>
               <v-row justify="center">
-                <v-col>
+                <v-col justify="center">
                   <v-btn type="submit" flat>submit</v-btn>
                 </v-col>
               </v-row>
@@ -121,8 +121,8 @@
       :search="search"
     >
       <template #item.name="{ item }">
-        <a target="" :href="'/route/' + item.id" @click="handleClick"
-          ><!-- eventually to route page -->
+        <a target="" :href="'/route/' + item.id"
+          >
           {{ item.name }}
         </a>
       </template>
@@ -135,47 +135,7 @@
           <template v-slot:default="{ isActive }">
             <v-card title="Edit Route">
               <v-card-text>ID: {{ item.id }}</v-card-text>
-              <v-card-text
-                ><v-btn
-                  class="dialogBtn"
-                  icon="mdi-pencil"
-                  @click="edit(item.id)"
-                />
-                Name: {{ item.name }}</v-card-text
-              >
-              <v-card-text
-                ><v-btn
-                  class="dialogBtn"
-                  icon="mdi-pencil"
-                  @click="edit(item.id)"
-                />
-                Length: {{ item.length }}</v-card-text
-              >
-              <v-card-text
-                ><v-btn
-                  class="dialogBtn"
-                  icon="mdi-pencil"
-                  @click="edit(item.id)"
-                />
-                Terrain: {{ item.terrain }}</v-card-text
-              >
-              <v-card-text
-                ><v-btn
-                  class="dialogBtn"
-                  icon="mdi-pencil"
-                  @click="edit(item.id)"
-                />
-                Elevation: {{ item.elevation }}</v-card-text
-              >
-              <v-card-text
-                ><v-btn
-                  class="dialogBtn"
-                  icon="mdi-pencil"
-                  @click="edit(item.id)"
-                />
-                Description: <br />
-                <p class="background-grey">{{ item.desc }}</p>
-              </v-card-text>
+              
             </v-card>
           </template>
         </v-dialog>
@@ -223,11 +183,11 @@ let del = async (id) => {
 };
 let add = async () => {};
 let edit = async (id) => {};
-let routeName = ref('');
+let routeName = ref("");
 let routeLength = ref();
-let terrain = ref('');
-let difficulty = ref('');
-let routeDesc = ref('');
+let terrain = ref("");
+let difficulty = ref("");
+let routeDesc = ref("");
 let file = ref();
 let gpx = ref();
 let newRoute = ref();
