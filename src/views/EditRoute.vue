@@ -90,6 +90,8 @@ let routeLength = ref(0);
 let terrain = ref("");
 let routeDesc = ref("");
 let elevation = ref(0);
+let key = ref([]);
+let value = ref('');
 
 //input validation
 let inputRules = reactive([
@@ -103,7 +105,7 @@ let submit = async (event) => {
   if (check) {
     try {
       await handleFile();
-      //create route and send it to the backend
+      //create route objects and send it to the backend
       let routeToAdd = {
         route: newRoute.value,
         name: routeName.value,
@@ -113,6 +115,10 @@ let submit = async (event) => {
         terrain: terrain.value,
         desc: routeDesc.value,
         elevation: elevation.value,
+        poi:{
+          key: key.value,
+          values: value.value
+        },
       };
       
       routeStore.addRoute(routeToAdd);
