@@ -61,6 +61,21 @@
         console.log(selectedFile);
       },
       
+      async postSuggestion()
+      { 
+        let response = await fetch('http://localhost:3000/v1/email', {
+          method: "POST",
+          headers: 
+          { 
+            "Content-Type": "application/json",
+          },
+          body: 
+          { 
+            name: this.name,
+            route: this.file
+          }
+        })
+      }
     },
   };
   </script>
