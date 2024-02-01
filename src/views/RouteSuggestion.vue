@@ -12,7 +12,7 @@
   
       <form
         class="formContainer"
-        @submit.prevent="sendEmail"
+        @submit.prevent="handleSubmit"
         enctype="multipart/form-data"
         id="form"
         name="form"
@@ -39,7 +39,7 @@
           accept=".gpx"
         ></v-file-input>
   
-        <v-btn class="submit" type="submit">submit</v-btn>
+        <v-btn @click="submit" class="submit" type="submit">submit</v-btn>
       </form>
     </v-container>
   </template>
@@ -56,11 +56,14 @@
     },
   
     methods: {
+
+      // handle file once uploaded 
       handleFile() {
         const selectedFile = this.$refs.file.files[0];
         console.log(selectedFile);
       },
       
+      // send data to backend 
       async postSuggestion()
       { 
         let response = await fetch('http://localhost:3000/v1/email', {
@@ -69,12 +72,31 @@
           { 
             "Content-Type": "application/json",
           },
-          body: 
+          body: JSON.stringify(
           { 
             name: this.name,
             route: this.file
-          }
+          })
         })
+        response = await response.json();
+        return response;
+      },
+
+      // subbmit 
+      async submit(){ 
+        try{
+          const response = await this.postSuggestion(
+            this.file,
+            this.name
+          );          
+        }
+        catch(e){
+          console.log("error:\n");
+          console.log(e);
+
+        }
+      
+
       }
     },
   };
