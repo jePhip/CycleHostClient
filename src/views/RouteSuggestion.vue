@@ -66,7 +66,7 @@
       // send data to backend 
       async postSuggestion()
       { 
-        let response = await fetch('http://localhost:3000/v1/email', {
+        let response = await fetch('http://localhost:3000/v1/email/', {
           method: "POST",
           headers: 
           { 
@@ -94,8 +94,7 @@
           console.log("error:\n");
           console.log(e);
 
-        }
-      
+        }     
 
       }
     },
