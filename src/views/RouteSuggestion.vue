@@ -61,6 +61,7 @@
       handleFile() {
         const selectedFile = this.$refs.file.files[0];
         console.log(selectedFile);
+        return selectedFile;
       },
       
       // send data to backend 
@@ -75,10 +76,10 @@
           body: JSON.stringify(
           { 
             name: this.name,
-            route: this.file
+            route: this.selectedFile
           })
         })
-        response = await response.json();
+        //response = await response.json();
         return response;
       },
 
