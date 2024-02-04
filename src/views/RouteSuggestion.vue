@@ -45,7 +45,7 @@
   </template>
   
   <script>
-  
+
   export default {
     name: "routeSuggestion",
     data() {
@@ -59,25 +59,26 @@
 
       // handle file once uploaded 
       handleFile() {
-        const selectedFile = this.$refs.file.files[0];
-        console.log(selectedFile);
-        return selectedFile;
+        this.file = this.$refs.file.files[0];
+        console.log(this.file);
+        
       },
       
       // send data to backend 
       async postSuggestion()
       { 
+        const formData = new FormData();
+        formData.append('name', this.name);
+        formData.append('route', this.file);
+
         let response = await fetch('http://localhost:3000/v1/email/', {
           method: "POST",
           headers: 
           { 
             "Content-Type": "application/json",
+             "Access-Control-Allow-Origin": "*"
           },
-          body: JSON.stringify(
-          { 
-            name: this.name,
-            route: this.selectedFile
-          })
+          body: formData
         })
         //response = await response.json();
         return response;
@@ -89,7 +90,8 @@
           const response = await this.postSuggestion(
             this.file,
             this.name
-          );          
+          );       
+          console.log(response);   
         }
         catch(e){
           console.log("error:\n");
