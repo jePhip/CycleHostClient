@@ -1,7 +1,6 @@
 <template>
-    <v-container fluid class="mapContainer">
       <div class="map" v-if="route.route">
-        <div style="height: 400px; width: 500px">
+        <div style="height: 400px; width: auto">
           <l-map ref="map" zoom="9" :center="[37.5997592, -93.4091279]">
             <l-tile-layer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -14,7 +13,6 @@
           </l-map>
         </div>
       </div>
-    </v-container>
   </template>
   
   <script>

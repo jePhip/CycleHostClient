@@ -1,21 +1,28 @@
 <template>
   <div>
-    <div class="single-route" v-if="route">
-      <div class="mapContainer">
-        <div class="table">
-          <RouteTable :route="route" />
-        </div>
-
-        <div>
+    <div class="" v-if="route">
+      <v-row justify="center">
+        <v-col cols="9">
+          <div class="text-h4" style="text-align: center">{{ route.name }}</div>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="9">
           <RouteViewMap :route="route" />
-        </div>
-      </div>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="9">
+          <RouteTable :route="route" />
 
-      <br />
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="9">
+          <RouteDetail :route="route" />
 
-      <div class="desc">
-        <RouteDetail :route="route" />
-      </div>
+        </v-col>
+      </v-row>
     </div>
     <div class="noRoute" v-if="!route">
       <h1>Loading...</h1>
@@ -42,52 +49,9 @@ let route = computed(() => routeStore.getRoutebyID(routing.params.id));
 </script>
 
 <style>
-.desc {
-  width: 50%;
-  font-weight: 400;
-  background: #eee;
-}
-.desc.p {
-  text-align: left;
-}
-.single-route {
-  scale: 90%;
-}
-.noRoute {
-  display: grid;
-  justify-content: center;
-  font-size: x-large;
-  padding-bottom: 200px;
-}
-
-.table {
-  width: 50%;
-}
-
-.mapContainer {
+.noRoute{
   display: flex;
-  flex-direction: row;
-}
-
-.desc {
-  width: 100%;
-  padding: 10px;
-}
-
-@media (max-width: 1000px) {
-  .mapContainer {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .table {
-    width: 100%;
-    margin: auto;
-  }
-
-  .map {
-    width: 100%;
-    margin: auto;
-  }
+  flex-direction: column;
+  align-items: center;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
-   <div class="desc">
+   <v-container class="desc">
         <strong class="text-decoration-bold">Description</strong>
         <p>
           {{ route?.desc }}
         </p>
-      </div>
+      </v-container>
 </template>
 
 <script>
