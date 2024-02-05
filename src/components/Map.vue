@@ -18,7 +18,7 @@
               <LPolyline
                 :lat-lngs="poly(r.route.features[0].geometry.coordinates)"
                 :color="r.color"
-                weight="4"
+                weight="6"
                 ><l-popup>
                   <a class="popup" :href="'/route/' + r.id">
                     <v-container>
