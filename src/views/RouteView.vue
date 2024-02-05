@@ -2,25 +2,23 @@
   <div>
     <div class="" v-if="route">
       <v-row justify="center">
-        <v-col cols="9">
-          <div class="text-h4" style="text-align: center">{{ route.name }}</div>
-        </v-col>
-      </v-row>
-      <v-row justify="center">
-        <v-col cols="9">
+        <v-col sm="11">
           <RouteViewMap :route="route" />
         </v-col>
       </v-row>
       <v-row justify="center">
-        <v-col cols="9">
-          <RouteTable :route="route" />
-
+        <v-col sm="11" md="9">
+          <div class="text-h4" style="text-align: center">{{ route.name }}</div>
         </v-col>
       </v-row>
       <v-row justify="center">
-        <v-col cols="9">
+        <v-col sm="11" md="9">
+          <RouteTable :route="route" />
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col sm="11" md="9">
           <RouteDetail :route="route" />
-
         </v-col>
       </v-row>
     </div>
@@ -49,7 +47,7 @@ let route = computed(() => routeStore.getRoutebyID(routing.params.id));
 </script>
 
 <style>
-.noRoute{
+.noRoute {
   display: flex;
   flex-direction: column;
   align-items: center;

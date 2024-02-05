@@ -42,6 +42,7 @@
         <td>
           <v-btn
             class="gpxBtn"
+            style="color: blue;"
             icon="mdi-download"
             @click="downloadGPX(route.gpx, route.name)"
           />
