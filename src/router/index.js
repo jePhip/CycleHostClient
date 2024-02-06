@@ -48,7 +48,7 @@ const routes = [
   },
 
   {
-    path: '/RouteSuggestion',
+    path: '/suggest',
     name: 'RouteSuggestion',
     component: function(){
       return import(/* webpackChunkName: "RouteSuggestion" */ '../views/RouteSuggestion.vue')

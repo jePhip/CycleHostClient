@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <div class="text-h4" style="text-align: center">Suggest a route!</div>
     <v-container class="description">
       Please use the form below if you have a route you would like to see
       included in the Bolivar Cycling website!
