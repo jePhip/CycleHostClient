@@ -50,6 +50,7 @@
        links: [
          { text: "Home", route: "/" },
          { text: "About", route: "/about" },
+         {text: "Route Suggestion", route: "/RouteSuggestion"}
        ],
      };
    },
