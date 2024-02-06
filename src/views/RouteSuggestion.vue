@@ -105,6 +105,9 @@
             this.name
           );       
           console.log(response);   
+          setTimeout(() => {
+            location.reload();
+        }, 1000);
         }
         catch(e){
           console.log("error:\n");
