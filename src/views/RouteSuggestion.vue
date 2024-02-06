@@ -67,18 +67,31 @@
       // send data to backend 
       async postSuggestion()
       { 
-        const formData = new FormData();
+
+        const blob = new Blob([this.file], { type: "text/plain" });
+        const text = await blob.text();
+        console.log(text);
+        
+
+       /* const formData = new FormData();
         formData.append('name', this.name);
-        formData.append('route', this.file);
+        formData.append('route', text);
+        console.log(formData);*/
+
+        
 
         let response = await fetch('http://localhost:3000/v1/email/', {
           method: "POST",
           headers: 
           { 
             "Content-Type": "application/json",
-             "Access-Control-Allow-Origin": "*"
+             
           },
-          body: formData
+          body: JSON.stringify({
+            name: this.name,
+            file: text
+          })
+          
         })
         //response = await response.json();
         return response;
