@@ -44,6 +44,7 @@
 
         <v-btn @click="submit" class="submit" type="submit">submit</v-btn>
       </form>
+      <h4 style="color: green">{{ this.message }}</h4>
     </v-col>
   </v-row>
 </template>
@@ -55,6 +56,7 @@ export default {
     return {
       name: "",
       file: null,
+      message: "",
     };
   },
 
@@ -69,7 +71,6 @@ export default {
     async postSuggestion() {
       const blob = new Blob([this.file], { type: "text/plain" });
       const text = await blob.text();
-      console.log(text);
 
       /* const formData = new FormData();
         formData.append('name', this.name);
@@ -86,6 +87,7 @@ export default {
           file: text,
         }),
       });
+
       //response = await response.json();
       return response;
     },
@@ -97,7 +99,8 @@ export default {
         console.log(response);
         setTimeout(() => {
           location.reload();
-        }, 1000);
+        }, 3000);
+        this.message = "Route submitted!";
       } catch (e) {
         console.log("error:\n");
         console.log(e);
