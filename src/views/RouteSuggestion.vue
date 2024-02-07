@@ -12,7 +12,7 @@
     </v-container>
   </v-container>
   <v-row justify="center">
-    <v-col sm="11" md="6" lg="3">
+    <v-col style="margin: 20px" sm="11" md="6" lg="3">
       <form
         class="formContainer"
         @submit.prevent="handleSubmit"
