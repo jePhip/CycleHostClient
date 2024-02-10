@@ -1,6 +1,11 @@
 <template>
+
+  
     <v-container>
-      <v-container class="description">
+      <div v-if="success">
+        Route sugggestion submitted successfully!
+      </div>
+      <v-container class="description" v-show="!success">
         Please use the form below if you have a route you would like to see
         included in the Bolivar Cycling website!
         <br />
@@ -10,7 +15,7 @@
         <br />
       </v-container>
   
-      <form
+      <form v-show="!success"
         class="formContainer"
         @submit.prevent="handleSubmit"
         enctype="multipart/form-data"
@@ -52,6 +57,7 @@
       return {
         name: "",
         file: null,
+        success: false
       };
     },
   
@@ -105,9 +111,13 @@
             this.name
           );       
           console.log(response);   
-          setTimeout(() => {
-            location.reload();
-        }, 1000);
+            //setTimeout(() => {
+            //location.reload();
+        //}, 1000);
+
+        if (response.status === 200){
+          this.success = true;
+        }
         }
         catch(e){
           console.log("error:\n");
