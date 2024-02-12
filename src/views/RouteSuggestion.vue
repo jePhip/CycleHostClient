@@ -164,7 +164,8 @@
         try{
 
           if(!this.file || !this.name){
-            valid="false";
+            this.valid=false;
+            return;
           }
 
           const response = await this.postSuggestion(
