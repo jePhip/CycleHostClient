@@ -21,7 +21,7 @@
           <v-card-text>
             Please use the form below to submit a route suggestion for the cycling website!
             <br>
-            Your submission will be reviewed by the City of Bolivar
+            Your submission will be reviewed by the City of Bolivar.
             <br>
             Please include the name of your route, associated GPX file, points of interest you would like to include along the route, and optionally your contact information. 
           </v-card-text>
@@ -38,6 +38,7 @@
         ref="form"
       >
         <v-text-field
+          variant="outlined"
           label="Route Name"
           prepend-icon="mdi-bike"
           v-model="name"
@@ -57,6 +58,27 @@
           name="file"
           accept=".gpx"
         ></v-file-input>
+
+        <v-text-field
+          variant="outlined"
+          label="Points of Interest"
+          prepend-icon="mdi-map-marker-radius"
+          v-model="poi"
+          name="poi"
+          id="poi"          
+        ></v-text-field>
+
+        <v-text-field
+          variant="outlined"
+          label="Email"
+          prepend-icon="mdi-email"
+          v-model="email"
+          name="email"
+          id="email"
+          type="email"
+
+        >
+        </v-text-field>
   
         <v-btn @click="submit" class="submit" type="submit">submit</v-btn>
       </form>
@@ -71,7 +93,10 @@
       return {
         name: "",
         file: null,
-        success: false
+        success: false,
+        email: "",
+        poi: "",
+
       };
     },
   
@@ -109,7 +134,10 @@
           },
           body: JSON.stringify({
             name: this.name,
-            file: text
+            file: text,
+            poi: this.poi,
+            email: this.email
+
           })
           
         })
@@ -148,6 +176,7 @@
   .formContainer {
     max-width: 500px;
     color: #083a8c;
+    padding: 10px;
   }
   
   
