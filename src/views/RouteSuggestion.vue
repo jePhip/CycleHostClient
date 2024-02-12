@@ -3,7 +3,11 @@
   
     <v-container>
       <div v-if="success">
-        Route sugggestion submitted successfully!
+        <v-alert 
+        type="success"
+        title="Suggestion Submitted!"
+        text="Your route has been submitted for review by the City of Bolivar!">
+      </v-alert>
       </div>
       <v-container class="description" v-show="!success">
         Please use the form below if you have a route you would like to see
