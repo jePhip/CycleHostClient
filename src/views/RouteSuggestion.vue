@@ -4,6 +4,7 @@
     <v-container>
       <div v-if="success">
         <v-alert 
+        class="success"
         type="success"
         title="Suggestion Submitted!"
         text="Your route has been submitted for review by the City of Bolivar!">
@@ -38,8 +39,7 @@
             <br>
             Please include the name of your route, associated GPX file, points of interest you would like to include along the route, and optionally your contact information. 
           </v-card-text>
-        </v-card>
-        
+        </v-card>        
       </v-container>
   
       <form v-show="!success"
@@ -202,8 +202,10 @@
     padding: 10px;
   }
 
-  .invalidForm {
-    padding: 20px;
+  .invalidForm, .success{
+    padding: 10px;
+    margin: 15px;
+
    
   }
 
