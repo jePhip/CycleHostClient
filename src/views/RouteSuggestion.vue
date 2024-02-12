@@ -167,6 +167,8 @@
           if(!this.file || !this.name){
             this.valid=false;
             return;
+          }else{
+            this.valid=true;
           }
 
           const response = await this.postSuggestion(
