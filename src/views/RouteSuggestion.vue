@@ -9,6 +9,18 @@
         text="Your route has been submitted for review by the City of Bolivar!">
       </v-alert>
       </div>
+
+      <div v-if="!valid">
+        <v-alert
+          type="warning"
+          title="Invalid Form Input"
+          text="Please include GPX file and name of route."
+        >     
+
+        </v-alert>
+
+      </div>
+
       <v-container class="description" v-show="!success">
         <v-card
           width="max"
@@ -76,6 +88,7 @@
           name="email"
           id="email"
           type="email"
+          
 
         >
         </v-text-field>
@@ -96,6 +109,7 @@
         success: false,
         email: "",
         poi: "",
+        valid: true,
 
       };
     },
@@ -148,6 +162,11 @@
       // subbmit 
       async submit(){ 
         try{
+
+          if(!this.file || !this.name){
+            valid="false";
+          }
+
           const response = await this.postSuggestion(
             this.file,
             this.name
