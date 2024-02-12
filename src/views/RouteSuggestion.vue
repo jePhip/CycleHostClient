@@ -10,11 +10,12 @@
       </v-alert>
       </div>
 
-      <div v-if="!valid">
-        <v-alert
+      <div v-if="!valid" >
+        <v-alert class="invalidForm"
           type="warning"
           title="Invalid Form Input"
           text="Please include GPX file and name of route."
+          width="max"
         >     
 
         </v-alert>
@@ -198,6 +199,12 @@
     color: #083a8c;
     padding: 10px;
   }
+
+  .invalidForm {
+    padding: 20px;
+   
+  }
+
   
   
   </style>
