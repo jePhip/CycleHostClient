@@ -10,13 +10,23 @@
       </v-alert>
       </div>
       <v-container class="description" v-show="!success">
-        Please use the form below if you have a route you would like to see
-        included in the Bolivar Cycling website!
-        <br />
-        Please provide a name for the route along with its associated GPX file.
-        <br />
-        Your submission will be reviewed by the City of Bolivar.
-        <br />
+        <v-card
+          width="max"
+          prepend-icon="mdi-map-marker-outline"
+          color="#083a8c"
+          class="justify-center"
+        >
+          <template v-slot:title> Submit a route! </template>
+
+          <v-card-text>
+            Please use the form below to submit a route suggestion for the cycling website!
+            <br>
+            Your submission will be reviewed by the City of Bolivar
+            <br>
+            Please include the name of your route, associated GPX file, points of interest you would like to include along the route, and optionally your contact information. 
+          </v-card-text>
+        </v-card>
+        
       </v-container>
   
       <form v-show="!success"
@@ -140,7 +150,5 @@
     color: #083a8c;
   }
   
-  .description {
-    text-align: center;
-  }
+  
   </style>
