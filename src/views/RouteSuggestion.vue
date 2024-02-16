@@ -1,16 +1,48 @@
 <template>
+
+  
     <v-container>
-      <v-container class="description">
-        Please use the form below if you have a route you would like to see
-        included in the Bolivar Cycling website!
-        <br />
-        Please provide a name for the route along with its associated GPX file.
-        <br />
-        Your submission will be reviewed by the City of Bolivar.
-        <br />
+      <div v-if="success">
+        <v-alert 
+        class="success"
+        type="success"
+        title="Suggestion Submitted!"
+        text="Your route has been submitted for review by the City of Bolivar!">
+      </v-alert>
+      </div>
+
+      <div v-if="!valid" >
+        <v-alert class="invalidForm"
+          type="warning"
+          title="Invalid Form Input"
+          text="Please include GPX file and name of route."
+          width="max"
+        >     
+
+        </v-alert>
+
+      </div>
+
+      <v-container class="description" v-show="!success">
+        <v-card
+          width="max"
+          prepend-icon="mdi-map-marker-outline"
+          color="#083a8c"
+          class="justify-center"
+        >
+          <template v-slot:title> Submit a route! </template>
+
+          <v-card-text>
+            Please use the form below to submit a route suggestion for the cycling website!
+            <br>
+            Your submission will be reviewed by the City of Bolivar.
+            <br>
+            Please include the name of your route, associated GPX file, points of interest you would like to include along the route, and optionally your contact information. 
+          </v-card-text>
+        </v-card>        
       </v-container>
   
-      <form
+      <form v-show="!success"
         class="formContainer"
         @submit.prevent="handleSubmit"
         enctype="multipart/form-data"
@@ -19,6 +51,7 @@
         ref="form"
       >
         <v-text-field
+          variant="outlined"
           label="Route Name"
           prepend-icon="mdi-bike"
           v-model="name"
@@ -38,6 +71,28 @@
           name="file"
           accept=".gpx"
         ></v-file-input>
+
+        <v-text-field
+          variant="outlined"
+          label="Points of Interest"
+          prepend-icon="mdi-map-marker-radius"
+          v-model="poi"
+          name="poi"
+          id="poi"          
+        ></v-text-field>
+
+        <v-text-field
+          variant="outlined"
+          label="Email"
+          prepend-icon="mdi-email"
+          v-model="email"
+          name="email"
+          id="email"
+          type="email"
+          
+
+        >
+        </v-text-field>
   
         <v-btn @click="submit" class="submit" type="submit">submit</v-btn>
       </form>
@@ -52,6 +107,11 @@
       return {
         name: "",
         file: null,
+        success: false,
+        email: "",
+        poi: "",
+        valid: true,
+
       };
     },
   
@@ -89,7 +149,10 @@
           },
           body: JSON.stringify({
             name: this.name,
-            file: text
+            file: text,
+            poi: this.poi,
+            email: this.email
+
           })
           
         })
@@ -100,14 +163,26 @@
       // subbmit 
       async submit(){ 
         try{
+
+          if(!this.file || !this.name){
+            this.valid=false;
+            return;
+          }else{
+            this.valid=true;
+          }
+
           const response = await this.postSuggestion(
             this.file,
             this.name
           );       
           console.log(response);   
-          setTimeout(() => {
-            location.reload();
-        }, 1000);
+            //setTimeout(() => {
+            //location.reload();
+        //}, 1000);
+
+        if (response.status === 200){
+          this.success = true;
+        }
         }
         catch(e){
           console.log("error:\n");
@@ -124,9 +199,16 @@
   .formContainer {
     max-width: 500px;
     color: #083a8c;
+    padding: 10px;
   }
+
+  .invalidForm, .success{
+    padding: 10px;
+    margin: 15px;
+
+   
+  }
+
   
-  .description {
-    text-align: center;
-  }
+  
   </style>
