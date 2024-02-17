@@ -90,6 +90,7 @@ let routeLength = ref(0);
 let terrain = ref("");
 let routeDesc = ref("");
 let elevation = ref(0);
+let poi = ref("");
 
 //input validation
 let inputRules = reactive([
@@ -113,6 +114,7 @@ let submit = async (event) => {
         terrain: terrain.value,
         desc: routeDesc.value,
         elevation: elevation.value,
+        poi: poi.value
       };
       
       routeStore.addRoute(routeToAdd);
