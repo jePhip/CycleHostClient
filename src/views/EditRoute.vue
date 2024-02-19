@@ -1,4 +1,11 @@
 <template>
+  <v-row>
+    <v-col cols="3"></v-col>
+    <v-col cols="6">
+      <EditRoutesTable />
+    </v-col>
+    <v-col cols="3"> </v-col>
+  </v-row>
   <div class="add-route-container">
     <v-form
       class="routeForm"
@@ -82,6 +89,7 @@
 </template>
 
 <script setup>
+import EditRoutesTable from "@/components/editroute/EditRoutesTable.vue";
 import { useRouteStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";
 import { ref, reactive, computed } from "vue";
@@ -100,7 +108,10 @@ let routeLength = ref(0);
 let terrain = ref("");
 let routeDesc = ref("");
 let elevation = ref(0);
+
 let poi = ref("");
+
+
 
 //input validation
 let inputRules = reactive([
@@ -114,7 +125,7 @@ let submit = async (event) => {
   if (check) {
     try {
       await handleFile();
-      //create route and send it to the backend
+      //create route objects and send it to the backend
       let routeToAdd = {
         route: newRoute.value,
         name: routeName.value,
@@ -124,9 +135,10 @@ let submit = async (event) => {
         terrain: terrain.value,
         desc: routeDesc.value,
         elevation: elevation.value,
-        poi: poi.value
+        poi: poi.value,
+
       };
-      
+
       routeStore.addRoute(routeToAdd);
     } catch (error) {
       console.log("error", error);
@@ -153,26 +165,34 @@ let handleFile = () => {
           const coords = converted.features[0].geometry.coordinates;
           //max locations per request is 512
           let countBy = Math.ceil(coords.length / 512);
-          let elevArr = {};
+          let elevArr = {
+            locations: []
+          };
           let count = 0;
           for (let i = 0; i < coords.length; i = i + countBy) {
-            elevArr[count] = {
+            elevArr.locations[count] = {
               latitude: coords[i][1],
               longitude: coords[i][0],
             };
             count++;
           }
+          console.log(elevArr);
           //get elevation at coord points from backend
-          let eresponse = await fetch(`http://localhost:3000/v1/geo/e`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(elevArr),
-          });
+          let eresponse = await fetch(
+            `https://api.open-elevation.com/api/v1/lookup`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(elevArr),
+            }
+          );
+
           eresponse = await eresponse.json();
+          console.log(eresponse);
           //elevation gain
-          elevArr = eresponse.response.results;
+          elevArr = eresponse.results;
           let egain = 0;
           let diff = 0;
           for (let i = 1; i < elevArr.length; i++) {

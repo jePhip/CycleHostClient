@@ -23,20 +23,19 @@
                   <a class="popup" :href="'/route/' + r.id">
                     <v-container>
                       <h3 class="nameh3">{{ r.name }}</h3>
-                      <v-sheet :height="10" :width="0"></v-sheet>
+                      <v-sheet :height="5" :width="0"></v-sheet>
                       <h4>Length: {{ r.length }} miles</h4>
                       <h4>Difficulty: {{ r.difficulty }}</h4>
+                      <h4>Terrain: {{ r.terrain }}</h4>
                       <v-row>
                         <v-col cols="10"></v-col>
                         <v-col cols="2">
                           <v-icon icon="mdi-launch"></v-icon>
                         </v-col>
-
                       </v-row>
                     </v-container>
-                  </a>
-                </l-popup></LPolyline
-              >
+                  </a> </l-popup
+              ></LPolyline>
             </div>
           </div>
         </l-map>
@@ -86,13 +85,16 @@ let poly = (arr) => {
   console.log(returnArr.length);
   return returnArr;
 };
+let count = 0;
 let randColor = () => {
-  const rand = Math.floor(Math.random() * 256);
-  const red = Math.floor(Math.random() * 256);
-  const green = Math.floor(Math.random() * 256);
-  const blue = Math.floor(Math.random() * 256);
-  const color = `rgb(${red}, ${green}, ${blue})`;
-
+  const rand = Math.floor(Math.random() * 6);
+  const colors = ["rgb(60, 140, 255)", "rgb(255, 0, 255)", "rgb(255, 215, 0)", "rgb(100, 100 ,200 )", "rgb(200, 255 ,200 )", "rgb(10, 255 ,0)", "rgb(180, 250,255)"];
+  const color = `${colors[count]}`;
+  if(count<6){
+    count++;
+  }else{
+    count = 0;
+  }
   return color;
 };
 let mapOptions = reactive({
@@ -100,7 +102,7 @@ let mapOptions = reactive({
 });
 </script>
 <style>
-.nameh3{
+.nameh3 {
   text-decoration: underline;
 }
 .popup {

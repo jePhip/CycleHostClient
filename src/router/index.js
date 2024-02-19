@@ -45,6 +45,14 @@ const routes = [
     component: function(){ 
       return import(/* webpackChunkName: "login" */ '../views/Login.vue')
     }
+  },
+
+  {
+    path: '/RouteSuggestion',
+    name: 'RouteSuggestion',
+    component: function(){
+      return import(/* webpackChunkName: "RouteSuggestion" */ '../views/RouteSuggestion.vue')
+    }
   }
 
 ]
