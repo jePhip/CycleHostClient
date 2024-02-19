@@ -31,7 +31,8 @@
       <div class="desc">
         <RoutePOI :route="route" />
       </div>
-
+        </v-col>
+      </v-row>
 
     </div>
     <div class="noRoute" v-if="!route">
