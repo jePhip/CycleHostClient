@@ -1,10 +1,26 @@
 <template>
-  <v-table>
-    <tbody class="table">
+  <v-table class="d-none d-lg-block">
+    <thead>
       <tr>
-        <th class="text-left">Name</th>
-        <td>{{ route?.name }}</td>
+        <th class="text-left">Length</th>
+        <th class="text-left">Terrain</th>
+        <th class="text-left">Difficulty</th>
+        <th class="text-left">Elevation Gain</th>
+        <th>Try it out!</th>
       </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ route?.length }} miles</td>
+        <td>{{ route?.terrain }}</td>
+        <td>{{ route?.difficulty }}</td>
+        <td>{{ route?.elevation }} feet</td>
+        <td><v-btn  @click="downloadGPX(route.gpx, route.name)" icon="mdi-download" style="scale: 85%; color: blue"></v-btn></td>
+      </tr>
+    </tbody>
+  </v-table>
+  <v-table class="d-lg-none">
+    <tbody class="table">
       <tr>
         <th class="text-left">Length</th>
         <td>{{ route?.length }} miles</td>
@@ -39,7 +55,8 @@
 // style sheet
 import "@/css/route-view-table.css";
 
-export default {//
+export default {
+  //
   props: {
     route: null, //route inputed by parent component
   },
