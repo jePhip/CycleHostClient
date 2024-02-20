@@ -1,5 +1,5 @@
 <template>
-  <a target="" class="cardlink" :href="'/route/' + route.id">
+  <router-link class="cardlink" :to="'/route/' + route.id">
     <v-card class="mx-auto" max-width="375" max-height="500">
       <CardMap :route="route" cover />
 
@@ -11,7 +11,7 @@
         <v-btn router :to="link"> View Route </v-btn>
       </v-card-actions>
     </v-card>
-  </a>
+  </router-link>
 </template>
 
 <script>
@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style>
-.cardlink{
+.cardlink {
   text-decoration: none;
   color: inherit;
 }
