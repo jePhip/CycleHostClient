@@ -13,6 +13,7 @@
     </v-card-title>
     <br />
     <v-row justify="center">
+      <!-- Add Route Dialog -->
       <v-dialog>
         <template v-slot:activator="{ props }">
           <v-btn flat v-bind="props"
@@ -111,7 +112,6 @@
           </v-card>
         </template>
       </v-dialog>
-
       <v-dialog width="500">
         <template v-slot:activator="{ props }"> </template>
 
@@ -132,14 +132,56 @@
         </a>
       </template>
       <template #item.edit="{ item }">
-        <v-dialog width="500">
+        <!-- Edit Route Dialog -->
+
+        <v-dialog>
           <template v-slot:activator="{ props }">
             <v-btn class="tableBtn" v-bind="props" icon="mdi-pencil"> </v-btn>
           </template>
 
           <template v-slot:default="{ isActive }">
             <v-card title="Edit Route">
-              <v-card-text>ID: {{ item.id }}</v-card-text>
+              <v-row justify="center">
+                <v-col cols="9">
+                  <v-card-text>ID: {{ item.id }}</v-card-text>
+                  <v-card-text>Name: {{ item.name }}</v-card-text>
+                  <v-text-field
+                    prepend-icon="mdi-map-marker"
+                    v-model="item.name"
+                    clearable
+                    hide-details="auto"
+                    label="Route Name"
+                  ></v-text-field>
+
+                  <v-select
+                    label="Terrain"
+                    prepend-icon="mdi-road"
+                    v-model="item.terrain"
+                    :items="['Paved', 'Gravel', 'Dirt']"
+                    :rules="inputRules"
+                  >
+                  </v-select>
+                  <v-select
+                    label="Select Difficulty: "
+                    prepend-icon="mdi-alert"
+                    v-model="item.difficulty"
+                    :items="['Beginner', 'Intermediate', 'Expert']"
+                    :rules="inputRules"
+                  >
+                  </v-select>
+                  <v-textarea
+                    label="Route Description"
+                    prepend-icon="mdi-pencil"
+                    class="routeDesc"
+                    type="text"
+                    variant="outlined"
+                    name="routeDesc"
+                    v-model="item.desc"
+                    :rules="inputRules"
+                    required
+                  ></v-textarea>
+                </v-col>
+              </v-row>
             </v-card>
           </template>
         </v-dialog>
