@@ -145,7 +145,7 @@
                 class="routeForm"
                 validate-on="submit lazy"
                 @submit.prevent="submitEdit"
-                ref="form"
+                ref="editForm"
               >
                 <v-row justify="center">
                   <v-col cols="9">
@@ -275,31 +275,11 @@ let egpx = ref();
 let enewRoute = ref();
 let eelevation = ref();
 
-
+let editForm = ref();
 
 //methods
 let submitEdit = async (event) => {
-  const check = (await event).valid;
-  if (check) {
-    try {
-      await handleFile();
-      //create route and send it to the backend
-      let routeToAdd = {
-        route: newRoute.value,
-        name: routeName.value,
-        gpx: gpx.value,
-        difficulty: difficulty.value,
-        length: routeLength.value,
-        terrain: terrain.value,
-        desc: routeDesc.value,
-        elevation: elevation.value,
-      };
-
-      routeStore.addRoute(routeToAdd);
-    } catch (error) {
-      console.log("error", error);
-    } //
-  }
+  console.log(editForm.value);
 };
 
 let submit = async (event) => {
