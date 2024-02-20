@@ -18,10 +18,10 @@
       :search="search"
     >
       <template #item.name="{ item }">
-        <a target="" :href="'/route/' + item.id" @click="handleClick"
+        <router-link :to="'/route/' + item.id" @click="handleClick"
           ><!-- eventually to route page -->
           {{ item.name }}
-        </a>
+        </router-link>
       </template>
       <template #item.gpx="{ item }">
         <div class="gpxBtn">
@@ -85,8 +85,6 @@ const routeStore = useRouteStore();
 const { getRoutes } = storeToRefs(routeStore);
 let routes = computed(() => routeStore.getRoutes);
 
-
-
 let downloadGPX = async (file, routeName) => {
   //convert from base64 to plain text
   file = atob(file);
@@ -102,7 +100,11 @@ let downloadGPX = async (file, routeName) => {
   pom.setAttribute("href", window.URL.createObjectURL(bb));
   pom.setAttribute("download", filename);
 
-  pom.dataset.downloadurl = ["application/gpx+xml", pom.download, pom.href].join(":");
+  pom.dataset.downloadurl = [
+    "application/gpx+xml",
+    pom.download,
+    pom.href,
+  ].join(":");
   pom.draggable = true;
   pom.classList.add("dragout");
 
