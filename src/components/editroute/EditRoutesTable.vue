@@ -141,47 +141,73 @@
 
           <template v-slot:default="{ isActive }">
             <v-card title="Edit Route">
-              <v-row justify="center">
-                <v-col cols="9">
-                  <v-card-text>ID: {{ item.id }}</v-card-text>
-                  <v-card-text>Name: {{ item.name }}</v-card-text>
-                  <v-text-field
-                    prepend-icon="mdi-map-marker"
-                    v-model="item.name"
-                    clearable
-                    hide-details="auto"
-                    label="Route Name"
-                  ></v-text-field>
+              <v-form
+                class="routeForm"
+                validate-on="submit lazy"
+                @submit.prevent="submitEdit"
+                ref="form"
+              >
+                <v-row justify="center">
+                  <v-col cols="9">
+                    <v-card-text>ID: {{ item.id }}</v-card-text>
+                    <v-card-text>Name: {{ item.name }}</v-card-text>
+                    <v-text-field
+                      prepend-icon="mdi-map-marker"
+                      v-model="item.name"
+                      clearable
+                      hide-details="auto"
+                      label="Route Name"
+                    ></v-text-field>
 
-                  <v-select
-                    label="Terrain"
-                    prepend-icon="mdi-road"
-                    v-model="item.terrain"
-                    :items="['Paved', 'Gravel', 'Dirt']"
-                    :rules="inputRules"
-                  >
-                  </v-select>
-                  <v-select
-                    label="Select Difficulty: "
-                    prepend-icon="mdi-alert"
-                    v-model="item.difficulty"
-                    :items="['Beginner', 'Intermediate', 'Expert']"
-                    :rules="inputRules"
-                  >
-                  </v-select>
-                  <v-textarea
-                    label="Route Description"
-                    prepend-icon="mdi-pencil"
-                    class="routeDesc"
-                    type="text"
-                    variant="outlined"
-                    name="routeDesc"
-                    v-model="item.desc"
-                    :rules="inputRules"
-                    required
-                  ></v-textarea>
-                </v-col>
-              </v-row>
+                    <v-select
+                      label="Terrain"
+                      prepend-icon="mdi-road"
+                      v-model="item.terrain"
+                      :items="['Paved', 'Gravel', 'Dirt']"
+                      :rules="inputRules"
+                    >
+                    </v-select>
+                    <v-select
+                      label="Select Difficulty: "
+                      prepend-icon="mdi-alert"
+                      v-model="item.difficulty"
+                      :items="['Beginner', 'Intermediate', 'Expert']"
+                      :rules="inputRules"
+                    >
+                    </v-select>
+                    <v-textarea
+                      label="Route Description"
+                      prepend-icon="mdi-pencil"
+                      class="routeDesc"
+                      type="text"
+                      variant="outlined"
+                      name="routeDesc"
+                      v-model="item.desc"
+                      :rules="inputRules"
+                      required
+                    ></v-textarea>
+                    <v-row justify="center">
+                      <div class="text-h5">Upload a new GPX file</div>
+                    </v-row>
+
+                    <v-row>
+                      <v-file-input
+                        label="Upload .gpx File"
+                        variant="outlined"
+                        accept=".gpx"
+                        type="file"
+                        ref="file"
+                        :rules="inputRules"
+                        prepend-icon="mdi-map"
+                        required
+                      ></v-file-input>
+                    </v-row>
+                    <v-row justify="center">
+                      <v-btn width="200%" type="submit" flat>submit</v-btn>
+                    </v-row>
+                  </v-col>
+                </v-row>
+              </v-form>
             </v-card>
           </template>
         </v-dialog>
@@ -238,7 +264,44 @@ let file = ref();
 let gpx = ref();
 let newRoute = ref();
 let elevation = ref();
-//add route methods
+
+let erouteName = ref("");
+let erouteLength = ref();
+let eterrain = ref("");
+let edifficulty = ref("");
+let erouteDesc = ref("");
+let efile = ref();
+let egpx = ref();
+let enewRoute = ref();
+let eelevation = ref();
+
+
+
+//methods
+let submitEdit = async (event) => {
+  const check = (await event).valid;
+  if (check) {
+    try {
+      await handleFile();
+      //create route and send it to the backend
+      let routeToAdd = {
+        route: newRoute.value,
+        name: routeName.value,
+        gpx: gpx.value,
+        difficulty: difficulty.value,
+        length: routeLength.value,
+        terrain: terrain.value,
+        desc: routeDesc.value,
+        elevation: elevation.value,
+      };
+
+      routeStore.addRoute(routeToAdd);
+    } catch (error) {
+      console.log("error", error);
+    } //
+  }
+};
+
 let submit = async (event) => {
   const check = (await event).valid;
   if (check) {
