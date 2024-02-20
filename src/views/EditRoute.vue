@@ -1,11 +1,12 @@
 <template>
-  <v-row>
-    <v-col cols="3"></v-col>
+  <v-row justify="center">
     <v-col cols="6">
       <EditRoutesTable />
     </v-col>
-    <v-col cols="3"> </v-col>
   </v-row>
+
+
+  <!-- To be removed after edit route table complete -->
   <div class="add-route-container">
     <v-form
       class="routeForm"
@@ -150,7 +151,7 @@ let handleFile = () => {
           //max locations per request is 512
           let countBy = Math.ceil(coords.length / 512);
           let elevArr = {
-            locations: []
+            locations: [],
           };
           let count = 0;
           for (let i = 0; i < coords.length; i = i + countBy) {

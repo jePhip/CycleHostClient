@@ -21,7 +21,12 @@
         </template>
 
         <template v-slot:default="{ isActive }">
-          <v-card style="color: blue" title="Add Route">
+          <v-card style="color: blue">
+            <v-container>
+              <v-row justify="center">
+                <div class="text-h4">Add a new Route</div>
+              </v-row>
+            </v-container>
             <v-form
               class="routeForm"
               validate-on="submit lazy"
@@ -97,9 +102,10 @@
                 </v-col>
               </v-row>
               <v-row justify="center">
-                <v-col justify="center">
-                  <v-btn type="submit" flat>submit</v-btn>
-                </v-col>
+                <v-btn width="200%" type="submit" flat>submit</v-btn>
+              </v-row>
+              <v-row>
+                <v-spacer></v-spacer>
               </v-row>
             </v-form>
           </v-card>
@@ -121,8 +127,7 @@
       :search="search"
     >
       <template #item.name="{ item }">
-        <a target="" :href="'/route/' + item.id"
-          >
+        <a target="" :href="'/route/' + item.id">
           {{ item.name }}
         </a>
       </template>
@@ -135,7 +140,6 @@
           <template v-slot:default="{ isActive }">
             <v-card title="Edit Route">
               <v-card-text>ID: {{ item.id }}</v-card-text>
-              
             </v-card>
           </template>
         </v-dialog>
@@ -216,6 +220,7 @@ let submit = async (event) => {
     } //
   }
 };
+
 let handleFile = () => {
   return new Promise((resolve, reject) => {
     try {
@@ -236,26 +241,34 @@ let handleFile = () => {
           const coords = converted.features[0].geometry.coordinates;
           //max locations per request is 512
           let countBy = Math.ceil(coords.length / 512);
-          let elevArr = {};
+          let elevArr = {
+            locations: [],
+          };
           let count = 0;
           for (let i = 0; i < coords.length; i = i + countBy) {
-            elevArr[count] = {
+            elevArr.locations[count] = {
               latitude: coords[i][1],
               longitude: coords[i][0],
             };
             count++;
           }
+          console.log(elevArr);
           //get elevation at coord points from backend
-          let eresponse = await fetch(`http://localhost:3000/v1/geo/e`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(elevArr),
-          });
+          let eresponse = await fetch(
+            `https://api.open-elevation.com/api/v1/lookup`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(elevArr),
+            }
+          );
+
           eresponse = await eresponse.json();
+          console.log(eresponse);
           //elevation gain
-          elevArr = eresponse.response.results;
+          elevArr = eresponse.results;
           let egain = 0;
           let diff = 0;
           for (let i = 1; i < elevArr.length; i++) {
