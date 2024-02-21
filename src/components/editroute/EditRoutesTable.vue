@@ -127,9 +127,10 @@
       :search="search"
     >
       <template #item.name="{ item }">
-        <a target="" :href="'/route/' + item.id">
+        <router-link :to="'/route/' + item.id"
+          >
           {{ item.name }}
-        </a>
+        </router-link>
       </template>
       <template #item.edit="{ item }">
         <!-- Edit Route Dialog -->

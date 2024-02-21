@@ -55,6 +55,16 @@
           :rules="inputRules"
           required
         ></v-textarea>
+        <v-textarea
+          label="Points of Interest"
+          prepend-icon="fa:fas fa-search"
+          class="routeDesc"
+          type="text"
+          variant="outlined"
+          name="poi"
+          v-model="poi"
+          :rules="inputRules"
+        ></v-textarea>
         <v-file-input
           label="Upload .gpx File"
           variant="outlined"
@@ -100,6 +110,10 @@ let terrain = ref("");
 let routeDesc = ref("");
 let elevation = ref(0);
 
+let poi = ref("");
+
+
+
 //input validation
 let inputRules = reactive([
   (v) => v.length > 0 || "Please add a value to this field",
@@ -112,7 +126,7 @@ let submit = async (event) => {
   if (check) {
     try {
       await handleFile();
-      //create route and send it to the backend
+      //create route objects and send it to the backend
       let routeToAdd = {
         route: newRoute.value,
         name: routeName.value,
@@ -122,6 +136,8 @@ let submit = async (event) => {
         terrain: terrain.value,
         desc: routeDesc.value,
         elevation: elevation.value,
+        poi: poi.value,
+
       };
 
       routeStore.addRoute(routeToAdd);
