@@ -1,68 +1,65 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import RouteView from "../views/RouteView.vue";
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import RouteView from '../views/RouteView.vue'
 const routes = [
   {
-    path: "/route/:id",
-    name: "Route",
-    component: RouteView,
+    path: '/route/:id',
+    name: 'Route',
+    component: RouteView
   },
   {
-    path: "/login",
-    name: "Login",
-    component: function () {
-      return import(/* webpackChunkName: "login" */ "../views/Login.vue");
-    },
+    path: '/home',
+    name: 'home',
+    component: HomeView
   },
 
   {
-    path: "/about",
-    name: "about",
+    path: '/about',
+    name: 'about',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/AboutView.vue");
-    },
+      return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    }
   },
   {
-    path: "/edit",
-    name: "Edit Routes",
+    path: '/edit',
+    name: 'Edit Routes',
     component: function () {
-      return import(/* webpackChunkName: "edit" */ "../views/EditRoute.vue");
-    },
+      return import(/* webpackChunkName: "edit" */ '../views/EditRoute.vue')
+    }
+  },
+  
+  {
+    path: '/test',
+    name: 'Test',
+    component: function () {
+      return import(/* webpackChunkName: "route" */ '../views/TestView.vue')
+    }
+  },
+
+  { 
+    path: '/',
+    name: 'Login', 
+    component: function(){ 
+      return import(/* webpackChunkName: "login" */ '../views/Login.vue')
+    }
   },
 
   {
-    path: "/test",
-    name: "Test",
-    component: function () {
-      return import(/* webpackChunkName: "route" */ "../views/TestView.vue");
-    },
-  },
+    path: '/suggest',
+    name: 'RouteSuggestion',
+    component: function(){
+      return import(/* webpackChunkName: "RouteSuggestion" */ '../views/RouteSuggestion.vue')
+    }
+  }
 
-  {
-    path: "/login",
-    name: "Login",
-    component: function () {
-      return import(/* webpackChunkName: "login" */ "../views/Login.vue");
-    },
-  },
-
-  {
-    path: "/suggest",
-    name: "RouteSuggestion",
-    component: function () {
-      return import(
-        /* webpackChunkName: "RouteSuggestion" */ "../views/RouteSuggestion.vue"
-      );
-    },
-  },
-];
+]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
-});
+  routes
+})
 
-export default router;
+export default router
