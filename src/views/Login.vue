@@ -62,6 +62,7 @@ let login = async () => {
     `https://cloudbuildinst-dn4hl3ql4q-uc.a.run.app/v1/auth/login`,
     {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
