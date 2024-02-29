@@ -52,7 +52,6 @@ let signup = async () => {
     }
   );
 };
-signup();
 let login = async () => {
   let up = {
     username: username.value,
