@@ -35,33 +35,38 @@ let inputRules = reactive([
   (v) => v.length > 0 || "Please add a value to this field",
 ]);
 
-
 let login = async () => {
   let up = {
     username: username.value,
     password: password.value,
   };
-  let response = await fetch(`https://cyclebackend-dn4hl3ql4q-uc.a.run.app/v1/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(up),
-  });
+  let response = await fetch(
+    `https://cyclebackend-dn4hl3ql4q-uc.a.run.app/v1/auth/login`,
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(up),
+    }
+  );
   const headers = response.headers;
   console.log(headers);
   response = await response.json();
-
 };
 let logout = async () => {
-  let response = await fetch(`https://cloudbuildinst-dn4hl3ql4q-uc.a.run.app/v1/auth/logout`, {
-    method: "POST",
-    credentials: 'include',
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({}),
-  });
+  let response = await fetch(
+    `https://cloudbuildinst-dn4hl3ql4q-uc.a.run.app/v1/auth/logout`,
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    }
+  );
   response = await response.json();
   console.log(response);
 };
