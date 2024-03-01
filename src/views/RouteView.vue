@@ -20,22 +20,16 @@
         <v-col sm="11" md="9">
           <RouteDetail :route="route" />
 
+          <br />
 
-      <div class="desc">
-        <RouteDetail :route="route" />
-      </div>
-
-      <br />
-
-      <div class="desc">
-        <RoutePOI :route="route" />
-      </div>
+          <div class="desc">
+            <RoutePOI :route="route" />
+          </div>
         </v-col>
       </v-row>
-
     </div>
     <div class="noRoute" v-if="!route">
-      <h1>Loading...</h1>
+      <h1>404: Route not found</h1>
       <a class="noRoutea" href="/">Back to Home</a>
     </div>
   </div>
