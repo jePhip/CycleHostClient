@@ -13,6 +13,7 @@
     </v-card-title>
     <br />
     <v-row justify="center">
+      <!-- Add Route Dialog -->
       <v-dialog>
         <template v-slot:activator="{ props }">
           <v-btn flat v-bind="props"
@@ -21,7 +22,12 @@
         </template>
 
         <template v-slot:default="{ isActive }">
-          <v-card style="color: blue" title="Add Route">
+          <v-card style="color: blue">
+            <v-container>
+              <v-row justify="center">
+                <div class="text-h4">Add a new Route</div>
+              </v-row>
+            </v-container>
             <v-form
               class="routeForm"
               validate-on="submit lazy"
@@ -97,15 +103,15 @@
                 </v-col>
               </v-row>
               <v-row justify="center">
-                <v-col justify="center">
-                  <v-btn type="submit" flat>submit</v-btn>
-                </v-col>
+                <v-btn width="200%" type="submit" flat>submit</v-btn>
+              </v-row>
+              <v-row>
+                <v-spacer></v-spacer>
               </v-row>
             </v-form>
           </v-card>
         </template>
       </v-dialog>
-
       <v-dialog width="500">
         <template v-slot:activator="{ props }"> </template>
 
@@ -127,15 +133,82 @@
         </router-link>
       </template>
       <template #item.edit="{ item }">
-        <v-dialog width="500">
+        <!-- Edit Route Dialog -->
+
+        <v-dialog>
           <template v-slot:activator="{ props }">
             <v-btn class="tableBtn" v-bind="props" icon="mdi-pencil"> </v-btn>
           </template>
 
           <template v-slot:default="{ isActive }">
             <v-card title="Edit Route">
-              <v-card-text>ID: {{ item.id }}</v-card-text>
-              
+              <v-form
+                class="routeForm"
+                validate-on="submit lazy"
+                @submit.prevent="submitEdit"
+                ref="editForm"
+              >
+                <v-row justify="center">
+                  <v-col cols="9">
+                    <v-card-text>ID: {{ item.id }}</v-card-text>
+                    <v-card-text>Name: {{ item.name }}</v-card-text>
+                    <v-text-field
+                      prepend-icon="mdi-map-marker"
+                      v-model="item.name"
+                      clearable
+                      hide-details="auto"
+                      label="Route Name"
+                    ></v-text-field>
+
+                    <v-select
+                      label="Terrain"
+                      prepend-icon="mdi-road"
+                      v-model="item.terrain"
+                      :items="['Paved', 'Gravel', 'Dirt']"
+                      :rules="inputRules"
+                    >
+                    </v-select>
+                    <v-select
+                      label="Select Difficulty: "
+                      prepend-icon="mdi-alert"
+                      v-model="item.difficulty"
+                      :items="['Beginner', 'Intermediate', 'Expert']"
+                      :rules="inputRules"
+                    >
+                    </v-select>
+                    <v-textarea
+                      label="Route Description"
+                      prepend-icon="mdi-pencil"
+                      class="routeDesc"
+                      type="text"
+                      variant="outlined"
+                      name="routeDesc"
+                      v-model="item.desc"
+                      :rules="inputRules"
+                      required
+                    ></v-textarea>
+                    <v-row justify="center">
+                      <div class="text-h5">Upload a new GPX file</div>
+                    </v-row>
+
+                    <v-row>
+                      <v-file-input
+                        label="Upload .gpx File"
+                        variant="outlined"
+                        accept=".gpx"
+                        type="file"
+                        ref="file"
+                        :rules="inputRules"
+                        prepend-icon="mdi-map"
+                        required
+                      ></v-file-input>
+                    </v-row>
+                    <v-row justify="center">
+                      <v-btn width="200%" type="submit" flat>submit</v-btn>
+                    </v-row>
+                  </v-col>
+                </v-row>
+              </v-form>
             </v-card>
           </template>
         </v-dialog>
@@ -192,7 +265,24 @@ let file = ref();
 let gpx = ref();
 let newRoute = ref();
 let elevation = ref();
-//add route methods
+
+let erouteName = ref("");
+let erouteLength = ref();
+let eterrain = ref("");
+let edifficulty = ref("");
+let erouteDesc = ref("");
+let efile = ref();
+let egpx = ref();
+let enewRoute = ref();
+let eelevation = ref();
+
+let editForm = ref();
+
+//methods
+let submitEdit = async (event) => {
+  console.log(editForm.value);
+};
+
 let submit = async (event) => {
   const check = (await event).valid;
   if (check) {
@@ -216,6 +306,7 @@ let submit = async (event) => {
     } //
   }
 };
+
 let handleFile = () => {
   return new Promise((resolve, reject) => {
     try {
@@ -236,26 +327,34 @@ let handleFile = () => {
           const coords = converted.features[0].geometry.coordinates;
           //max locations per request is 512
           let countBy = Math.ceil(coords.length / 512);
-          let elevArr = {};
+          let elevArr = {
+            locations: [],
+          };
           let count = 0;
           for (let i = 0; i < coords.length; i = i + countBy) {
-            elevArr[count] = {
+            elevArr.locations[count] = {
               latitude: coords[i][1],
               longitude: coords[i][0],
             };
             count++;
           }
+          console.log(elevArr);
           //get elevation at coord points from backend
-          let eresponse = await fetch(`http://localhost:3000/v1/geo/e`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(elevArr),
-          });
+          let eresponse = await fetch(
+            `https://api.open-elevation.com/api/v1/lookup`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(elevArr),
+            }
+          );
+
           eresponse = await eresponse.json();
+          console.log(eresponse);
           //elevation gain
-          elevArr = eresponse.response.results;
+          elevArr = eresponse.results;
           let egain = 0;
           let diff = 0;
           for (let i = 1; i < elevArr.length; i++) {
