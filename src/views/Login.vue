@@ -35,61 +35,33 @@ let inputRules = reactive([
   (v) => v.length > 0 || "Please add a value to this field",
 ]);
 
-let signup = async () => {
 
-  let up = {
-    username: "bob",
-    password: "dillan",
-  };
-  let reponse = await fetch(
-    `https://cloudbuildinst-dn4hl3ql4q-uc.a.run.app/v1/auth/signup`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(up),
-    }
-  );
-};
 let login = async () => {
   let up = {
     username: username.value,
     password: password.value,
   };
-  let response = await fetch(
-    `https://cloudbuildinst-dn4hl3ql4q-uc.a.run.app/v1/auth/login`,
-    {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(up),
-    }
-  );
+  let response = await fetch(`https://cyclebackend-dn4hl3ql4q-uc.a.run.app/v1/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(up),
+  });
   const headers = response.headers;
   console.log(headers);
   response = await response.json();
-  const cookies = document.cookie;
 
-  // Log the headers or access specific header values
-  console.log("All headers:", headers);
-  console.log("Received Cookies:", cookies);
-  console.log(response);
 };
 let logout = async () => {
-  let response = await fetch(
-    `https://cloudbuildinst-dn4hl3ql4q-uc.a.run.app/v1/auth/logout`,
-    {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    }
-  );
+  let response = await fetch(`https://cloudbuildinst-dn4hl3ql4q-uc.a.run.app/v1/auth/logout`, {
+    method: "POST",
+    credentials: 'include',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  });
   response = await response.json();
   console.log(response);
 };
