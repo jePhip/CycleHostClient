@@ -19,7 +19,7 @@ export const useRouteStore = defineStore("routeStore", {
     async updateRoute(updatedRoute) {
       //TODO: make this function work.. untested
       id = updatedRoute.id; //take in whatever attributes are being updated, leave rest unchanged, put back into state
-      let response = await fetch(`https://cloudbuildinst-dn4hl3ql4q-uc.a.run.app/a1/geo/${id}`, {
+      let response = await fetch(`https://cyclebackend-dn4hl3ql4q-uc.a.run.app/v1/geo/${id}`, {
         method: "PUT",
       });
       response = await response.json();
@@ -34,7 +34,7 @@ export const useRouteStore = defineStore("routeStore", {
       //tested
       this.routes.push(routeToAdd);
       
-      let response = await fetch(`https://cloudbuildinst-dn4hl3ql4q-uc.a.run.app/a1/geo/`, {
+      let response = await fetch(`https://cyclebackend-dn4hl3ql4q-uc.a.run.app/v1/geo/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export const useRouteStore = defineStore("routeStore", {
     async deleteRoute(id) {
       //tested
       //this.routes.remove((r) => r.id == id)//to update routes array in state
-      let response = await fetch(`https://cloudbuildinst-dn4hl3ql4q-uc.a.run.app/a1/geo/${id}`, {
+      let response = await fetch(`https://cyclebackend-dn4hl3ql4q-uc.a.run.app/v1/geo/${id}`, {
         method: "DELETE",
       });
       response = await response.json();
@@ -62,7 +62,7 @@ export const useRouteStore = defineStore("routeStore", {
     async getRoutesInit() {
       //tested
       try {
-        let response = await fetch("https://cloudbuildinst-dn4hl3ql4q-uc.a.run.app/v1/geo"); //eventually change to env variable
+        let response = await fetch("https://cyclebackend-dn4hl3ql4q-uc.a.run.app/v1/geo"); //eventually change to env variable
         response = await response.json();
         this.routes = response.routes.map((r) => {
           return {
