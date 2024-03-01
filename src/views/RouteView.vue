@@ -19,8 +19,20 @@
       <v-row justify="center">
         <v-col sm="11" md="9">
           <RouteDetail :route="route" />
+
+
+      <div class="desc">
+        <RouteDetail :route="route" />
+      </div>
+
+      <br />
+
+      <div class="desc">
+        <RoutePOI :route="route" />
+      </div>
         </v-col>
       </v-row>
+
     </div>
     <div class="noRoute" v-if="!route">
       <h1>Loading...</h1>
@@ -33,6 +45,7 @@
 import "leaflet/dist/leaflet.css";
 import RouteTable from "@/components/routeview/RouteViewTable.vue";
 import RouteDetail from "@/components/routeview/RouteDetail.vue";
+import RoutePOI from "@/components/routeview/RoutePOI.vue";
 import RouteViewMap from "@/components/routeview/RouteViewMap.vue";
 import { LMap, LTileLayer, LMarker, LGeoJson } from "@vue-leaflet/vue-leaflet";
 import { useRouteStore } from "@/store/index.js";

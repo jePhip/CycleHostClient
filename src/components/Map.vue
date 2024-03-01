@@ -20,7 +20,7 @@
                 :color="r.color"
                 weight="6"
                 ><l-popup>
-                  <a class="popup" :href="'/route/' + r.id">
+                  <router-link class="popup" :to="'/route/' + r.id">
                     <v-container>
                       <h3 class="nameh3">{{ r.name }}</h3>
                       <v-sheet :height="5" :width="0"></v-sheet>
@@ -34,7 +34,7 @@
                         </v-col>
                       </v-row>
                     </v-container>
-                  </a> </l-popup
+                  </router-link> </l-popup
               ></LPolyline>
             </div>
           </div>
