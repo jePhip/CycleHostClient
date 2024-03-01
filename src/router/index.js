@@ -8,7 +8,7 @@ const routes = [
     component: RouteView
   },
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: HomeView
   },
@@ -40,7 +40,7 @@ const routes = [
   },
 
   { 
-    path: '/',
+    path: '/login',
     name: 'Login', 
     component: function(){ 
       return import(/* webpackChunkName: "login" */ '../views/Login.vue')
