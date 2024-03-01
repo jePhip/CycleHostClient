@@ -162,8 +162,8 @@ export default {
         //setTimeout(() => {
         //location.reload();
         //}, 1000);
-        this.success = true;
-        if (response.status === 200) {
+        
+        if (1==1) {
           this.success = true;
         }
       } catch (e) {

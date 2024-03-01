@@ -23,7 +23,7 @@
           <br />
 
           <div class="desc">
-            <RoutePOI :route="route" />
+
           </div>
         </v-col>
       </v-row>
