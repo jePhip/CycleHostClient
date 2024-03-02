@@ -95,13 +95,15 @@
         </v-text-field>
   
         <v-btn @click="submit" class="submit" type="submit">submit</v-btn>
+
+        <button @click="recaptcha">Execute recaptcha</button>
       </form>
     </v-container>
   </template>
   
   <script>
-import {VueReCaptcha} from "vue-recaptcha-v3";
-use(VueReCaptcha,{ siteKey: "6Lfg9H0pAAAAAAf3w4wVvWgYcJCf4eLanyw6k3Mi"})
+import Vue from "vue"
+import {VueReCaptcha} from "vue-recaptcha-v3"
 
   export default {
     name: "routeSuggestion",
@@ -118,7 +120,9 @@ use(VueReCaptcha,{ siteKey: "6Lfg9H0pAAAAAAf3w4wVvWgYcJCf4eLanyw6k3Mi"})
     },
   
     methods: {
-
+      async recaptcha() {
+      // (optional) Wait until recaptcha has been loaded.
+      await this.$recaptchaLoaded()},
       // handle file once uploaded 
       handleFile() {
         this.file = this.$refs.file.files[0];
@@ -182,6 +186,7 @@ use(VueReCaptcha,{ siteKey: "6Lfg9H0pAAAAAAf3w4wVvWgYcJCf4eLanyw6k3Mi"})
             //setTimeout(() => {
             //location.reload();
         //}, 1000);
+        //const token = await this.$recaptcha('submit');
 
         if (response.status === 200){
           this.success = true;
@@ -197,9 +202,7 @@ use(VueReCaptcha,{ siteKey: "6Lfg9H0pAAAAAAf3w4wVvWgYcJCf4eLanyw6k3Mi"})
       }
     },
   };
-  this.$recaptcha("login").then((token) => {
-          data["g-recaptcha-response"] = token;
-  });
+  
   </script>
   
   <style>
