@@ -100,6 +100,8 @@
   </template>
   
   <script>
+import {VueReCaptcha} from "vue-recaptcha-v3";
+use(VueReCaptcha,{ siteKey: "6Lfg9H0pAAAAAAf3w4wVvWgYcJCf4eLanyw6k3Mi"})
 
   export default {
     name: "routeSuggestion",
@@ -156,14 +158,15 @@
           })
           
         })
+        
         //response = await response.json();
         return response;
       },
+      
 
       // subbmit 
       async submit(){ 
         try{
-
           if(!this.file || !this.name){
             this.valid=false;
             return;
@@ -183,6 +186,7 @@
         if (response.status === 200){
           this.success = true;
         }
+        
         }
         catch(e){
           console.log("error:\n");
@@ -193,6 +197,9 @@
       }
     },
   };
+  this.$recaptcha("login").then((token) => {
+          data["g-recaptcha-response"] = token;
+  });
   </script>
   
   <style>

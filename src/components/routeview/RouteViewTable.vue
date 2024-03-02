@@ -54,6 +54,7 @@
 <script>
 // style sheet
 import "@/css/route-view-table.css";
+import RouteCard from "@/components/cards/RouteCard.vue";
 
 export default {
   //

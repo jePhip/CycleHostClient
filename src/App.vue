@@ -17,13 +17,16 @@ import NavBar from "@/components/nav/NavBar.vue";
 import { useRouteStore } from "@/store/index.js"; 
 import { storeToRefs } from "pinia";
 import { ref, onMounted } from "vue";
+import reCaptcha from "@/components/Captcha.vue";
 const routeStore = useRouteStore();
+
 onMounted(async () => {
   await routeStore.getRoutesInit(); //puts route list into store//
   const { routes } = storeToRefs(routeStore);
 
   return { routeStore };
 });
+
 </script>
 
 <style>
