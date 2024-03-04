@@ -4,11 +4,13 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import { createPinia } from 'pinia'
+import { VueReCaptcha } from 'vue-recaptcha-v3'
 
 const pinia = createPinia()
 loadFonts()
 
 createApp(App).use(pinia)
+  .use(VueReCaptcha,{ siteKey: "6Lfg9H0pAAAAAAf3w4wVvWgYcJCf4eLanyw6k3Mi"})
   .use(router)
   .use(vuetify)
   .mount('#app')

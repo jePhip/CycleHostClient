@@ -95,11 +95,15 @@
         </v-text-field>
   
         <v-btn @click="submit" class="submit" type="submit">submit</v-btn>
+
+        <button @click="recaptcha">Execute recaptcha</button>
       </form>
     </v-container>
   </template>
   
   <script>
+import Vue from "vue"
+import {VueReCaptcha} from "vue-recaptcha-v3"
 
   export default {
     name: "routeSuggestion",
@@ -116,7 +120,9 @@
     },
   
     methods: {
-
+      async recaptcha() {
+      // (optional) Wait until recaptcha has been loaded.
+      await this.$recaptchaLoaded()},
       // handle file once uploaded 
       handleFile() {
         this.file = this.$refs.file.files[0];
@@ -156,14 +162,15 @@
           })
           
         })
+        
         //response = await response.json();
         return response;
       },
+      
 
       // subbmit 
       async submit(){ 
         try{
-
           if(!this.file || !this.name){
             this.valid=false;
             return;
@@ -179,10 +186,12 @@
             //setTimeout(() => {
             //location.reload();
         //}, 1000);
+        //const token = await this.$recaptcha('submit');
 
         if (response.status === 200){
           this.success = true;
         }
+        
         }
         catch(e){
           console.log("error:\n");
@@ -193,6 +202,7 @@
       }
     },
   };
+  
   </script>
   
   <style>
