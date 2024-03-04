@@ -3,12 +3,27 @@
     <Map />
   </v-container>
   <v-container>
-    <v-row>
+    <v-text-field v-model="search"
+        prepend-inner-icon="mdi-magnify"
+        density="compact"
+        label="Search"
+        single-line
+        flat
+        hide-details
+        variant="solo-filled"></v-text-field>
+       <v-data-table v-model:search="search" :items=routes>
+      <template v-slot:routes.name>
+        <div class="text-end">name</div>
+      </template>
+    </v-data-table>
+    <v-row>  
       <v-col v-for="r in routes" :key="r" sm="12" md="6" lg="3" xl="2">
         <RouteCard :route="r" />
       </v-col>
     </v-row>
+      
   </v-container>
+ 
   <RoutesTable />
   <br />
 </template>

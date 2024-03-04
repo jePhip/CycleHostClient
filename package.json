@@ -18,6 +18,8 @@
     "roboto-fontface": "*",
     "vue": "^3.3.8",
     "vue-email": "^0.8.6",
+    "vue-recaptcha": "^3.0.0-alpha.6",
+    "vue-recaptcha-v3": "^2.0.1",
     "vue-router": "^4.0.3",
     "vuetify": "^3.3.21",
     "webfontloader": "^1.0.0",
