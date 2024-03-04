@@ -111,8 +111,6 @@ let routeDesc = ref("");
 let elevation = ref(0);
 let poi = ref("");
 
-let poi = ref("");
-
 
 
 //input validation
